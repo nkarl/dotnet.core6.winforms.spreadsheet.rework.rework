@@ -21,28 +21,6 @@ namespace SpreadSheetApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Initialize_GridDimensions();
-        }
-
-        /// <summary>
-        /// Initializes the dimensions of the data grid.
-        /// </summary>
-        private void Initialize_GridDimensions()
-        {
-            foreach (var c in GridDimensions.ColumnLabels)
-            {
-                var col = new DataGridViewTextBoxColumn();
-                col.HeaderText = c.ToString();
-                this.dataGridView1.Columns.Add(col);
-            }
-
-            var maxRows = Enumerable.Range(0, GridDimensions.MaxColumns);
-            foreach (var i in maxRows)
-            {
-                var row = new DataGridViewRow();
-                row.HeaderCell.Value = (i + 1).ToString();
-                this.dataGridView1.Rows.Add(row);
-            }
         }
     }
 }
