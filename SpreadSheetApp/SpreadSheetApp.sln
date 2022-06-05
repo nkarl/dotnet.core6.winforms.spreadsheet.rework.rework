@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadSheetApp", "SpreadSheetApp\SpreadSheetApp.csproj", "{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadSheetApp", "SpreadSheetApp\SpreadSheetApp.csproj", "{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadSheetEngine", "SpreadSheetEngine\SpreadSheetEngine.csproj", "{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
