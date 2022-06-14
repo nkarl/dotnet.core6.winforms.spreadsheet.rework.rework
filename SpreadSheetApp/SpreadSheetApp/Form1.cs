@@ -6,6 +6,7 @@ namespace SpreadSheetApp
 {
     using SpreadSheetApp.Form1_Properties;
     using SpreadSheetEngine;
+    using System.ComponentModel;
 
     /// <summary>
     /// Controls the display of the data grid cells.
@@ -20,9 +21,31 @@ namespace SpreadSheetApp
         public Form1()
         {
             this.cellTable = new Cell[2, 2];
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    this.cellTable[i, j] = new Cell();
+                }
+            }
+
+            /*
+             * I NEED TO CONSTRUCT EACH CELL IN THE ARRAY.
+             */
 
             this.InitializeComponent();
             this.Initialize_AppState();
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
+
+            var dataCell = this.cellTable[0, 0];
+            dataCell.Text = "Hello";
+            dataCell.PropertyChanged += this.DataCell_PropertyChanged(dataCell, new PropertyChangedEventArgs("Name"));
+        }
+
+        private PropertyChangedEventHandler DataCell_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            return delegate { };
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,12 +57,16 @@ namespace SpreadSheetApp
         /// </summary>
         private void Initialize_AppState()
         {
-            var colA = new DataGridViewTextBoxColumn();
-            colA.HeaderText = 'A'.ToString();
+            var colA = new DataGridViewTextBoxColumn
+            {
+                HeaderText = 'A'.ToString(),
+            };
             this.dataGridView1.Columns.Add(colA);
 
-            var colB = new DataGridViewTextBoxColumn();
-            colB.HeaderText = 'B'.ToString();
+            var colB = new DataGridViewTextBoxColumn
+            {
+                HeaderText = 'B'.ToString(),
+            };
             this.dataGridView1.Columns.Add(colB);
 
             var row = new DataGridViewRow();
@@ -51,14 +78,15 @@ namespace SpreadSheetApp
             this.dataGridView1.Rows.Add(row2);
 
             var cell = this.dataGridView1[0, 0];
-            cell.Value = "Hello";
+            cell.Value = this.cellTable[0, 0].Text;
         }
 
-        private void DataGridView1_CellEnter(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //this.dataGridView1.CurrentCell.Selected = true;
+            // this.dataGridView1.CurrentCell.Selected = true;
             this.dataGridView1.CurrentCell.Value = this.dataGridView1[0, 0].Value;
-            //MessageBox.Show(this.dataGridView1.CurrentCell.ToString());
+
+            // MessageBox.Show(this.dataGridView1.CurrentCell.ToString());
         }
     }
 }

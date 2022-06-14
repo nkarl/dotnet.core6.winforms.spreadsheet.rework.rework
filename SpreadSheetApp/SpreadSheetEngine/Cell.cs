@@ -12,7 +12,7 @@ namespace SpreadSheetEngine
     /// </summary>
     public class Cell : INotifyPropertyChanged
     {
-        private string text = string.Empty;
+        private string text = "Hello";
         private string value = string.Empty;
 
         /// <inheritdoc/>
@@ -26,7 +26,7 @@ namespace SpreadSheetEngine
             get => this.text;
             set
             {
-                if (this.text == value || value == null)
+                if (this.text == value)
                 {
                     return;
                 }
