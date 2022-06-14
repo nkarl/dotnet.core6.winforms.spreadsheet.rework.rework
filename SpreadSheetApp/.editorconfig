@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# SA1520: Use braces consistently
+dotnet_diagnostic.SA1520.severity = none

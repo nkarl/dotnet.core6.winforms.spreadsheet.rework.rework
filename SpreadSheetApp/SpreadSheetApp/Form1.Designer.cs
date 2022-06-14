@@ -38,12 +38,13 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(10, 10);
+            this.dataGridView1.Location = new System.Drawing.Point(9, 9);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 102;
             this.dataGridView1.RowTemplate.Height = 49;
-            this.dataGridView1.Size = new System.Drawing.Size(1042, 671);
+            this.dataGridView1.Size = new System.Drawing.Size(919, 606);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridView1_CellEnter);
             // 
             // panel1
             // 
@@ -51,15 +52,15 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10);
-            this.panel1.Size = new System.Drawing.Size(1062, 691);
+            this.panel1.Padding = new System.Windows.Forms.Padding(9);
+            this.panel1.Size = new System.Drawing.Size(937, 624);
             this.panel1.TabIndex = 1;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 37F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1062, 769);
+            this.ClientSize = new System.Drawing.Size(937, 694);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "Form1";

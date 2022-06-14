@@ -5,7 +5,12 @@ VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadSheetApp", "SpreadSheetApp\SpreadSheetApp.csproj", "{58C9EC57-51C1-42EB-B5F5-3CC4D1E51569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpreadSheetEngine", "SpreadSheetEngine\SpreadSheetEngine.csproj", "{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpreadSheetEngine", "SpreadSheetEngine\SpreadSheetEngine.csproj", "{EC5FCC2A-1ACC-483B-974F-5B2D6FFD0B7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B727F5D0-FCB4-4780-BA1B-E917A1CA32EF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

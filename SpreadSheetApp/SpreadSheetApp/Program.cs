@@ -1,12 +1,19 @@
+// <copyright file="Program.cs" company="Charles Nguyen -- 011606177">
+// Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
+// </copyright>
+
 namespace SpreadSheetApp
 {
+    /// <summary>
+    /// Program.
+    /// </summary>
     internal static class Program
     {
         /// <summary>
-        ///  The main entry point for the application.
+        /// The main thread.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
