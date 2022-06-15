@@ -1,5 +1,12 @@
+// <copyright file="Program.cs" company="Charles Nguyen -- 011606177">
+// Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
+// </copyright>
+
 namespace SpreadSheetApp
 {
+    /// <summary>
+    /// The main app program.
+    /// </summary>
     internal static class Program
     {
         /// <summary>
