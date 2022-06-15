@@ -8,17 +8,14 @@ namespace SpreadSheetEngine.Abstract
     using System.Runtime.CompilerServices;
 
     /// <summary>
-    /// The abstract base classs for a single cell.
+    /// The abstract base class for a single cell.
     /// </summary>
-    public abstract class BaseCell : INotifyPropertyChanged
+    internal abstract class BaseCell : INotifyPropertyChanged
     {
         private readonly int rowIndex;
         private readonly int columnIndex;
         private string text = string.Empty;
         private string value = string.Empty;
-
-        /// <inheritdoc/>
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCell"/> class.
@@ -31,6 +28,8 @@ namespace SpreadSheetEngine.Abstract
             this.columnIndex = columnIndex;
         }
 
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Gets the row index of the cell.
@@ -47,10 +46,7 @@ namespace SpreadSheetEngine.Abstract
         /// </summary>
         public string Text
         {
-            get
-            {
-                return this.text;
-            }
+            get => this.text;
 
             set
             {
@@ -67,9 +63,24 @@ namespace SpreadSheetEngine.Abstract
         /// <summary>
         /// Gets the value of the cell.
         /// </summary>
-        public string Value
+        public string Value => this.value;
+
+        /// <summary>
+        /// Evaluates and sets the Text property of this cell. Not accessible to the outside world.
+        /// </summary>
+        protected void SetValue() // either protected or internal
         {
-            get { return this.value; }
+            var expBody = this.text;
+            if (expBody[0] != '=')
+            {
+                this.value = expBody;
+            }
+            else
+            {
+                /*
+                    TODO: Implement the evaluating function for expressions that starts with '='.
+                 */
+            }
         }
 
         private void OnPropertyChanged([CallerMemberName] string? name = null)

@@ -4,7 +4,7 @@
 
 namespace SpreadSheetApp
 {
-    using SpreadSheetApp.Form1_Properties;
+    using SpreadSheetApp.Specification;
 
     /// <summary>
     /// Controls the display of the data grid cells.

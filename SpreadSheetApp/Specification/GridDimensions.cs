@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetApp.Properties
+namespace SpreadSheetApp.Specification
 {
     /// <summary>
     /// Controls the dimensions of the data grid, i.e. how many rows and columns to show.
@@ -16,10 +16,12 @@ namespace SpreadSheetApp.Properties
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
             select (char)c).ToArray();
 
+        /*
         /// <summary>
         /// The maximum number of rows allowed.
         /// </summary>
         public static readonly int MaxRows = 50;
+        */
 
         /// <summary>
         /// The maximum number of columns allowed.
