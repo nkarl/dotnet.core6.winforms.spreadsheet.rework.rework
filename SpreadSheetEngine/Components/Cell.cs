@@ -1,4 +1,8 @@
-﻿namespace SpreadSheetEngine.Components
+﻿// <copyright file="Cell.cs" company="Charles Nguyen -- 011606177">
+// Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
+// </copyright>
+
+namespace SpreadSheetEngine.Components
 {
     using System;
     using System.Collections.Generic;

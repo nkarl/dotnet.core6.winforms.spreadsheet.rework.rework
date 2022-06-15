@@ -1,4 +1,4 @@
-﻿// <copyright file="SpreadSheet.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="Sheet.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ namespace SpreadSheetEngine
     /// </summary>
     internal class Sheet
     {
-        private Cell[,] array;
+        private Cell[,] table;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sheet"/> class.
@@ -25,16 +25,24 @@ namespace SpreadSheetEngine
         /// <param name="numColumns">the number of columns in this sheet.</param>
         public Sheet(int numRows, int numColumns)
         {
-            this.array = new Cell[numRows, numColumns];
+            this.table = new Cell[numRows, numColumns];
 
             // Iterates and instantiates all cells in the sheet.
-            for (int i = 0; i < numRows; i++)
+            /*
+            for (int r = 0; r < numRows; r++)
             {
-                for (int j = 0; j < numColumns; j++)
+                for (int c = 0; c < numColumns; c++)
                 {
-                    this.array[i, j] = new Cell(i, j);
+                    this.table[r, c] = new Cell(r, c);
                 }
             }
+            */
+
+            /*
+             * Might not need to instantiate all cells at construction. I can do that for first input, as in
+             * doing this whenever a cell is focused, then check if that cell is null. If it is null then
+             * create a new cell and assign new text to it.
+             */
         }
 
         /// <summary>
@@ -44,5 +52,26 @@ namespace SpreadSheetEngine
         /*
             TODO: Flesh and desgin a scheme for this Event Handler.
          */
+
+        /// <summary>
+        /// Gets the row count of the sheet.
+        /// </summary>
+        public int RowCount => this.table.GetLength(0);
+
+        /// <summary>
+        /// Gets the column count of the sheet.
+        /// </summary>
+        public int ColumnCount => this.table.GetLength(1);
+
+        /// <summary>
+        /// Returns the reference to the cell at the given coordinates.
+        /// </summary>
+        /// <param name="rowIndex">the row index of the cell.</param>
+        /// <param name="columnIndex">the column index of the cell.</param>
+        /// <returns>the cell if found.</returns>
+        public Cell? GetCell(int rowIndex, int columnIndex)
+        {
+            return this.table[rowIndex, columnIndex] ?? null;
+        }
     }
 }
