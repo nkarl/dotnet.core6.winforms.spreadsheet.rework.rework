@@ -14,25 +14,25 @@ namespace SpreadSheetEngine
     /// <summary>
     /// The data source controller for the 2D array of cells.
     /// </summary>
-    internal class SpreadSheet
+    internal class Sheet
     {
-        private Cell[,] sheet;
+        private Cell[,] array;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpreadSheet"/> class.
+        /// Initializes a new instance of the <see cref="Sheet"/> class.
         /// </summary>
         /// <param name="numRows">the number of rows in this sheet.</param>
         /// <param name="numColumns">the number of columns in this sheet.</param>
-        public SpreadSheet(int numRows, int numColumns)
+        public Sheet(int numRows, int numColumns)
         {
-            this.sheet = new Cell[numRows, numColumns];
+            this.array = new Cell[numRows, numColumns];
 
             // Iterates and instantiates all cells in the sheet.
             for (int i = 0; i < numRows; i++)
             {
                 for (int j = 0; j < numColumns; j++)
                 {
-                    this.sheet[i, j] = new Cell(i, j);
+                    this.array[i, j] = new Cell(i, j);
                 }
             }
         }
