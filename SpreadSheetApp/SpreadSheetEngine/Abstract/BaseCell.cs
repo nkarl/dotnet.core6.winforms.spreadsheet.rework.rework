@@ -1,8 +1,8 @@
-﻿// <copyright file="CellBase.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="BaseCell.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine
+namespace SpreadSheetEngine.Abstract
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -10,7 +10,7 @@ namespace SpreadSheetEngine
     /// <summary>
     /// The abstract base classs for a single cell.
     /// </summary>
-    public abstract class CellBase : INotifyPropertyChanged
+    public abstract class BaseCell : INotifyPropertyChanged
     {
         private string text = string.Empty;
         private string value = string.Empty;
