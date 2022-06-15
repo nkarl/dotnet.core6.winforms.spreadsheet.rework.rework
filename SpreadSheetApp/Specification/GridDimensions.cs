@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetApp.Form1_Properties
+namespace SpreadSheetApp.Properties
 {
     /// <summary>
     /// Controls the dimensions of the data grid, i.e. how many rows and columns to show.
