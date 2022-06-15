@@ -12,11 +12,35 @@ namespace SpreadSheetEngine.Abstract
     /// </summary>
     public abstract class BaseCell : INotifyPropertyChanged
     {
+        private readonly int rowIndex;
+        private readonly int columnIndex;
         private string text = string.Empty;
         private string value = string.Empty;
 
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseCell"/> class.
+        /// </summary>
+        /// <param name="rowIndex">the cell's row index.</param>
+        /// <param name="columnIndex">the cell's column index.</param>
+        public BaseCell(int rowIndex, int columnIndex)
+        {
+            this.rowIndex = rowIndex;
+            this.columnIndex = columnIndex;
+        }
+
+
+        /// <summary>
+        /// Gets the row index of the cell.
+        /// </summary>
+        public int RowIndex => this.rowIndex;
+
+        /// <summary>
+        /// Gets the column index of the cell.
+        /// </summary>
+        public int ColumnIndex => this.columnIndex;
 
         /// <summary>
         /// Gets or sets the text of the cell.
