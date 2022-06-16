@@ -12,8 +12,6 @@ using System.Runtime.CompilerServices;
 /// </summary>
 internal abstract class BaseCell : INotifyPropertyChanged
 {
-    private readonly int rowIndex;
-    private readonly int columnIndex;
     private string text = string.Empty;
     private string value = string.Empty;
 
@@ -22,10 +20,10 @@ internal abstract class BaseCell : INotifyPropertyChanged
     /// </summary>
     /// <param name="rowIndex">the cell's row index.</param>
     /// <param name="columnIndex">the cell's column index.</param>
-    public BaseCell(int rowIndex, int columnIndex)
+    protected BaseCell(int rowIndex, int columnIndex)
     {
-        this.rowIndex = rowIndex;
-        this.columnIndex = columnIndex;
+        this.RowIndex = rowIndex;
+        this.ColumnIndex = columnIndex;
     }
 
     /// <inheritdoc/>
@@ -34,12 +32,12 @@ internal abstract class BaseCell : INotifyPropertyChanged
     /// <summary>
     /// Gets the row index of the cell.
     /// </summary>
-    public int RowIndex => this.rowIndex;
+    public int RowIndex { get; }
 
     /// <summary>
     /// Gets the column index of the cell.
     /// </summary>
-    public int ColumnIndex => this.columnIndex;
+    public int ColumnIndex { get; }
 
     /// <summary>
     /// Gets or sets the text of the cell.
