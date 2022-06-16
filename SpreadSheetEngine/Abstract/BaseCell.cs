@@ -66,7 +66,8 @@ internal abstract class BaseCell : INotifyPropertyChanged
     /// <summary>
     /// Evaluates and sets the Text property of this cell. Not accessible to the outside world.
     /// </summary>
-    protected void SetValue() // either protected or internal
+    /// <param name="text">the new string text to be evaluated.</param>
+    internal void SetValue(string text) // either protected or internal
     {
         var expBody = this.text;
         if (expBody[0] != '=')

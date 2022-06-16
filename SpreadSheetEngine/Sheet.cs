@@ -77,4 +77,27 @@ internal class Sheet
     {
         return this.table[rowIndex, columnIndex] ?? null;
     }
+
+    /// <summary>
+    /// Sets the content of a cell of given coordinates.
+    /// </summary>
+    /// <param name="rowIndex">the cell's row index.</param>
+    /// <param name="columnIndex">the cell's column index.</param>
+    /// <param name="text">the text content of the cell.</param>
+    public void SetCell(int rowIndex, int columnIndex, string text)
+    {
+        if (this.table[rowIndex, columnIndex] is null)
+        {
+            this.table[rowIndex, columnIndex] = new Cell(rowIndex, columnIndex);
+        }
+
+        Cell cell = this.GetCell(rowIndex, columnIndex) !;
+
+        /*
+         * TODO: IMPLEMENT FUNCTION TO SET CONTENT OF CELL.
+         * Make cell.Value a getter only, and add logic to the getter of cell.Text.
+         * This way, there is no need to have a backing field for Value.
+         */
+        cell.SetValue(text);
+    }
 }
