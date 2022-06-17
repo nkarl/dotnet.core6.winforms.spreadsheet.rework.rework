@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using SpreadSheetEngine.Components;
+using SpreadSheetEngine;
 
 [assembly:InternalsVisibleTo("SpreadSheetApp")]
 [assembly:InternalsVisibleTo("SpreadSheetEngineTests")]
@@ -18,7 +18,7 @@ namespace SpreadSheetEngine
     /// <summary>
     /// The data source controller for the 2D array of cells.
     /// </summary>
-    internal class Sheet
+    internal partial class Sheet
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC.
@@ -77,9 +77,9 @@ namespace SpreadSheetEngine
         /// <param name="rowIndex">the row index of the cell.</param>
         /// <param name="columnIndex">the column index of the cell.</param>
         /// <returns>the cell if found.</returns>
-        internal Cell? GetCell(int rowIndex, int columnIndex)
+        internal Cell GetCell(int rowIndex, int columnIndex)
         {
-            return this.table[rowIndex, columnIndex] ?? null;
+            return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
         }
 
         /// <summary>
@@ -87,17 +87,17 @@ namespace SpreadSheetEngine
         /// </summary>
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
-        /// <param name="text">the text content of the cell.</param>
-        internal void SetCell(int rowIndex, int columnIndex, string text)
+        /// <param name="expression">the text content of the cell.</param>
+        internal void SetCell(int rowIndex, int columnIndex, string expression)
         {
-            Cell cell = this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
+            Cell cell = this.GetCell(rowIndex, columnIndex);
 
             /*
              * TODO: IMPLEMENT FUNCTION TO SET CONTENT OF CELL.
              * Make cell.Value a getter only, and add logic to the getter of cell.Text.
              * This way, there is no need to have a backing field for Value.
              */
-            cell.SetValue(text);
+            cell.SetValue(expression);
         }
     }
 }

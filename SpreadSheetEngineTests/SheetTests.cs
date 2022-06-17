@@ -1,3 +1,5 @@
+using SpreadSheetEngine;
+
 namespace SpreadSheetEngineTests
 {
     public class SheetTests

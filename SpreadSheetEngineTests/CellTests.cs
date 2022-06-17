@@ -1,3 +1,5 @@
+using SpreadSheetEngine.Abstract;
+
 namespace SpreadSheetEngineTests
 {
     public class CellTests
@@ -26,5 +28,10 @@ namespace SpreadSheetEngineTests
             new object[] { (int.MaxValue, int.MaxValue), (int.MaxValue, int.MaxValue)},
             new object[] { (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1)), (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1))}
         };
+
+        private class Cell : BaseCell
+        {
+            internal Cell(int rowIndex, int columnIndex) : base (rowIndex, columnIndex) { }
+        }
     }
 }
