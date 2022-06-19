@@ -2,9 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine;
-
-using SpreadSheetEngine.Abstract;
+namespace SpreadSheetEngine.SheetLogic;
 
 /// <summary>
 /// Contains the implementation of BaseCell abstract class.

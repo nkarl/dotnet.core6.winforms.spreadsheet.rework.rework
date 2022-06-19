@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace ArithemticExpressionTree.Interface
+namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System;
     using System.Collections.Generic;

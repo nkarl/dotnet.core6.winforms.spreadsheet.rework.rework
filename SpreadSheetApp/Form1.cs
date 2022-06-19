@@ -5,7 +5,7 @@
 namespace SpreadSheetApp
 {
     using SpreadSheetApp.Specification;
-    using SpreadSheetEngine;
+    using SpreadSheetEngine.SheetLogic;
 
     /// <summary>
     /// Controls the display of the data grid cells.
