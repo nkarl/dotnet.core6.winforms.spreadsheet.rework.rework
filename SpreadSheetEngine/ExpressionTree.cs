@@ -20,5 +20,35 @@ namespace ArithemticExpressionTree
             TODO:
                 - Implements the class ExpressionTree from IExpressionParser.
          */
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
+        /// </summary>
+        /// <param name="expression">the arithmetic expression.</param>
+        public ExpressionTree(string expression)
+        {
+        }
+
+        /// <summary>
+        /// Sets the variable in the expression tree.
+        /// </summary>
+        /// <param name="varName">name of the variable.</param>
+        /// <param name="varValue">value of the variable.</param>
+        public void SetVariable(string varName, double varValue)
+        {
+        }
+
+        /// <summary>
+        /// Evaluates the expression tree to yield a double value.
+        /// </summary>
+        /// <returns>final result of type double.</returns>
+        public double Evaluate()
+        {
+            /*
+                TODO: Provides implementation for tree evaluation.
+             */
+
+            return 0;
+        }
     }
 }
