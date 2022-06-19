@@ -35,19 +35,21 @@ namespace SpreadSheetApp
 
             this.InitializeComponent();
             this.Initialize_AppState();
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick !);
 
-            var dataCell = this.cellTable[0, 0];
-            dataCell.Text = "Hello";
-            dataCell.PropertyChanged += this.DataCell_PropertyChanged(dataCell, new PropertyChangedEventArgs("Name"));
+            // this.dataGridView1.CellClick += new DataGridViewCellEventHandler(this.DataGridView1_CellClick !);
+            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(this.DataGridView1_CellEdited !);
+
+            // var dataCell = this.cellTable[0, 0];
+            // dataCell.Text = "Hello";
+
+            // dataCell.PropertyChanged += this.DataCell_PropertyChanged(dataCell, new PropertyChangedEventArgs("Name"));
         }
 
-        private PropertyChangedEventHandler DataCell_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            // throw new NotImplementedException();
-            return (sender1, e1) => { };
-        }
-
+        // private PropertyChangedEventHandler DataCell_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        // {
+        //    // throw new NotImplementedException();
+        //    return (sender1, e1) => { };
+        // }
         private void Form1_Load(object sender, EventArgs e)
         {
         }
@@ -87,6 +89,16 @@ namespace SpreadSheetApp
             this.dataGridView1.CurrentCell.Value = this.dataGridView1[0, 0].Value;
 
             // MessageBox.Show(this.dataGridView1.CurrentCell.ToString());
+        }
+
+        private void DataGridView1_CellEdited(object sender, DataGridViewCellEventArgs e)
+        {
+            var cell = this.dataGridView1.CurrentCell;
+            int rowIndex = cell.RowIndex;
+            int colIndex = cell.ColumnIndex;
+
+            var result = this.dataGridView1[0, 0];
+            result.Value = $"{rowIndex}, {colIndex}";
         }
     }
 }
