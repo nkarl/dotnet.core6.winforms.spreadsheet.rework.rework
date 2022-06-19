@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="431px" preserveAspectRatio="none" style="width:754px;height:431px;background:#FFFFFF;" version="1.1" viewBox="0 0 754 431" width="754px" zoomAndPan="magnify"><defs><filter height="300%" id="f1dppjppbt62lq" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[1e9204083aa66e691856924869ece9f5]
+entity Input--><ellipse cx="268" cy="35.5" fill="#FEFECE" filter="url(#f1dppjppbt62lq)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="252.5" y="67.0332">Input</text><!--MD5=[cb130975d5afae2a4f37ccd587f8b37f]
+entity DataGridView--><rect fill="#FEFECE" filter="url(#f1dppjppbt62lq)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="126" x="205" y="130.5"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="311" y="135.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="309" y="137.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="309" y="141.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="220" y="165.0332">DataGridView</text><!--MD5=[c972ba99c39953a928c5088ace90e712]
+entity Sheet--><rect fill="#FEFECE" filter="url(#f1dppjppbt62lq)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="77" x="398.5" y="249.5"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="455.5" y="254.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="453.5" y="256.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="453.5" y="260.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="413.5" y="284.0332">Sheet</text><!--MD5=[a56424bd44063fe736ac42fe5946e823]
+entity Cell--><rect fill="#FEFECE" filter="url(#f1dppjppbt62lq)" height="47.6094" style="stroke:#A80036;stroke-width:1.5;" width="64" x="550" y="368.5"/><rect fill="#FEFECE" height="10" style="stroke:#A80036;stroke-width:1.5;" width="15" x="594" y="373.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="592" y="375.5"/><rect fill="#FEFECE" height="2" style="stroke:#A80036;stroke-width:1.5;" width="4" x="592" y="379.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="24" x="565" y="403.0332">Cell</text><path d="M6,6 L6,65.0547 A0,0 0 0 0 6,65.0547 L224,65.0547 A0,0 0 0 0 224,65.0547 L224,39.5 L258.73,35.5 L224,31.5 L224,16 L214,6 L6,6 A0,0 0 0 0 6,6 " fill="#FBFB77" filter="url(#f1dppjppbt62lq)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M214,6 L214,16 L224,16 L214,6 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="68" x="12" y="24.4951">Input Event:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="197" x="12" y="40.8467">the value of a cell in DataGridView</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="67" x="12" y="57.1982">is changed.</text><!--MD5=[45768cf6e51f5fd59f06213d81721b5b]
+entity Event1--><ellipse cx="375" cy="154.5" fill="#FEFECE" filter="url(#f1dppjppbt62lq)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="353" y="186.0332">Event1</text><path d="M196.5,244 L196.5,303.0547 A0,0 0 0 0 196.5,303.0547 L363.5,303.0547 A0,0 0 0 0 363.5,303.0547 L363.5,254 L353.5,244 L307.14,244 L368.47,163.54 L299.14,244 L196.5,244 A0,0 0 0 0 196.5,244 " fill="#FBFB77" filter="url(#f1dppjppbt62lq)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M353.5,244 L353.5,254 L363.5,254 L353.5,244 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="202.5" y="262.4951">Trigger Event:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="202.5" y="278.8467">communication between</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="146" x="202.5" y="295.1982">DataGridView and Sheet.</text><!--MD5=[6973a92fe2294a5d1e84c2e65641bc3c]
+entity Event2--><ellipse cx="520" cy="273.5" fill="#FEFECE" filter="url(#f1dppjppbt62lq)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="44" x="498" y="305.0332">Event2</text><path d="M353.5,363 L353.5,422.0547 A0,0 0 0 0 353.5,422.0547 L514.5,422.0547 A0,0 0 0 0 514.5,422.0547 L514.5,373 L504.5,363 L458.95,363 L514.09,282.54 L450.95,363 L353.5,363 A0,0 0 0 0 353.5,363 " fill="#FBFB77" filter="url(#f1dppjppbt62lq)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M504.5,363 L504.5,373 L514.5,373 L504.5,363 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="359.5" y="381.4951">Trigger Event:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="359.5" y="397.8467">communication between</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="359.5" y="414.1982">Sheet and Cell.</text><!--MD5=[8e480e40801b487e553fce1ba26973b0]
+entity CellPropertyChanged--><ellipse cx="540" cy="154.5" fill="#FEFECE" filter="url(#f1dppjppbt62lq)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="472" y="186.0332">CellPropertyChanged</text><path d="M584.5,125 L584.5,150.5 L549.28,154.5 L584.5,158.5 L584.5,184.0547 A0,0 0 0 0 584.5,184.0547 L745.5,184.0547 A0,0 0 0 0 745.5,184.0547 L745.5,135 L735.5,125 L584.5,125 A0,0 0 0 0 584.5,125 " fill="#FBFB77" filter="url(#f1dppjppbt62lq)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M735.5,125 L735.5,135 L745.5,135 L735.5,125 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="590.5" y="143.4951">Trigger Event:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="590.5" y="159.8467">communication between</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="590.5" y="176.1982">Cell and Sheet.</text><!--MD5=[5e7468dcc92973c6a5118eddb6050b43]
+entity GUI_Update--><ellipse cx="379" cy="35.5" fill="#FEFECE" filter="url(#f1dppjppbt62lq)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="341" y="67.0332">GUI_Update</text><path d="M423.5,6 L423.5,31.5 L388.25,35.5 L423.5,39.5 L423.5,65.0547 A0,0 0 0 0 423.5,65.0547 L590.5,65.0547 A0,0 0 0 0 590.5,65.0547 L590.5,16 L580.5,6 L423.5,6 A0,0 0 0 0 423.5,6 " fill="#FBFB77" filter="url(#f1dppjppbt62lq)" style="stroke:#A80036;stroke-width:1.0;"/><path d="M580.5,6 L580.5,16 L590.5,16 L580.5,6 " fill="#FBFB77" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="79" x="429.5" y="24.4951">Trigger Event:</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="429.5" y="40.8467">communication between</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="146" x="429.5" y="57.1982">Sheet and DataGridView.</text><!--MD5=[36e269ba8812fe74d5d5a5c4c2d74061]
+link Input to DataGridView--><path d="M268,44.54 C268,60.9 268,98.75 268,125.22 " fill="none" id="Input-to-DataGridView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="268,130.35,272,121.35,268,125.35,264,121.35,268,130.35" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[58b3302fb1629baadce0c98f685d8692]
+link DataGridView to Event1--><path d="M331.11,154.5 C342.66,154.5 354.2,154.5 365.74,154.5 " fill="none" id="DataGridView-Event1" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b53ed792314d00397eb5b43624cdfd87]
+link Event1 to Sheet--><path d="M379.26,163.54 C388,180.04 408.32,218.38 422.36,244.87 " fill="none" id="Event1-to-Sheet" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="424.73,249.35,424.0571,239.5242,422.3919,244.9304,416.9857,243.2652,424.73,249.35" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a37ea19bcb09804614cd150da9138f8b]
+link Sheet to Event2--><path d="M475.58,273.5 C487.38,273.5 499.18,273.5 510.98,273.5 " fill="none" id="Sheet-Event2" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ac71482e612265305c5b43ea387a210d]
+link Event2 to Cell--><path d="M524.26,282.54 C533,299.04 553.32,337.38 567.36,363.87 " fill="none" id="Event2-to-Cell" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="569.73,368.35,569.0571,358.5242,567.3919,363.9304,561.9857,362.2652,569.73,368.35" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[8932e2fc03c672790e676b4d7fd7de25]
+link CellPropertyChanged to Cell--><path d="M541.45,163.62 C547.22,196.04 568.72,316.89 577.86,368.21 " fill="none" id="CellPropertyChanged-Cell" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[29db71d26bb8a4edc2b090c02e39b849]
+link CellPropertyChanged to Sheet--><path d="M532.92,163.54 C518.28,180.17 484.09,219.01 460.74,245.53 " fill="none" id="CellPropertyChanged-to-Sheet" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="457.38,249.35,466.3246,245.2276,460.6796,245.5933,460.3139,239.9483,457.38,249.35" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[03fe74f225581834049370ef60470581]
+link GUI_Update to Sheet--><path d="M381.07,44.79 C384.99,60.46 393.73,95.48 401,125 C411.84,169.02 424.37,220.47 431.42,249.5 " fill="none" id="GUI_Update-Sheet" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5f410af538e88ace168946cc7bf4b512]
+link GUI_Update to DataGridView--><path d="M371.37,44.54 C355.59,61.17 318.74,100.01 293.59,126.53 " fill="none" id="GUI_Update-to-DataGridView" style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#A80036" points="289.97,130.35,299.0585,126.5555,293.404,126.7157,293.2437,121.0611,289.97,130.35" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b1114dd5a462d8fd633d7416520e04af]
+@startuml EventChain.png
+
+() Input
+[DataGridView]
+[Sheet]
+[Cell]
+
+note left of Input
+    Input Event:
+    the value of a cell in DataGridView
+    is changed.
+end note
+Input ..> DataGridView
+
+() Event1
+note bottom of Event1
+    Trigger Event:
+    communication between
+    DataGridView and Sheet.
+end note
+[DataGridView] - Event1
+Event1 ..> [Sheet]
+
+() Event2
+note bottom of Event2
+    Trigger Event:
+    communication between
+    Sheet and Cell.
+end note
+[Sheet] - Event2
+Event2 ..> [Cell]
+
+() CellPropertyChanged
+note right of CellPropertyChanged
+    Trigger Event:
+    communication between
+    Cell and Sheet.
+end note
+CellPropertyChanged - [Cell]
+CellPropertyChanged ..> [Sheet]
+
+() GUI_Update
+note right of GUI_Update
+    Trigger Event:
+    communication between
+    Sheet and DataGridView.
+end note
+GUI_Update - [Sheet]
+GUI_Update ..> [DataGridView]
+
+@enduml
+
+PlantUML version 1.2022.0(Tue Jan 11 08:16:42 PST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

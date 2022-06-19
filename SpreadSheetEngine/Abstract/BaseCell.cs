@@ -67,21 +67,21 @@ public abstract class BaseCell : INotifyPropertyChanged
     /// Evaluates and sets the Text property of this cell. Not accessible to the outside world.
     /// </summary>
     /// <param name="expression">the new string text to be evaluated.</param>
-    internal void SetValue(string expression) // either protected or internal
+    protected void SetValue(string expression) // either protected or internal
     {
-        var expBody = this.text;
-
-        if (expBody[0] != '=')
-        {
-            this.value = expBody;
-        }
-        else
+        if (expression[0] == '=')
         {
             /*
                 TODO: Implement the evaluating function for expressions that starts with '='.
              */
+        }
+        else
+        {
             this.value = expression;
         }
+
+        this.Text = this.value;
+        this.OnPropertyChanged();
     }
 
     private void OnPropertyChanged([CallerMemberName] string? name = null)

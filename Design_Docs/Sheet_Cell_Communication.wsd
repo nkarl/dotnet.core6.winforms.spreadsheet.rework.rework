@@ -1,0 +1,53 @@
+@startuml Sheet_Cell_Communication.png
+
+    () Input
+
+    package GUI {
+
+        class Form {
+            -DataGridView dataGridView1
+            -Sheet sheet
+        }
+
+    Input --> Form::dataGridView1
+    () FormSheetEvent
+    Form::dataGridView1 ..> FormSheetEvent
+    FormSheetEvent ..> Form::sheet
+    }
+
+package LogicEngine {
+
+    class Sheet {
+        -Cell[,] table
+        +Sheet()
+        #Cell getCell()
+        -void setCell()
+    }
+
+    class Cell {
+        ~void setValue()
+    }
+
+    class BaseCell {
+        +int RowIndex
+        +int ColIndex
+        -string text
+        -string value
+        +string Text
+        +string Value
+        #void setValue()
+    }
+
+    note "When a cell in dataGridView is changed, Sheet is notified.\nThen, Sheet updates its own cell with the new content.\nNext, the cell in Sheet triggers an event to notify dataGridView1.\nFinally, datGridview1 updates its View to reflect the change." as FormSheet1
+    Form::dataGridView .. FormSheet1
+    FormSheet1 .. Sheet::setCell
+
+
+    Cell <|-- BaseCell : inherited
+
+    note "Sheet triggers event to set Cell's Value. Sheet-only action." as SheetCell1
+    Sheet::setCell .. SheetCell1
+    SheetCell1 .. Cell::setValue
+}
+
+@enduml

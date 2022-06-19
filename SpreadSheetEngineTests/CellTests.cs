@@ -13,10 +13,10 @@ namespace SpreadSheetEngineTests
         public void Instantiate_Single_Cell((int rIndex, int cIndex) passed, (int rIndex, int cIndex) expected)
         {
             
-            if (passed.CompareTo((0, 0)) < 0)
-            {
-                Assert.Throws<OverflowException>(() => throw new OverflowException());
-            }
+            //if (passed.CompareTo((0, 0)) < 0)
+            //{
+            //    Assert.Throws<OverflowException>(() => throw new OverflowException());
+            //}
             
             var cell = new Cell(passed.rIndex, passed.cIndex);
             Assert.That(expected, Is.EqualTo((cell.RowIndex, cell.ColumnIndex)));
@@ -26,12 +26,14 @@ namespace SpreadSheetEngineTests
         {
             new object[] { (0, 0), (0, 0) },
             new object[] { (int.MaxValue, int.MaxValue), (int.MaxValue, int.MaxValue)},
-            new object[] { (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1)), (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1))}
+            //new object[] { (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1)), (unchecked(int.MaxValue + 1), unchecked(int.MaxValue + 1))}
         };
 
         private class Cell : BaseCell
         {
-            internal Cell(int rowIndex, int columnIndex) : base (rowIndex, columnIndex) { }
+            public Cell(int rowIndex, int columnIndex) : base (rowIndex, columnIndex) {
+
+            }
         }
     }
 }

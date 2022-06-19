@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -36,15 +37,15 @@ namespace SpreadSheetEngine
             this.table = new Cell[numRows, numColumns];
 
             // Iterates and instantiates all cells in the sheet.
-            /*
             for (int r = 0; r < numRows; r++)
             {
                 for (int c = 0; c < numColumns; c++)
                 {
                     this.table[r, c] = new Cell(r, c);
+
+                    // this.table[r, c].PropertyChanged += this.SetCell;
                 }
             }
-            */
 
             /*
              * Might not need to instantiate all cells at construction. I can do that for first input, as in
@@ -77,7 +78,7 @@ namespace SpreadSheetEngine
         /// <param name="rowIndex">the row index of the cell.</param>
         /// <param name="columnIndex">the column index of the cell.</param>
         /// <returns>the cell if found.</returns>
-        internal Cell GetCell(int rowIndex, int columnIndex)
+        private Cell GetCell(int rowIndex, int columnIndex)
         {
             return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
         }
@@ -88,7 +89,7 @@ namespace SpreadSheetEngine
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
         /// <param name="expression">the text content of the cell.</param>
-        internal void SetCell(int rowIndex, int columnIndex, string expression)
+        private void SetCell(int rowIndex, int columnIndex, string expression)
         {
             Cell cell = this.GetCell(rowIndex, columnIndex);
 
@@ -98,6 +99,17 @@ namespace SpreadSheetEngine
              * This way, there is no need to have a backing field for Value.
              */
             cell.SetValue(expression);
+        }
+
+        private void OnDataGridViewCellFocused(object sender, PropertyChangedEventArgs e)
+        {
+            /*
+             * If cell is focused
+             *      If cell value is changed
+             *          Grab cell indices i, j
+             *          Use indices to set value for cell at Sheet[i, j]
+             *
+             */
         }
     }
 }
