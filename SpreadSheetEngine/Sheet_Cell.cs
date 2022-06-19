@@ -30,6 +30,9 @@ internal partial class Sheet
         /// Sets the value of the cell.
         /// </summary>
         /// <param name="expression">the new expression.</param>
-        internal new void SetValue(string expression) => base.SetValue(expression);
+        internal new void SetValue(string expression)
+        {
+            base.SetValue(expression);
+        }
     }
 }

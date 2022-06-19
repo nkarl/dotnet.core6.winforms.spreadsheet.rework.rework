@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SpreadSheetEngine;
 
-[assembly:InternalsVisibleTo("SpreadSheetApp")]
-[assembly:InternalsVisibleTo("SpreadSheetEngineTests")]
+[assembly: InternalsVisibleTo("SpreadSheetApp")]
+[assembly: InternalsVisibleTo("SpreadSheetEngineTests")]
 
 namespace SpreadSheetEngine
 {
@@ -22,7 +22,7 @@ namespace SpreadSheetEngine
     internal partial class Sheet
     {
         /*
-         * TODO: IMPLEMENT THE EVENT HANDLER LOGIC.
+         * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DATAGRIDVIEW AND LOGIC ENGINE.
          */
 
         private Cell[,] table;
@@ -93,13 +93,32 @@ namespace SpreadSheetEngine
         {
             Cell cell = this.GetCell(rowIndex, columnIndex);
 
-            /*
-             * TODO: IMPLEMENT FUNCTION TO SET CONTENT OF CELL.
-             *
-             * Make cell.Value a getter only, and add logic to the getter of cell.Text.
-             * This way, there is no need to have a backing field for Value.
-             */
+            if (expression[0] == '=')
+            {
+                expression = this.Evaluate(expression);
+            }
+
             cell.SetValue(expression);
+        }
+
+        private string Evaluate(string expression)
+        {
+            /*
+             * TODO:
+             *  - provides implementation for content that is not cell coordinates.
+             *  - Fixes the edge cases where 'A' - 'A'.
+
+             * Supports:
+             *  - Pullling the value from another cell. The remaining part after '='
+             *    is name of the cell to pull value from.
+             *
+             */
+            expression = expression[1..expression.Length];
+
+            int col = expression[0] - 'A';
+            int row = int.Parse(expression[1..expression.Length]);
+
+            return this.table[row - 1, col].Text;
         }
     }
 }

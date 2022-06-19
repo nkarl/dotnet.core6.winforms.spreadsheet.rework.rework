@@ -71,22 +71,8 @@ public abstract class BaseCell : INotifyPropertyChanged
     protected void SetValue(string expression) // either protected or internal
     {
         // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
-        if (expression[0] == '=')
-        {
-            expression = expression[1..expression.Length];
-
-            this.value = $"EVAL'ED: {expression}";
-            /*
-                TODO: Implement the evaluating function for expressions that starts with '='.
-             */
-        }
-        else
-        {
-            this.value = expression;
-        }
-
+        this.value = expression;
         this.Text = this.value;
-        this.OnPropertyChanged();
     }
 
     private void OnPropertyChanged([CallerMemberName] string? name = null)
