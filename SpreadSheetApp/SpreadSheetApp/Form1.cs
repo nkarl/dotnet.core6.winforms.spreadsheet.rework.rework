@@ -4,16 +4,16 @@
 
 namespace SpreadSheetApp
 {
+    using System.ComponentModel;
     using SpreadSheetApp.Form1_Properties;
     using SpreadSheetEngine;
-    using System.ComponentModel;
 
     /// <summary>
     /// Controls the display of the data grid cells.
     /// </summary>
     public partial class Form1 : Form
     {
-        private Cell[,] cellTable;
+        private readonly Cell[,] cellTable;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Form1"/> class.
@@ -35,7 +35,7 @@ namespace SpreadSheetApp
 
             this.InitializeComponent();
             this.Initialize_AppState();
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick !);
 
             var dataCell = this.cellTable[0, 0];
             dataCell.Text = "Hello";
@@ -44,8 +44,8 @@ namespace SpreadSheetApp
 
         private PropertyChangedEventHandler DataCell_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            //throw new NotImplementedException();
-            return delegate { };
+            // throw new NotImplementedException();
+            return (sender1, e1) => { };
         }
 
         private void Form1_Load(object sender, EventArgs e)
