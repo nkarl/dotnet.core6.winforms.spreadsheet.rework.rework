@@ -2,14 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetApp.Form1_Properties
+namespace SpreadSheetApp.Specification
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// Controls the dimensions of the data grid, i.e. how many rows and columns to show.
     /// </summary>
@@ -22,10 +16,12 @@ namespace SpreadSheetApp.Form1_Properties
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
             select (char)c).ToArray();
 
+
         /// <summary>
         /// The maximum number of rows allowed.
         /// </summary>
         public static readonly int MaxRows = 50;
+
 
         /// <summary>
         /// The maximum number of columns allowed.

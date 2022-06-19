@@ -1,0 +1,51 @@
+@startuml EventChain.png
+
+() Input
+[DataGridView]
+[Sheet]
+[Cell]
+
+note left of Input
+    Input Event:
+    the value of a cell in DataGridView
+    is changed.
+end note
+Input ..> DataGridView
+
+() Event1
+note bottom of Event1
+    Trigger Event:
+    communication between
+    DataGridView and Sheet.
+end note
+[DataGridView] - Event1
+Event1 ..> [Sheet]
+
+() Event2
+note bottom of Event2
+    Trigger Event:
+    communication between
+    Sheet and Cell.
+end note
+[Sheet] - Event2
+Event2 ..> [Cell]
+
+() CellPropertyChanged
+note right of CellPropertyChanged
+    Trigger Event:
+    communication between
+    Cell and Sheet.
+end note
+CellPropertyChanged - [Cell]
+CellPropertyChanged ..> [Sheet]
+
+() GUI_Update
+note right of GUI_Update
+    Trigger Event:
+    communication between
+    Sheet and DataGridView.
+end note
+GUI_Update - [Sheet]
+GUI_Update ..> [DataGridView]
+
+@enduml
