@@ -97,8 +97,10 @@ namespace SpreadSheetApp
             int rowIndex = cell.RowIndex;
             int colIndex = cell.ColumnIndex;
 
-            var result = this.dataGridView1[0, 0];
-            result.Value = $"{rowIndex}, {colIndex}";
+            this.cellTable[rowIndex, colIndex].Text = cell.Value.ToString() !;
+
+            var targetCell = this.dataGridView1[0, 0];
+            targetCell.Value = $"{this.cellTable[rowIndex, colIndex].Text} from [{this.dataGridView1.CurrentRow.HeaderCell.Value}, {this.dataGridView1.Columns[colIndex].HeaderText}]";
         }
     }
 }
