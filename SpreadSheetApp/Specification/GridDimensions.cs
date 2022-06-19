@@ -16,12 +16,12 @@ namespace SpreadSheetApp.Specification
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
             select (char)c).ToArray();
 
-        /*
+
         /// <summary>
         /// The maximum number of rows allowed.
         /// </summary>
         public static readonly int MaxRows = 50;
-        */
+
 
         /// <summary>
         /// The maximum number of columns allowed.

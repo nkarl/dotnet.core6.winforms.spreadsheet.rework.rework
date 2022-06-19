@@ -14,7 +14,7 @@ internal partial class Sheet
     /// <summary>
     /// Implements the abstract base class BaseCell.
     /// </summary>
-    private class Cell : BaseCell
+    internal class Cell : BaseCell
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Cell"/> class.

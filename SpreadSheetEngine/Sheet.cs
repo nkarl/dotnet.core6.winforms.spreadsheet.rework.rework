@@ -78,7 +78,7 @@ namespace SpreadSheetEngine
         /// <param name="rowIndex">the row index of the cell.</param>
         /// <param name="columnIndex">the column index of the cell.</param>
         /// <returns>the cell if found.</returns>
-        private Cell GetCell(int rowIndex, int columnIndex)
+        internal Cell GetCell(int rowIndex, int columnIndex)
         {
             return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
         }
@@ -89,27 +89,17 @@ namespace SpreadSheetEngine
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
         /// <param name="expression">the text content of the cell.</param>
-        private void SetCell(int rowIndex, int columnIndex, string expression)
+        internal void SetCell(int rowIndex, int columnIndex, string expression)
         {
             Cell cell = this.GetCell(rowIndex, columnIndex);
 
             /*
              * TODO: IMPLEMENT FUNCTION TO SET CONTENT OF CELL.
+             *
              * Make cell.Value a getter only, and add logic to the getter of cell.Text.
              * This way, there is no need to have a backing field for Value.
              */
             cell.SetValue(expression);
-        }
-
-        private void OnDataGridViewCellFocused(object sender, PropertyChangedEventArgs e)
-        {
-            /*
-             * If cell is focused
-             *      If cell value is changed
-             *          Grab cell indices i, j
-             *          Use indices to set value for cell at Sheet[i, j]
-             *
-             */
         }
     }
 }

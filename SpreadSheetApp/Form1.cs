@@ -5,29 +5,34 @@
 namespace SpreadSheetApp
 {
     using SpreadSheetApp.Specification;
+    using SpreadSheetEngine;
 
     /// <summary>
     /// Controls the display of the data grid cells.
     /// </summary>
     public partial class Form1 : Form
     {
+        private Sheet sheet;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Form1"/> class.
         /// </summary>
         public Form1()
         {
             this.InitializeComponent();
+            this.InitializeDataGridView();
+            this.sheet = new Sheet(GridDimensions.MaxRows, GridDimensions.MaxColumns);  // Initializes sheet dimensions.
+            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(this.OnDataGridViewCellEdited !);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.Initialize_GridDimensions();
         }
 
         /// <summary>
         /// Initializes the dimensions of the data grid.
         /// </summary>
-        private void Initialize_GridDimensions()
+        private void InitializeDataGridView()
         {
             foreach (var c in GridDimensions.ColumnLabels)
             {
@@ -43,6 +48,18 @@ namespace SpreadSheetApp
                 row.HeaderCell.Value = (i + 1).ToString();
                 this.dataGridView1.Rows.Add(row);
             }
+        }
+
+        private void OnDataGridViewCellEdited(object sender, DataGridViewCellEventArgs e)
+        {
+            var currentCell = this.dataGridView1.CurrentCell;
+            var sheetCell = this.sheet.GetCell(currentCell.RowIndex, currentCell.ColumnIndex);
+
+            this.sheet.SetCell(currentCell.RowIndex, currentCell.ColumnIndex, currentCell.Value.ToString() !);
+            currentCell.Value = sheetCell.Text;
+
+            var targetCell = this.dataGridView1[0, 0];
+            targetCell.Value = $"{currentCell.Value} from [{this.dataGridView1.CurrentRow.HeaderCell.Value},{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}]";
         }
     }
 }

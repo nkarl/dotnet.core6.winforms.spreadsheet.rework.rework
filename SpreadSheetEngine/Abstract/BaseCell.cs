@@ -6,6 +6,7 @@ namespace SpreadSheetEngine.Abstract;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 /// <summary>
 /// The abstract base class for a single cell.
@@ -69,8 +70,12 @@ public abstract class BaseCell : INotifyPropertyChanged
     /// <param name="expression">the new string text to be evaluated.</param>
     protected void SetValue(string expression) // either protected or internal
     {
+        // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
         if (expression[0] == '=')
         {
+            expression = expression[1..expression.Length];
+
+            this.value = $"EVAL'ED: {expression}";
             /*
                 TODO: Implement the evaluating function for expressions that starts with '='.
              */
