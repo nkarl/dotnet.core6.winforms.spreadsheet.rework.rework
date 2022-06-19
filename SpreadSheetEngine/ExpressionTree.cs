@@ -2,14 +2,14 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine
+namespace ArithemticExpressionTree
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using SpreadSheetEngine.Interface;
+    using ArithemticExpressionTree.Interface;
 
     /// <summary>
     /// The data structure for arithmetic expressions.

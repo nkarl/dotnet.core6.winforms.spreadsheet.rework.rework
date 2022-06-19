@@ -1,8 +1,8 @@
-﻿// <copyright file="ExpressionParser.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="IExpressionParser.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.Interface
+namespace ArithemticExpressionTree.Interface
 {
     using System;
     using System.Collections.Generic;
