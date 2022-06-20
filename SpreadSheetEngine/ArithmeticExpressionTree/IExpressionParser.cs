@@ -19,6 +19,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
      *      Example 2: "C2-9-B2-27"
      *      Example 3: "X+Y-Z" is not allowed.
      *
+     * DESIGN:
+     *  - The parser should create an ArrayList of Node type for each parsed string unit.
+     *  - Each unit in the ArrayList will be tagged with a type for later specialization during tree construction.
+     *  - This way, the parsing step is decoupled from the tree construction stepped.
+     *
      */
 
     /// <summary>
