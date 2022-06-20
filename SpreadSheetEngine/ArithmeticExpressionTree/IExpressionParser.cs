@@ -31,5 +31,19 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 - Read guidelines on how to write an interface in C#.
                 - Decide and design the interface methods/functions.
          */
+
+        /// <summary>
+        /// Parses and returns an ArrayList of legal tree units.
+        /// </summary>
+        /// <param name="expression">the string expression to be parsed.</param>
+        public void Parse(string expression)
+        {
+            /*
+                TODO: Implement the logic of parsing.
+
+                DO NOT FORGET TO CHANGE THE RETURN TYPE.
+             */
+            throw new NotImplementedException();
+        }
     }
 }
