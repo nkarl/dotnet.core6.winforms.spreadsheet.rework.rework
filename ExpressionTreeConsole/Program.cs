@@ -25,7 +25,7 @@ void ExecuteConsoleApp(bool appIsRunning)
         option = Console.ReadLine() ?? string.Empty;
         switch (option)
         {
-            case "1":
+            case "1": // Asks user to enter an expression.
                 Console.Write("Enter an expression: ");
                 inputExpression = Console.ReadLine() ?? string.Empty;
                 /*
@@ -33,21 +33,21 @@ void ExecuteConsoleApp(bool appIsRunning)
                  */
                 break;
 
-            case "2":
+            case "2": // Sets a variable in the expression tree.
                 Console.WriteLine("Setting a variable");
                 /*
                     TODO: Implement the option for setting a variable in the ExpressionTree.
                  */
                 break;
 
-            case "3":
+            case "3": // Evaluates the expression tree.
                 Console.WriteLine("Evaluating the expression");
                 /*
                     TODO: Implement the option to evaluate the ExpressionTree.
                  */
                 break;
 
-            case "4":
+            case "4": // Quits the app.
                 appIsRunning = false;
                 break;
 
