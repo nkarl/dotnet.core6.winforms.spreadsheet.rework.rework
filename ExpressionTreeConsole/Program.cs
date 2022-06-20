@@ -3,7 +3,7 @@
 // </copyright>
 
 string option;
-string inputExpression;
+string currentExpression;
 
 void DisplayMenu()
 {
@@ -27,7 +27,7 @@ void ExecuteConsoleApp(bool appIsRunning)
         {
             case "1": // Asks user to enter an expression.
                 Console.Write("Enter an expression: ");
-                inputExpression = Console.ReadLine() ?? string.Empty;
+                currentExpression = Console.ReadLine() ?? string.Empty;
                 /*
                     TODO: Implement the class instantitation of the class ExpressionTree.
                  */

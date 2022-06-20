@@ -10,6 +10,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using System.Text;
     using System.Threading.Tasks;
 
+    /*
+     * ASSUMPTIONS ABOUT EXPRESSIONS:
+     *  - Will NOT have any parentheses.
+     *  - Will have a SINGLE TYPE OF OPERATOR.
+     *  - Will have any number of instances of that operator.
+     *      Example 1: "A+B+C1+Hello+6"
+     *      Example 2: "C2-9-B2-27"
+     *      Example 3: "X+Y-Z" is not allowed.
+     *
+     */
+
     /// <summary>
     /// The parser interface that helps build a tree from an arithmetic expression.
     /// </summary>
