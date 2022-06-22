@@ -40,8 +40,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          */
 
         /// <summary>
-        /// Parses and returns an ArrayList of legal tree units.
+        /// Parses a given string into a list of nodes.
         /// </summary>
+<<<<<<< Updated upstream
         /// <param name="expression">the string expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
         public ArrayList Parse(string expression)
@@ -80,8 +81,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                                 variable
 
                 DO NOT FORGET TO CHANGE THE RETURN TYPE.
+=======
+        /// <param name="expression">the expression string.</param>
+        /// <returns>the List of new Node to pass to the Expression Tree.</returns>
+        public List<Node> Parse(string expression)
+        {
+            /*
+                TODO: Implement the parsing logic.
+>>>>>>> Stashed changes
              */
-            throw new NotImplementedException();
+
+            return new List<Node>();
         }
     }
 }

@@ -2,13 +2,20 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ExpressionTreeTests")]
+[assembly: InternalsVisibleTo("ExpressionTreeConsole")]
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
 
     /*
      * REQUIREMENTS FOR THE TREE:
@@ -25,7 +32,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
      *  - Supports multichar values like "A2"
      *
-     *  - Requirments for variables:
+     *  - Requirements for variables:
      *      + will start with an alphabet char,
      *      + upper or lower-case,
      *      + followed by any number of alphabet chars and decimal digits (0-9)
@@ -86,8 +93,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <inheritdoc/>
-        void IExpressionParser.Parse(string expression)
+        List<Node> IExpressionParser.Parse(string expression)
         {
+            throw new NotImplementedException();
         }
     }
 }
