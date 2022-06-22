@@ -1,4 +1,4 @@
-﻿// <copyright file="IExpressionParser.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -35,6 +35,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 - Read guidelines on how to write an interface in C#.
                 - Decide and design the interface methods/functions.
          */
+
+        private static readonly string UpperCase = string.Concat((
+            from c in Enumerable.Range('A', 'Z' - 'A' + 1)
+            select (char)c).ToArray());
+
+        private static readonly string LowerCase = string.Concat((
+            from c in Enumerable.Range('a', 'z' - 'a' + 1)
+            select (char)c).ToArray());
+
+        private static readonly string Digits = "0123456789";
 
         /// <summary>
         /// Parses a given string into a list of nodes.
@@ -135,15 +145,46 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="expression">the expression converted into blocks.</param>
         /// <returns>the expression as nodes.</returns>
-        public ArrayList BlockToNodeExpression(List<string> expression)
+        public List<Node> BlockToNodeExpression(List<string> expression)
         {
-            ArrayList nodeExpr = new ArrayList();
+            List<Node> nodeExpr = new List<Node>();
             string opList = "+-*/";
+            var alphabet = UpperCase;
+            var numerical = Digits;
+
             foreach (var block in expression)
             {
-                if (block.Length == 1 && opList.Contains(block[0]))
+                if (block.Length == 1)
                 {
-                    nodeExpr.Add(new Node("op"));
+                   var c = block[0];
+                   if (opList.Contains(c))
+                   {
+                       nodeExpr.Add(new Node("op"));
+                   }
+                   else if (alphabet.Contains(c))
+                   {
+                       nodeExpr.Add(new Node("var"));
+                   }
+                   else if (numerical.Contains(c))
+                   {
+                       nodeExpr.Add(new Node("const"));
+                   }
+                }
+                else
+                {
+                    Node newNode;
+                    int constant;
+                    try
+                    {
+                        constant = int.Parse(block);
+                        newNode = new Node("const");
+                    }
+                    catch (FormatException e)
+                    {
+                        newNode = new Node("var");
+                    }
+
+                    nodeExpr.Add(newNode);
                 }
             }
 

@@ -19,7 +19,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// Initializes a new instance of the <see cref="BaseNode"/> class.
         /// </summary>
         /// <param name="type">the type of the node.</param>
-        protected BaseNode(string? type)
+        public BaseNode(string? type)
         {
             this.NodeType = type;
         }
@@ -32,6 +32,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// <summary>
         /// Gets or sets the type of the Node.
         /// </summary>
-        protected string? NodeType { get; set; }
+        public string? NodeType { get; set; }
     }
 }
