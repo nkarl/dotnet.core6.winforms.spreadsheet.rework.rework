@@ -2,6 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionTreeTests")]
@@ -48,7 +49,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The data structure for arithmetic expressions.
     /// </summary>
-    internal class ExpressionTree : ExpressionParser
+    internal partial class ExpressionTree
     {
         /*
             TODO:
@@ -58,6 +59,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public string? _expression;
         public List<string> _blocks;
         public ArrayList _nodes;
+        private ExpressionParser parser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
@@ -66,11 +68,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public ExpressionTree(string? expression)
         {
             this._expression = expression;
-            
+
             /*
                 TODO: Implement the constructor.
              */
-            ((ExpressionParser)this).Parse(expression);
+            this.parser.Parse(expression);
         }
 
         /// <summary>

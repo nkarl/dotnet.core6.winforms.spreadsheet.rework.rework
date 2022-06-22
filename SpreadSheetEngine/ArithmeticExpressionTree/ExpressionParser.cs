@@ -8,6 +8,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using System.Collections.Generic;
     using System.Text;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /*
      * ASSUMPTIONS ABOUT EXPRESSIONS:
@@ -36,15 +38,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 - Decide and design the interface methods/functions.
          */
 
-        private static readonly string UpperCase = string.Concat((
+        private static readonly string Digits = "0123456789";   // digit map
+
+        private static readonly string UpperCase = string.Concat(( // uppercase map
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
             select (char)c).ToArray());
 
-        private static readonly string LowerCase = string.Concat((
+        private static readonly string LowerCase = string.Concat(( // lowercase map
             from c in Enumerable.Range('a', 'z' - 'a' + 1)
             select (char)c).ToArray());
 
-        private static readonly string Digits = "0123456789";
 
         /// <summary>
         /// Parses a given string into a list of nodes.
@@ -159,15 +162,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                    var c = block[0];
                    if (opList.Contains(c))
                    {
-                       nodeExpr.Add(new Node("op"));
+                       nodeExpr.Add(new ConstNode());    // operator node
                    }
                    else if (alphabet.Contains(c))
                    {
-                       nodeExpr.Add(new Node("var"));
+                       nodeExpr.Add(new VarNode("var"));   // var node
                    }
                    else if (numerical.Contains(c))
                    {
-                       nodeExpr.Add(new Node("const"));
+                       nodeExpr.Add(new Add());  // constant node
                    }
                 }
                 else
@@ -177,11 +180,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     try
                     {
                         constant = int.Parse(block);
-                        newNode = new Node("const");
+                        newNode = new ConstNode();
                     }
                     catch (FormatException e)
                     {
-                        newNode = new Node("var");
+                        newNode = new VarNode(block);
                     }
 
                     nodeExpr.Add(newNode);
@@ -198,7 +201,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>a new Node.</returns>
         public Node StrToNode(string type)
         {
-            return new Node(type);
+            throw new NotImplementedException();
         }
     }
 }

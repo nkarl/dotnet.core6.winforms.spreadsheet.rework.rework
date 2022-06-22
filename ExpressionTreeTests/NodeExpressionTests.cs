@@ -22,7 +22,7 @@ public class NodeExpressionTests
 
         var output = (
             from n in nodes
-            select n.NodeType).ToArray();
+            select n.Type).ToArray();
         
         Assert.That(output, Is.EqualTo(expected));
     }
