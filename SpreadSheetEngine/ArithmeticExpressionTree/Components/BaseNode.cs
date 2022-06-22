@@ -11,7 +11,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
     using System.Threading.Tasks;
 
     /// <summary>
-    /// The astract base class for a tree node.
+    /// The abstract base class for a tree node.
     /// </summary>
     public abstract class BaseNode
     {
@@ -19,14 +19,19 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// Initializes a new instance of the <see cref="BaseNode"/> class.
         /// </summary>
         /// <param name="type">the type of the node.</param>
-        public BaseNode(string? type)
+        protected BaseNode(string? type)
         {
-            this.Type = type;
+            this.NodeType = type;
         }
 
-          /// <summary>
-        /// Gets or sets or gets the type of the Node.
+        /// <summary>
+        /// Gets or sets the name of the Node.
         /// </summary>
-        public string? Type { get; set; }
+        public string? Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the Node.
+        /// </summary>
+        protected string? NodeType { get; set; }
     }
 }

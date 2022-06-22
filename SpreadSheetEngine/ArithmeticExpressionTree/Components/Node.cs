@@ -13,7 +13,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
     /// <summary>
     /// The most basic type of node in the expression tree.
     /// </summary>
-    internal class Node : BaseNode
+    public class Node : BaseNode
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Node"/> class.

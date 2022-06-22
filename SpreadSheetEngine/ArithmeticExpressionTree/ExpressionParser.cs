@@ -4,12 +4,9 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
 
     /*
@@ -31,7 +28,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The parser interface that helps build a tree from an arithmetic expression.
     /// </summary>
-    internal interface IExpressionParser
+    public class ExpressionParser
     {
         /*
             TODO:
@@ -44,7 +41,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="expression">the string expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        public ArrayList Parse(string expression)
+        public ArrayList? Parse(string? expression)
         {
             /*
                 TODO: Implement the logic of parsing.
@@ -81,8 +78,86 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
                 DO NOT FORGET TO CHANGE THE RETURN TYPE.
              */
+            if (expression is null)
+            {
+                return null;
+            }
+
+            /*
+            foreach (char c in expression)
+            {
+                block += c;
+                if (block.Length == 1 && operatorList.Contains(block[0]))
+                {
+                    nodeExpr.Add(this.StrToNode("op"));
+                    block = string.Empty;
+                }
+                else
+                {
+                }
+            }
+            */
 
             return new ArrayList();
+        }
+
+        /// <summary>
+        /// Converts the string expression to block expression.
+        /// </summary>
+        /// <param name="expression">the original expression as string.</param>
+        /// <returns>List of operand and operator string blocks.</returns>
+        public List<string> StrToBlockExpression(string expression)
+        {
+            // From an expression string, iterate through each character and try to build up blocks of operands and operators.
+            //  the block resets at either the next operator or the end of expression.
+            List<string> allBlocks = new List<string>();
+            StringBuilder block = new StringBuilder();
+            string opList = "+-*/";
+            foreach (var c in expression)
+            {
+                if (opList.Contains(c))
+                {
+                    allBlocks.Add(block.ToString());
+                    allBlocks.Add(c.ToString());
+                    block = new StringBuilder();
+                    continue;
+                }
+
+                block.Append(c);
+            }
+
+            allBlocks.Add(block.ToString());
+            return allBlocks;
+        }
+
+        /// <summary>
+        /// Converts the block expression into a node expression.
+        /// </summary>
+        /// <param name="expression">the expression converted into blocks.</param>
+        /// <returns>the expression as nodes.</returns>
+        public ArrayList BlockToNodeExpression(List<string> expression)
+        {
+            ArrayList nodeExpr = new ArrayList();
+            string opList = "+-*/";
+            foreach (var block in expression)
+            {
+                if (block.Length == 1 && opList.Contains(block[0]))
+                {
+                    nodeExpr.Add(new Node("op"));
+                }
+            }
+
+            return nodeExpr;
+        }
+
+        /// <summary>
+        /// Converts the parsed string to Node.
+        /// </summary>
+        /// <param name="type">the unit of parsed string.</param>
+        /// <returns>a new Node.</returns>
+        public Node StrToNode(string type)
+        {
+            return new Node(type);
         }
     }
 }

@@ -48,23 +48,29 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The data structure for arithmetic expressions.
     /// </summary>
-    internal class ExpressionTree : IExpressionParser
+    internal class ExpressionTree : ExpressionParser
     {
         /*
             TODO:
                 - Implement the class ExpressionTree from IExpressionParser.
          */
 
+        public string? _expression;
+        public List<string> _blocks;
+        public ArrayList _nodes;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression.</param>
-        public ExpressionTree(string expression)
+        public ExpressionTree(string? expression)
         {
+            this._expression = expression;
+            
             /*
                 TODO: Implement the constructor.
              */
-            ((IExpressionParser)this).Parse(expression);
+            ((ExpressionParser)this).Parse(expression);
         }
 
         /// <summary>
@@ -89,12 +95,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             /*
                 TODO: Provides implementation for tree evaluation.
              */
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        ArrayList IExpressionParser.Parse(string expression)
-        {
             throw new NotImplementedException();
         }
     }
