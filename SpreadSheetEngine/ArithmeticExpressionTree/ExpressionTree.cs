@@ -93,7 +93,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <inheritdoc/>
-        List<Node> IExpressionParser.Parse(string expression)
+        ArrayList IExpressionParser.Parse(string expression)
         {
             throw new NotImplementedException();
         }

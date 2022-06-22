@@ -42,7 +42,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         /// Parses a given string into a list of nodes.
         /// </summary>
-<<<<<<< Updated upstream
         /// <param name="expression">the string expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
         public ArrayList Parse(string expression)
@@ -56,7 +55,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     + The operator type is the trivial case, where
                         * the length of string is 1 and the char must be one of 4 cases: +, -, *, /
                     + The remaining two categories are: constant and variable, where
-                        * the length of strign > 1 or not of (+, -, *, /)
+                        * the length of string > 1, or the char not one of (+, -, *, /)
 
                 - How to handle the remaining 2 cases:
                     + Use a StringBuilder to build a possible unit, where
@@ -81,17 +80,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                                 variable
 
                 DO NOT FORGET TO CHANGE THE RETURN TYPE.
-=======
-        /// <param name="expression">the expression string.</param>
-        /// <returns>the List of new Node to pass to the Expression Tree.</returns>
-        public List<Node> Parse(string expression)
-        {
-            /*
-                TODO: Implement the parsing logic.
->>>>>>> Stashed changes
              */
 
-            return new List<Node>();
+            return new ArrayList();
         }
     }
 }
