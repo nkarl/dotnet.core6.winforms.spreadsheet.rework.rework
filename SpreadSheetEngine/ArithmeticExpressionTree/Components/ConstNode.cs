@@ -1,13 +1,12 @@
-﻿// <copyright file="ConstantNode.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ConstNode.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
-
-using System.Diagnostics.CodeAnalysis;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
