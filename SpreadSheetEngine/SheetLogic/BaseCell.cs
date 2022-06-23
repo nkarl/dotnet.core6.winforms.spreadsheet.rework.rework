@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.Abstract;
+namespace SpreadSheetEngine.SheetLogic;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -23,8 +23,8 @@ public abstract class BaseCell : INotifyPropertyChanged
     /// <param name="columnIndex">the cell's column index.</param>
     protected BaseCell(int rowIndex, int columnIndex)
     {
-        this.RowIndex = rowIndex;
-        this.ColumnIndex = columnIndex;
+        RowIndex = rowIndex;
+        ColumnIndex = columnIndex;
     }
 
     /// <inheritdoc/>
@@ -45,24 +45,24 @@ public abstract class BaseCell : INotifyPropertyChanged
     /// </summary>
     public string Text
     {
-        get => this.text;
+        get => text;
 
         set
         {
-            if (value == this.text)
+            if (value == text)
             {
                 return;
             }
 
-            this.text = value;
-            this.OnPropertyChanged();
+            text = value;
+            OnPropertyChanged();
         }
     }
 
     /// <summary>
     /// Gets the value of the cell.
     /// </summary>
-    public string Value => this.value;
+    public string Value => value;
 
     /// <summary>
     /// Evaluates and sets the Text property of this cell. Not accessible to the outside world.
@@ -71,12 +71,12 @@ public abstract class BaseCell : INotifyPropertyChanged
     protected void SetValue(string expression) // either protected or internal
     {
         // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
-        this.value = expression;
-        this.Text = this.value;
+        value = expression;
+        Text = value;
     }
 
     private void OnPropertyChanged([CallerMemberName] string? name = null)
     {
-        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

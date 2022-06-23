@@ -1,5 +1,3 @@
-using SpreadSheetEngine.Abstract;
-
 namespace SpreadSheetEngineTests
 {
     public class CellTests
