@@ -1,13 +1,16 @@
-﻿// <copyright file="ExpressionParser.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser_Fields.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ExpressionParserTests")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /*
      * ASSUMPTIONS ABOUT EXPRESSIONS:
@@ -32,7 +35,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
      */
 
     /// <summary>
-    /// The parser interface that helps build a tree from an arithmetic expression.
+    /// Contains the fields of the Parser.
     /// </summary>
     internal partial class ExpressionParser
     {
@@ -52,19 +55,19 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         private static readonly string UpperCase = string.Concat(( // uppercase map
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
-            select (char) c).ToArray());
+            select (char)c).ToArray());
 
         /// <summary>
         /// Look up set for lowercase letters.
         /// </summary>
         private static readonly string LowerCase = string.Concat(( // lowercase map
             from c in Enumerable.Range('a', 'z' - 'a' + 1)
-            select (char) c).ToArray());
+            select (char)c).ToArray());
 
         /// <summary>
         /// Used by by OpNodeFactory to create new operator node.
         /// </summary>
-        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new()
+        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
         {
             { '+', () => new OpNodeAdd() },
             { '-', () => new OpNodeSub() },

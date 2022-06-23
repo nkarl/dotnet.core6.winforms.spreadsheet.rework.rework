@@ -1,9 +1,16 @@
-﻿using System.Text;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+﻿// <copyright file="ExpressionParser_Methods.cs" company="Charles Nguyen -- 011606177">
+// Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
+// </copyright>
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree;
 
+using System.Text;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+
+/// <summary>
+/// Contains the methods of the Parser.
+/// </summary>
 internal partial class ExpressionParser
 {
     /// <summary>
