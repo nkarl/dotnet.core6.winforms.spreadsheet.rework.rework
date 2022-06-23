@@ -56,7 +56,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 - Implement the class ExpressionTree from IExpressionParser.
          */
 
-        public string? _expression;
         public List<string> _blocks;
         public ArrayList _nodes;
         private ExpressionParser parser;
@@ -67,8 +66,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <param name="expression">the arithmetic expression.</param>
         public ExpressionTree(string? expression)
         {
-            this._expression = expression;
-
             /*
                 TODO: Implement the constructor.
              */
