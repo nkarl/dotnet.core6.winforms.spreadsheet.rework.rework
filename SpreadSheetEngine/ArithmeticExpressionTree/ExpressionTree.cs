@@ -17,6 +17,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using System.Text;
     using System.Threading.Tasks;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /*
      * REQUIREMENTS FOR THE TREE:
@@ -49,27 +50,23 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The data structure for arithmetic expressions.
     /// </summary>
-    internal partial class ExpressionTree
+    internal partial class ExpressionTree : BinaryTree
     {
         /*
             TODO:
                 - Implement the tree for ExpressionTree.
          */
 
-        public List<string> _blocks;
-        public ArrayList _nodes;
-        private ExpressionParser parser;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string? expression = "A1+B2+C3")
+            : base(expression)
         {
             /*
-                TODO: Implement the constructor.
+                TODO: Implement the constructor for the BinaryTree.
              */
-            ExpressionParser.Parse(expression);
         }
 
         /// <summary>

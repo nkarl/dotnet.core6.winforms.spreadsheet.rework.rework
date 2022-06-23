@@ -41,7 +41,7 @@ internal partial class ExpressionParser
         //  the block resets at either the next operator or the end of expression.
         List<string> allBlocks = new List<string>();
         StringBuilder block = new StringBuilder();
-        foreach (var c in expression!)
+        foreach (var c in expression)
         {
             if (OperatorDict.ContainsKey(c))
             {
@@ -61,13 +61,13 @@ internal partial class ExpressionParser
     /// <summary>
     /// Converts the block expression into a node expression.
     /// </summary>
-    /// <param name="expression">the expression previously converted into blocks.</param>
+    /// <param name="blocks">the expression previously converted into blocks.</param>
     /// <returns>the expression as nodes.</returns>
-    internal static List<Node> BlockToNodeExpression(List<string> expression)
+    internal static List<Node> BlockToNodeExpression(List<string> blocks)
     {
         List<Node> nodeExpr = new List<Node>();
 
-        foreach (var block in expression)
+        foreach (var block in blocks)
         {
             Node newNode;
 
