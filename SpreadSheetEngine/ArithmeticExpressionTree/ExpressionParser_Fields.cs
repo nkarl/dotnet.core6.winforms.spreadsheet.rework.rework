@@ -18,6 +18,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
      *      Example 2: "C2-9-B2-27"
      *      Example 3: "X+Y-Z" is not allowed.
      *
+     * ADDITIONAL ASSUMPTIONS ABOUT THE OPERANDS:
+     *  - a constant is a purely numerical value.
+     *  - a variable is anything but the above, meaning 'A1' is also a var, but can be used to look up
+     *      in the Sheet later.
+     * - another type of var is the kind that is to be set in the expression tree.
+     *
      * DESIGN:
      *  - The parser should create an ArrayList of Node type for each parsed string unit.
      *  - Each unit in the ArrayList will be tagged with a type for later specialization during tree construction.

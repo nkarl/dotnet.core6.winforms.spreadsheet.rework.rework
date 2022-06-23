@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree;
 
@@ -18,10 +17,9 @@ internal partial class ExpressionParser
         //  the block resets at either the next operator or the end of expression.
         List<string> allBlocks = new List<string>();
         StringBuilder block = new StringBuilder();
-        string opList = "+-*/";
         foreach (var c in expression)
         {
-            if (opList.Contains(c))
+            if (OperatorDict.ContainsKey(c))
             {
                 allBlocks.Add(block.ToString());
                 allBlocks.Add(c.ToString());
@@ -35,9 +33,6 @@ internal partial class ExpressionParser
         allBlocks.Add(block.ToString());
         return allBlocks;
     }
-
-    private static readonly string opList = "+-*/";
-
     /// <summary>
     /// Converts the block expression into a node expression.
     /// </summary>
@@ -49,49 +44,38 @@ internal partial class ExpressionParser
 
         foreach (var block in expression)
         {
+            Node newNode;
             // when block's length is 1.
             if (block.Length == 1)
             {
                 var c = block[0];
+                newNode = this.NodeFromChar(c);
             }
             // otherwise, when block's length is larger than 1.
             else
             {
-                Node newNode;
-                try
-                {
-                    int constant = int.Parse(block);
-                    newNode = new ConstNode(constant);
-                }
-                catch (FormatException e)
-                {
-                    newNode = new VarNode(block);
-                }
-
-                nodeExpr.Add(newNode);
+                newNode = NodeFromStr(block);
             }
+            nodeExpr.Add(newNode);
         }
 
         return nodeExpr;
     }
 
     /// <summary>
-    /// Node Factory. Creates a new node from a single char.
+    /// Creates a new node from a single char.
     /// </summary>
     /// <param name="c">the single character.</param>
-    /// <returns>the newly created node.</returns>
+    /// <returns>newly created node.</returns>
     /// <exception cref="NotImplementedException"></exception>
     private Node NodeFromChar(char c)
     {
         Node newNode;
         var alphabet = UpperCase;
         var numerical = Digits;
-        if (opList.Contains(c))
+        if (OperatorDict.ContainsKey(c))
         {
-            /*
-             * TODO: Implement the hashmap for OpNodeFactory.
-             */
-            newNode = new OpNodeAdd(); // operator node
+            newNode = this.OpNodeFactory(c); // operator node: DONE
         }
         else if (alphabet.Contains(c))
         {
@@ -110,7 +94,33 @@ internal partial class ExpressionParser
         return newNode;
     }
 
-    public Node OpNodeFactory(char op)
+    /// <summary>
+    /// Creates a new node from a block of string.
+    /// </summary>
+    /// <param name="block">a block of string previously parsed.</param>
+    /// <returns>a newly created node.</returns>
+    private Node NodeFromStr(string block)
+    {
+        Node newNode;
+        try
+        {
+            int constant = int.Parse(block);
+            newNode = new ConstNode(constant);
+        }
+        catch (FormatException)
+        {
+            newNode = new VarNode(block);
+        }
+        catch (Exception ex2)
+        {
+            Console.WriteLine(ex2);
+            throw new NotImplementedException("Exception in NodeFromStr.");
+        }
+
+        return newNode;
+    }
+
+    internal Node OpNodeFactory(char op)
     {
         return OperatorDict[op].Invoke();
     }

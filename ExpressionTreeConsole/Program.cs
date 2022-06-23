@@ -2,6 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using SpreadSheetEngine.ArithmeticExpressionTree;
+
 string option;
 string currentExpression;
 
@@ -29,8 +31,18 @@ void ExecuteConsoleApp(bool appIsRunning)
                 Console.Write("Enter an expression: ");
                 currentExpression = Console.ReadLine() ?? string.Empty;
                 /*
-                    TODO: Implement the class instantitation of the class ExpressionTree.
+                    TODO: Implement the class instantiation of the class ExpressionTree.
                  */
+
+                ExpressionParser parser = new ExpressionParser();
+                var blocks = parser.StrToBlockExpression(currentExpression);
+                /*
+                foreach (var b in blocks) Console.WriteLine(b);
+                */
+                var nodes = parser.BlockToNodeExpression(blocks);
+                /*
+                foreach (var n in nodes) Console.WriteLine(n.Type);
+                */
                 break;
 
             case "2": // Sets a variable in the expression tree.
@@ -52,6 +64,7 @@ void ExecuteConsoleApp(bool appIsRunning)
                 break;
 
             default:
+                Console.WriteLine("option not implemented.");
                 break;
         }
     }

@@ -2,6 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
     using System;
@@ -28,6 +30,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// <summary>
         /// Gets the value of this node.
         /// </summary>
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public double Value { get; }
     }
 }

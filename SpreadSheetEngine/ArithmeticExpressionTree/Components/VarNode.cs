@@ -1,4 +1,6 @@
-﻿namespace SpreadSheetEngine.ArithmeticExpressionTree.Components;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace SpreadSheetEngine.ArithmeticExpressionTree.Components;
 
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
@@ -9,5 +11,6 @@ public class VarNode : Node
     /// <summary>
     /// Gets the name of this variable node.
     /// </summary>
+    [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
     public string Name { get; }
 }
