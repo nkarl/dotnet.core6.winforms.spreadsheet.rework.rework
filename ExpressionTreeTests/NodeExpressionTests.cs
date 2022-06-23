@@ -13,6 +13,7 @@ public class NodeExpressionTests
     {
     }
 
+    /*
     [TestCase("A1+B2+C3", new [] {"var", "op", "var", "op", "var"})]
     public void NodeExpressionTest(string expression, string[] expected)
     {
@@ -26,4 +27,5 @@ public class NodeExpressionTests
         
         Assert.That(output, Is.EqualTo(expected));
     }
+    */
 }

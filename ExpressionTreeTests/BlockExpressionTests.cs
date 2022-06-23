@@ -8,6 +8,7 @@ namespace ExpressionTreeTests
         {
         }
 
+        /*
         [TestCase("A1+B2+C3", new []{"A1", "+", "B2", "+", "C3"})]
         [TestCase("A1+Hello+2", new []{"A1", "+", "Hello", "+", "2"})]
         public void Test1(string expression, string[] blocks)
@@ -16,5 +17,6 @@ namespace ExpressionTreeTests
             var output = tree.StrToBlockExpression(expression).ToArray();
             Assert.That(output, Is.EqualTo(blocks));
         }
+    */
     }
 }

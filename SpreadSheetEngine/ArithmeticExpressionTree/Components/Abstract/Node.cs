@@ -12,6 +12,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <summary>
         /// Gets the type of this Node.
         /// </summary>
-        public string Type => this.GetType().ToString();
+        public string Type => this.GetType().Name;
     }
 }

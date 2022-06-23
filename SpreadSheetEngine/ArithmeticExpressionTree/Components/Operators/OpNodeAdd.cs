@@ -4,11 +4,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
-public class Subtract : OpNode
+public class OpNodeAdd : OpNode
 {
-   static Subtract()
+   static OpNodeAdd()
    {
-      _op = '-';
+      _op = '+';
       _precedence = 10;
    }
 }

@@ -72,7 +72,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             /*
                 TODO: Implement the constructor.
              */
-            this.parser.Parse(expression);
+            this.parser?.Parse(expression);
         }
 
         /// <summary>

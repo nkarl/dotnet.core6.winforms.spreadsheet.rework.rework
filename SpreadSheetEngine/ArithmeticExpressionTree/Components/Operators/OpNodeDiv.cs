@@ -4,9 +4,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
-public class Divide : OpNode
+public class OpNodeDiv : OpNode
 {
-   static Divide()
+   static OpNodeDiv()
    {
       _op = '/';
       _precedence = 11;

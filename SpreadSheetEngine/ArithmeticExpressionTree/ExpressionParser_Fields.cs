@@ -2,14 +2,12 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections;
-    using System.Collections.Generic;
-    using System.Text;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /*
      * ASSUMPTIONS ABOUT EXPRESSIONS:
@@ -30,7 +28,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The parser interface that helps build a tree from an arithmetic expression.
     /// </summary>
-    public class ExpressionParser
+    internal partial class ExpressionParser
     {
         /*
             TODO:
@@ -38,16 +36,35 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 - Decide and design the interface methods/functions.
          */
 
-        private static readonly string Digits = "0123456789";   // digit map
+        /// <summary>
+        /// Lookup set for natural decimal digits.
+        /// </summary>
+        private static readonly string Digits = "0123456789"; // digit map
 
+        /// <summary>
+        /// Lookup set for uppercase letters.
+        /// </summary>
         private static readonly string UpperCase = string.Concat(( // uppercase map
             from c in Enumerable.Range('A', 'Z' - 'A' + 1)
-            select (char)c).ToArray());
+            select (char) c).ToArray());
 
+        /// <summary>
+        /// Look up set for lowercase letters.
+        /// </summary>
         private static readonly string LowerCase = string.Concat(( // lowercase map
             from c in Enumerable.Range('a', 'z' - 'a' + 1)
-            select (char)c).ToArray());
+            select (char) c).ToArray());
 
+        /// <summary>
+        /// Used by by OpNodeFactory to create new operator node.
+        /// </summary>
+        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new()
+        {
+            { '+', () => new OpNodeAdd() },
+            { '-', () => new OpNodeSub() },
+            { '*', () => new OpNodeMul() },
+            { '/', () => new OpNodeDiv() },
+        };
 
         /// <summary>
         /// Parses a given string into a list of nodes.
@@ -96,112 +113,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 return null;
             }
 
-            /*
-            foreach (char c in expression)
-            {
-                block += c;
-                if (block.Length == 1 && operatorList.Contains(block[0]))
-                {
-                    nodeExpr.Add(this.StrToNode("op"));
-                    block = string.Empty;
-                }
-                else
-                {
-                }
-            }
-            */
-
             return new ArrayList();
-        }
-
-        /// <summary>
-        /// Converts the string expression to block expression.
-        /// </summary>
-        /// <param name="expression">the original expression as string.</param>
-        /// <returns>List of operand and operator string blocks.</returns>
-        public List<string> StrToBlockExpression(string expression)
-        {
-            // From an expression string, iterate through each character and try to build up blocks of operands and operators.
-            //  the block resets at either the next operator or the end of expression.
-            List<string> allBlocks = new List<string>();
-            StringBuilder block = new StringBuilder();
-            string opList = "+-*/";
-            foreach (var c in expression)
-            {
-                if (opList.Contains(c))
-                {
-                    allBlocks.Add(block.ToString());
-                    allBlocks.Add(c.ToString());
-                    block = new StringBuilder();
-                    continue;
-                }
-
-                block.Append(c);
-            }
-
-            allBlocks.Add(block.ToString());
-            return allBlocks;
-        }
-
-        /// <summary>
-        /// Converts the block expression into a node expression.
-        /// </summary>
-        /// <param name="expression">the expression converted into blocks.</param>
-        /// <returns>the expression as nodes.</returns>
-        public List<Node> BlockToNodeExpression(List<string> expression)
-        {
-            List<Node> nodeExpr = new List<Node>();
-            string opList = "+-*/";
-            var alphabet = UpperCase;
-            var numerical = Digits;
-
-            foreach (var block in expression)
-            {
-                if (block.Length == 1)
-                {
-                   var c = block[0];
-                   if (opList.Contains(c))
-                   {
-                       nodeExpr.Add(new ConstNode());    // operator node
-                   }
-                   else if (alphabet.Contains(c))
-                   {
-                       nodeExpr.Add(new VarNode("var"));   // var node
-                   }
-                   else if (numerical.Contains(c))
-                   {
-                       nodeExpr.Add(new Add());  // constant node
-                   }
-                }
-                else
-                {
-                    Node newNode;
-                    int constant;
-                    try
-                    {
-                        constant = int.Parse(block);
-                        newNode = new ConstNode();
-                    }
-                    catch (FormatException e)
-                    {
-                        newNode = new VarNode(block);
-                    }
-
-                    nodeExpr.Add(newNode);
-                }
-            }
-
-            return nodeExpr;
-        }
-
-        /// <summary>
-        /// Converts the parsed string to Node.
-        /// </summary>
-        /// <param name="type">the unit of parsed string.</param>
-        /// <returns>a new Node.</returns>
-        public Node StrToNode(string type)
-        {
-            throw new NotImplementedException();
         }
     }
 }
