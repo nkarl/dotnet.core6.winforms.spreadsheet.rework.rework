@@ -74,55 +74,5 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '*', () => new OpNodeMul() },
             { '/', () => new OpNodeDiv() },
         };
-
-        /// <summary>
-        /// Parses a given string into a list of nodes.
-        /// </summary>
-        /// <param name="expression">the string expression to be parsed.</param>
-        /// <returns>an ArrayList of Nodes.</returns>
-        public ArrayList? Parse(string? expression)
-        {
-            /*
-                TODO: Implement the logic of parsing.
-
-                DESIGN:
-                - The parsing is a filtering process.
-                - There are 3 possible categories of nodes a new string unit can be captured: operator, constant, variable
-                    + The operator type is the trivial case, where
-                        * the length of string is 1 and the char must be one of 4 cases: +, -, *, /
-                    + The remaining two categories are: constant and variable, where
-                        * the length of string > 1, or the char not one of (+, -, *, /)
-
-                - How to handle the remaining 2 cases:
-                    + Use a StringBuilder to build a possible unit, where
-                        * the terminating condition is the next operator.
-                    + Once the unit has been captured, the unit then is filtered into the remaining two cases.
-                        * a possible solution is to build a tuple of three, where
-                            the map contains 3 categories: col, row, extra
-                        * then, each tuple will be checked for qualifications.
-                        * the scenarios are as follows:
-                            i.   length > 0 in col, length > 0 in row, length == 0 in extra: possible cell coordinates.
-                            ii.  length > 0 in col, length > 0 in row, length > 0 in extra: guaranteed variable.
-                            iii. length == 0, length > 0 in row, any in extra: error.
-                            iv.  else, variable.
-
-                        * mapping for each tuple:
-                            if i,
-                                check if tuple.1 is in alphabet
-                                check if tuple.2 is in range [0, 50]
-                                check if tuple.3 is empty
-                                if all true, is cell coordinates.
-                            else,
-                                variable
-
-                DO NOT FORGET TO CHANGE THE RETURN TYPE.
-             */
-            if (expression is null)
-            {
-                return null;
-            }
-
-            return new ArrayList();
-        }
     }
 }

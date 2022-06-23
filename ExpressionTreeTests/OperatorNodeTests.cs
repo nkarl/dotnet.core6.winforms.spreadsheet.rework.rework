@@ -17,7 +17,7 @@ public class OperatorNodeTests
     public string OpNodeFactoryTest(char op)
     {
         var parser = new ExpressionParser();
-        var newNode = parser.OpNodeFactory(op);
+        var newNode = ExpressionParser.OpNodeFactory(op);
         return newNode.Type;
     }
 }

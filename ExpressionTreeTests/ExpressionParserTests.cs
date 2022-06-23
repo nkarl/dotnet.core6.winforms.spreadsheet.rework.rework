@@ -17,8 +17,8 @@ public class ExpressionParserTests
     public void ParseNodeFromStringTest(string input, string[] expected)
     {
         ExpressionParser parser = new ExpressionParser();
-        var blocks = parser.StrToBlockExpression(input);
-        var nodes = parser.BlockToNodeExpression(blocks);
+        var blocks = ExpressionParser.StrToBlockExpression(input);
+        var nodes = ExpressionParser.BlockToNodeExpression(blocks);
         var output = (
             from n in nodes
             select n.Type).ToArray();

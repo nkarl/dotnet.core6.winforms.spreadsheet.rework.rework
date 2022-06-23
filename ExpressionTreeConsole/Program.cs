@@ -35,11 +35,11 @@ void ExecuteConsoleApp(bool appIsRunning)
                  */
 
                 ExpressionParser parser = new ExpressionParser();
-                var blocks = parser.StrToBlockExpression(currentExpression);
+                var blocks = ExpressionParser.StrToBlockExpression(currentExpression);
                 /*
                 foreach (var b in blocks) Console.WriteLine(b);
                 */
-                var nodes = parser.BlockToNodeExpression(blocks);
+                var nodes = ExpressionParser.BlockToNodeExpression(blocks);
                 /*
                 foreach (var n in nodes) Console.WriteLine(n.Type);
                 */
