@@ -38,7 +38,7 @@ public abstract class OpNode : Node
     /// <summary>
     /// Gets the character denoting this operator.
     /// </summary>
-    public static char Op => op;
+    public char Op => op;
 
     /// <summary>
     /// Gets the precedence of this operator.
@@ -53,10 +53,10 @@ public abstract class OpNode : Node
     /// <summary>
     /// Gets or sets the left child-node.
     /// </summary>
-    internal Node? Left { get; set; }
+    public Node? Left { get; set; }
 
     /// <summary>
     /// Gets or sets the right child-node.
     /// </summary>
-    internal Node? Right { get; set; }
+    public Node? Right { get; set; }
 }

@@ -26,7 +26,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     from c in Enumerable.Range('a', 'z' - 'a' + 1)
                     select (char)c).ToArray());
 
-        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
+        internal static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
             {
                 { '+', () => new OpNodeAdd() },
                 { '-', () => new OpNodeSub() },
