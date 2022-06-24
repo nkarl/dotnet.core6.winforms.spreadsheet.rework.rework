@@ -64,12 +64,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var node in postfix)
             {
-                if (node is OpNode opNode)
+                if (node is OpNode op)
                 {
-                    // opNode = CastingDict[opNode.Symbol].Invoke(opNode);
-                    opNode.Right = stack.Pop();
-                    opNode.Left = stack.Pop();
-                    stack.Push(opNode);
+                    // op = OperatorCastDict[op.Symbol].Invoke(op);
+                    op.Right = stack.Pop();
+                    op.Left = stack.Pop();
+                    stack.Push(op);
                 }
                 else
                 {

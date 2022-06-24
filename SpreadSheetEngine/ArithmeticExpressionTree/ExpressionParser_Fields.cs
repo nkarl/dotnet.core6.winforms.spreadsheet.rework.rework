@@ -19,20 +19,20 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         private const string Digits = "0123456789";
 
         private static readonly string UpperCase = string.Concat((
-                    from c in Enumerable.Range('A', 'Z' - 'A' + 1)
-                    select (char)c).ToArray());
+            from c in Enumerable.Range('A', 'Z' - 'A' + 1)
+            select (char)c).ToArray());
 
         private static readonly string LowerCase = string.Concat((
-                    from c in Enumerable.Range('a', 'z' - 'a' + 1)
-                    select (char)c).ToArray());
+            from c in Enumerable.Range('a', 'z' - 'a' + 1)
+            select (char)c).ToArray());
 
-        internal static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
-            {
-                { '+', () => new OpNodeAdd() },
-                { '-', () => new OpNodeSub() },
-                { '*', () => new OpNodeMul() },
-                { '/', () => new OpNodeDiv() },
-            };
+        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
+        {
+            { '+', () => new OpNodeAdd() },
+            { '-', () => new OpNodeSub() },
+            { '*', () => new OpNodeMul() },
+            { '/', () => new OpNodeDiv() },
+        };
     }
 
     /*
