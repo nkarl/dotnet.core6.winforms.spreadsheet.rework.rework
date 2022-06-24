@@ -9,6 +9,18 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 /// </summary>
 public abstract class BinaryTree
 {
+    /*
+     * ASSUMPTIONS:
+     *  - THAT: the input expression is in correct format and parser works.
+     *
+     * TREE STRUCTURE:
+     *  - OPERATORS ARE INTERNAL NODES.
+     *  - OPERANDS ARE LEAF NODES.
+     *
+     * TODO: IMPLEMENT THE POSTFIX CONVERSION IN THE PARSER.
+     *
+     */
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BinaryTree"/> class.
     /// </summary>

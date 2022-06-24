@@ -14,6 +14,11 @@ using System.Collections.Immutable;
 /// </summary>
 internal static partial class ExpressionParser
 {
+    /*
+     * TODO: IMPLEMENT THE POSTFIX CONVERSION FOR THE NODES.
+     *
+     */
+
     /// <summary>
     /// Parses a given string into a list of nodes.
     /// </summary>
