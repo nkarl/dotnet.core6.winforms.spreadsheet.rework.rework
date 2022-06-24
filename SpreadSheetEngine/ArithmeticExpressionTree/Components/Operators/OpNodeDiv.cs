@@ -5,6 +5,7 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
 /// <summary>
 /// The Operator Node for Division.
@@ -15,5 +16,6 @@ public class OpNodeDiv : OpNode
    {
       op = '/';
       precedence = 11;
+      associativity = OpAssociativity.LTR;
    }
 }

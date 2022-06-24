@@ -2,6 +2,9 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree;
 
 using System.Text;
@@ -18,6 +21,70 @@ internal static partial class ExpressionParser
      * TODO: IMPLEMENT THE POSTFIX CONVERSION FOR THE NODES.
      *
      */
+
+    /// <summary>
+    /// Make a postfix from an infix list of nodes.
+    /// </summary>
+    /// <param name="infix">the infix list of nodes.</param>
+    /// <returns>a postfix list of nodes.</returns>
+    public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
+    {
+        var opStack = new Stack<Node>();
+        var postfix = new List<Node>();
+
+        foreach (var node in infix)
+        {
+            // if node is not an operator node, add it to postfix.
+            if (node is not OpNode incomingOp)
+            {
+                postfix.Add(node);
+            }
+
+            // otherwise, check operator's conditions.
+            else
+            {
+                // If stack is empty, push the incoming operator on the stack.
+                var top = (opStack.Peek() is OpNode t) ? t : null;
+                if (top is null)
+                {
+                    opStack.Push(incomingOp);
+                    continue;
+                }
+
+                // compare precedence between stackTop and incomingOp.
+                // If precedence of incoming is higher, push incoming to stack.
+                // on the stack.
+                if (incomingOp.Precedence > top.Precedence)
+                {
+                    opStack.Push(incomingOp);
+                    continue;
+                }
+
+                if (top.Precedence == incomingOp.Precedence)
+                {
+                    if (incomingOp.Associativity == OpAssociativity.LTR)
+                    {
+                        postfix.Add(opStack.Pop());
+                    }
+
+                    opStack.Push(incomingOp);
+                    continue;
+                }
+
+                // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
+                // and then continue testing the new top.
+                while (top != null && incomingOp.Precedence < top.Precedence)
+                {
+                    postfix.Add(opStack.Pop());
+                    top = opStack.Peek() is OpNode t1 ? t1 : null;
+                }
+
+                opStack.Push(incomingOp);
+            }
+        }
+
+        return postfix;
+    }
 
     /// <summary>
     /// Parses a given string into a list of nodes.

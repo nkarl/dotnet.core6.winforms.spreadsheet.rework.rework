@@ -2,21 +2,29 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
-using System.Diagnostics.CodeAnalysis;
+namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
 /// <summary>
 /// The Operator Node.
 /// </summary>
 public abstract class OpNode : Node
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Disabled Until Tree Implementation.")]
+    /// <summary>
+    /// The operator to be assigned.
+    /// </summary>
     protected static char op;
-    [SuppressMessage("ReSharper", "InconsistentNaming", Justification = "Disabled Until Tree Implementation.")]
+
+    /// <summary>
+    /// The precedence to be assigned.
+    /// </summary>
     protected static int precedence;
 
-    // protected static int _associativity;
+    /// <summary>
+    /// The associativity to be assigned.
+    /// </summary>
+    protected static OpAssociativity associativity;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OpNode"/> class.
@@ -35,9 +43,12 @@ public abstract class OpNode : Node
     /// <summary>
     /// Gets the precedence of this operator.
     /// </summary>
-    public static int Precedence => precedence;
+    public int Precedence => precedence;
 
-    // public static int Associativity => _associativity;
+    /// <summary>
+    /// Gets the associativity of this operator. LTR=1 and RTL=-1.
+    /// </summary>
+    public OpAssociativity Associativity => associativity;
 
     /// <summary>
     /// Gets or sets the left child-node.
