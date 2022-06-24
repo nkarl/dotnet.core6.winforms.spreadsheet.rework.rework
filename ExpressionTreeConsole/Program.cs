@@ -31,6 +31,7 @@ void ExecuteConsoleApp(bool appIsRunning)
                 Console.Write("Enter an expression: ");
                 currentExpression = Console.ReadLine() ?? string.Empty;
                 var nodes = ExpressionParser.Parse(currentExpression);
+                var postfix = ExpressionParser.MakePostfix(nodes);
                 break;
 
             case "2": // Sets a variable in the expression tree.

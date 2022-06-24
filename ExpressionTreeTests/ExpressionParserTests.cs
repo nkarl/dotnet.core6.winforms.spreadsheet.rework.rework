@@ -26,4 +26,17 @@ public class ExpressionParserTests
         
         Assert.That(output, Is.EqualTo(expected));
     }
+
+    [TestCase("A1+B2+C3", new [] {"VarNode", "VarNode", "OpNodeAdd", "VarNode", "OpNodeAdd"})]
+    public void ConvertNodesToPostfixTest(string input, string[] expected)
+    {
+        var blocks = ExpressionParser.FromStrToBlocks(input);
+        var nodes = ExpressionParser.FromBlocksToNodes(blocks);
+        var postfix = ExpressionParser.MakePostfix(nodes);
+        var output = (
+            from n in postfix 
+            select n.Type).ToImmutableList();
+
+        Assert.That(output, Is.EqualTo(expected));
+    }
 }

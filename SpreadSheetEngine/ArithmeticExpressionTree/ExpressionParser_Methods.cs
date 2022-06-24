@@ -38,8 +38,6 @@ internal static partial class ExpressionParser
             {
                 postfix.Add(node);
             }
-
-            // otherwise, check operator's conditions.
             else
             {
                 if (opStack.Count == 0)
@@ -77,6 +75,7 @@ internal static partial class ExpressionParser
             postfix.Add(opStack.Pop());
         }
 
+        foreach (var op in postfix) Console.WriteLine(op.Type);
         return postfix;
     }
 
