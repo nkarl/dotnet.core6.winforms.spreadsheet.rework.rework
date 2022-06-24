@@ -1,4 +1,6 @@
-﻿namespace ExpressionTreeTests;
+﻿using System.Collections.Immutable;
+
+namespace ExpressionTreeTests;
 
 using NUnit.Framework;
 using SpreadSheetEngine.ArithmeticExpressionTree;
@@ -16,12 +18,11 @@ public class ExpressionParserTests
     [TestCase("11+22+33", new [] {"ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "ConstNode"})]
     public void ParseNodeFromStringTest(string input, string[] expected)
     {
-        ExpressionParser parser = new ExpressionParser();
-        var blocks = ExpressionParser.StrToBlockExpression(input);
-        var nodes = ExpressionParser.BlockToNodeExpression(blocks);
+        var blocks = ExpressionParser.FromStrToBlocks(input);
+        var nodes = ExpressionParser.FromBlocksToNodes(blocks);
         var output = (
             from n in nodes
-            select n.Type).ToArray();
+            select n.Type).ToImmutableList();
         
         Assert.That(output, Is.EqualTo(expected));
     }

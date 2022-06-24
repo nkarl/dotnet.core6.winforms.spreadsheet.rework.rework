@@ -8,9 +8,32 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System.Collections;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+
+    /// <summary>
+    /// Contains the fields of the Parser.
+    /// </summary>
+    internal static partial class ExpressionParser
+    {
+        private const string Digits = "0123456789";
+
+        private static readonly string UpperCase = string.Concat((
+                    from c in Enumerable.Range('A', 'Z' - 'A' + 1)
+                    select (char)c).ToArray());
+
+        private static readonly string LowerCase = string.Concat((
+                    from c in Enumerable.Range('a', 'z' - 'a' + 1)
+                    select (char)c).ToArray());
+
+        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
+            {
+                { '+', () => new OpNodeAdd() },
+                { '-', () => new OpNodeSub() },
+                { '*', () => new OpNodeMul() },
+                { '/', () => new OpNodeDiv() },
+            };
+    }
 
     /*
      * ASSUMPTIONS ABOUT EXPRESSIONS:
@@ -33,46 +56,4 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
      *  - This way, the parsing step is decoupled from the tree construction stepped.
      *
      */
-
-    /// <summary>
-    /// Contains the fields of the Parser.
-    /// </summary>
-    internal partial class ExpressionParser
-    {
-        /*
-            TODO:
-                - Read guidelines on how to write an interface in C#.
-                - Decide and design the interface methods/functions.
-         */
-
-        /// <summary>
-        /// Lookup set for natural decimal digits.
-        /// </summary>
-        private static readonly string Digits = "0123456789"; // digit map
-
-        /// <summary>
-        /// Lookup set for uppercase letters.
-        /// </summary>
-        private static readonly string UpperCase = string.Concat(( // uppercase map
-            from c in Enumerable.Range('A', 'Z' - 'A' + 1)
-            select (char)c).ToArray());
-
-        /// <summary>
-        /// Look up set for lowercase letters.
-        /// </summary>
-        private static readonly string LowerCase = string.Concat(( // lowercase map
-            from c in Enumerable.Range('a', 'z' - 'a' + 1)
-            select (char)c).ToArray());
-
-        /// <summary>
-        /// Used by by OpNodeFactory to create new operator node.
-        /// </summary>
-        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
-        {
-            { '+', () => new OpNodeAdd() },
-            { '-', () => new OpNodeSub() },
-            { '*', () => new OpNodeMul() },
-            { '/', () => new OpNodeDiv() },
-        };
-    }
 }

@@ -13,7 +13,7 @@ public abstract class BinaryTree
     /// Initializes a new instance of the <see cref="BinaryTree"/> class.
     /// </summary>
     /// <param name="expression">the expression as a list of nodes.</param>
-    protected BinaryTree(string? expression)
+    protected BinaryTree(string expression)
     {
         var nodes = ExpressionParser.Parse(expression);
         /*

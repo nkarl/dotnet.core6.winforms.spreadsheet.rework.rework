@@ -7,26 +7,24 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree;
 using System.Text;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+using System.Collections.Immutable;
 
 /// <summary>
 /// Contains the methods of the Parser.
 /// </summary>
-internal partial class ExpressionParser
+internal static partial class ExpressionParser
 {
     /// <summary>
     /// Parses a given string into a list of nodes.
     /// </summary>
     /// <param name="expression">the string expression to be parsed.</param>
     /// <returns>an ArrayList of Nodes.</returns>
-    public static List<Node> Parse(string? expression)
+    public static IEnumerable<Node> Parse(string expression)
     {
-        if (expression is null)
-        {
-            return null!;
-        }
-
-        var blocks = ExpressionParser.StrToBlockExpression(expression);
-        var nodes = ExpressionParser.BlockToNodeExpression(blocks);
+        var blocks = FromStrToBlocks(expression);
+        /* foreach (var b in blocks) Console.WriteLine(b); */
+        var nodes = FromBlocksToNodes(blocks);
+        /* foreach (var n in nodes) Console.WriteLine(n.Type); */
         return nodes;
     }
 
@@ -35,27 +33,72 @@ internal partial class ExpressionParser
     /// </summary>
     /// <param name="expression">the original string expression.</param>
     /// <returns>a list of string blocks.</returns>
-    internal static List<string> StrToBlockExpression(string expression)
+    internal static IEnumerable<string> FromStrToBlocks(string expression)
     {
         // From an expression string, iterate through each character and try to build up blocks of operands and operators.
         //  the block resets at either the next operator or the end of expression.
-        List<string> allBlocks = new List<string>();
-        StringBuilder block = new StringBuilder();
+        var blocks = new List<string>();
+        var block = new StringBuilder();
         foreach (var c in expression)
         {
             if (OperatorDict.ContainsKey(c))
             {
-                allBlocks.Add(block.ToString());
-                allBlocks.Add(c.ToString());
+                blocks.Add(block.ToString());
+                blocks.Add(c.ToString());
                 block = new StringBuilder();
-                continue;
             }
-
-            block.Append(c);
+            else
+            {
+                block.Append(c);
+            }
         }
 
-        allBlocks.Add(block.ToString());
-        return allBlocks;
+        blocks.Add(block.ToString()); // adds the final block.
+        return blocks;
+
+        /*
+        // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
+        var expression = "(A1+B2)+C3";
+        var paren = "{[()]}";
+
+        public static readonly Dictionary<char, Func<int>> OperatorDict = new ()
+        {
+          { '+', () => '+' },
+          { '-', () => '-' },
+          { '*', () => '*' },
+          { '/', () => '/' },
+        };
+
+        var operatorList = (
+            from op in OperatorDict
+            select op.Key).ToArray();
+
+        var operators = (
+            from c in expression
+            where operatorList.Contains(c)
+            select string.Empty + c
+        ).ToArray();
+
+        var operands = expression.Split(operatorList);
+
+        foreach(var block in operands)
+        {
+            if(block[0] is char c && paren.Contains(c))
+            {
+                Console.WriteLine(c);
+                Console.WriteLine(block[1..]);
+            }
+            else if (block[^1] is char d && paren.Contains(d))
+            {
+                Console.WriteLine(block[0..^1]);
+                Console.WriteLine(d);
+            }
+            else
+            {
+                Console.WriteLine(block);
+            }
+        }
+        */
     }
 
     /// <summary>
@@ -63,31 +106,15 @@ internal partial class ExpressionParser
     /// </summary>
     /// <param name="blocks">the expression previously converted into blocks.</param>
     /// <returns>the expression as nodes.</returns>
-    internal static List<Node> BlockToNodeExpression(List<string> blocks)
+    internal static IEnumerable<Node> FromBlocksToNodes(IEnumerable<string> blocks)
     {
-        List<Node> nodeExpr = new List<Node>();
-
-        foreach (var block in blocks)
-        {
-            Node newNode;
-
-            // when block's length is 1.
-            if (block.Length == 1)
-            {
-                var c = block[0];
-                newNode = ExpressionParser.NodeFromChar(c);
-            }
-
-            // otherwise, when block's length is larger than 1.
-            else
-            {
-                newNode = ExpressionParser.NodeFromStr(block);
-            }
-
-            nodeExpr.Add(newNode);
-        }
-
-        return nodeExpr;
+        var nodes = (
+            from block in blocks
+            select (block.Length == 1)
+                ? NodeFromChar(block[0])
+                : NodeFromStr(block)
+        ).ToImmutableList();
+        return nodes;
     }
 
     /// <summary>
@@ -97,14 +124,9 @@ internal partial class ExpressionParser
     /// <returns>a new specialized operator node.</returns>
     internal static Node OpNodeFactory(char op)
     {
-        if (OperatorDict.ContainsKey(op))
-        {
-            return OperatorDict[op].Invoke();
-        }
-        else
-        {
-            throw new NotImplementedException("This operator is not supported.");
-        }
+        return OperatorDict.ContainsKey(op)
+            ? OperatorDict[op].Invoke()
+            : throw new NotImplementedException("This operator is not supported.");
     }
 
     /// <summary>
@@ -115,22 +137,18 @@ internal partial class ExpressionParser
     private static Node NodeFromChar(char c)
     {
         Node newNode;
-        var alphabet = UpperCase;
-        var numerical = Digits;
         if (OperatorDict.ContainsKey(c))
         {
             newNode = OpNodeFactory(c); // operator node: DONE
         }
-        else if (alphabet.Contains(c))
+        else if (UpperCase.Contains(c))
         {
             newNode = new VarNode("var"); // var node
         }
-        else if (numerical.Contains(c))
+        else if (Digits.Contains(c))
         {
             newNode = new ConstNode(c - '0'); // constant node
         }
-
-        // for all other cases.
         else
         {
             throw new NotImplementedException();
@@ -149,17 +167,18 @@ internal partial class ExpressionParser
         Node newNode;
         try
         {
-            int constant = int.Parse(block);
+            var constant = int.Parse(block);
             newNode = new ConstNode(constant);
         }
         catch (FormatException)
         {
             newNode = new VarNode(block);
+            Console.WriteLine("Safely caught the parsed string as int.");
         }
-        catch (Exception ex2)
+        catch (Exception e)
         {
-            Console.WriteLine(ex2);
-            throw new NotImplementedException("Exception in NodeFromStr.");
+            Console.WriteLine(e);
+            throw new NotImplementedException("Unable to parse string into int.");
         }
 
         return newNode;

@@ -16,7 +16,6 @@ public class OperatorNodeTests
     [TestCase('/', ExpectedResult = "OpNodeDiv")]
     public string OpNodeFactoryTest(char op)
     {
-        var parser = new ExpressionParser();
         var newNode = ExpressionParser.OpNodeFactory(op);
         return newNode.Type;
     }

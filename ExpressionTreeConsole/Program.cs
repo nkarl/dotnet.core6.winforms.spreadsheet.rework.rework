@@ -30,19 +30,7 @@ void ExecuteConsoleApp(bool appIsRunning)
             case "1": // Asks user to enter an expression.
                 Console.Write("Enter an expression: ");
                 currentExpression = Console.ReadLine() ?? string.Empty;
-                /*
-                    TODO: Implement the class instantiation of the class ExpressionTree.
-                 */
-
-                ExpressionParser parser = new ExpressionParser();
-                var blocks = ExpressionParser.StrToBlockExpression(currentExpression);
-                /*
-                foreach (var b in blocks) Console.WriteLine(b);
-                */
-                var nodes = ExpressionParser.BlockToNodeExpression(blocks);
-                /*
-                foreach (var n in nodes) Console.WriteLine(n.Type);
-                */
+                var nodes = ExpressionParser.Parse(currentExpression);
                 break;
 
             case "2": // Sets a variable in the expression tree.
