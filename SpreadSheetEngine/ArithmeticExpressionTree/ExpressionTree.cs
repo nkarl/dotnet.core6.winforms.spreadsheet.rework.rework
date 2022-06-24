@@ -2,7 +2,6 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionTreeTests")]
@@ -11,12 +10,6 @@ using System.Runtime.CompilerServices;
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /*
@@ -50,7 +43,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// <summary>
     /// The data structure for arithmetic expressions.
     /// </summary>
-    internal partial class ExpressionTree : BinaryTree
+    internal class ExpressionTree : BinaryTree
     {
         /*
             TODO:
@@ -61,7 +54,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression as input string.</param>
-        public ExpressionTree(string? expression = "A1+B2+C3")
+        public ExpressionTree(string expression = "A1+B2+C3")
             : base(expression)
         {
             /*
