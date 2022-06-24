@@ -2,6 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree;
 
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
@@ -24,6 +26,14 @@ internal partial class ExpressionTree
     /*
      * TODO: MOVE THE CORE CONSTRUCTION TO AN ABSTRACT CLASS, BinaryOperatorTree.
      */
+
+    internal static Dictionary<char, Func<OpNode, OpNode>> CastingDict = new ()
+    {
+        { '+', (OpNode x) => (OpNodeAdd)x },
+        { '-', (OpNode x) => (OpNodeSub)x },
+        { '*', (OpNode x) => (OpNodeMul)x },
+        { '/', (OpNode x) => (OpNodeDiv)x },
+    };
 
     /// <summary>
     /// Gets the root node of this tree.

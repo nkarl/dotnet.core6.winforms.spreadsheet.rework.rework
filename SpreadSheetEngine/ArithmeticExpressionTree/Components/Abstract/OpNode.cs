@@ -14,7 +14,7 @@ public abstract class OpNode : Node
     /// <summary>
     /// The operator to be assigned.
     /// </summary>
-    protected static char op;
+    protected static char symbol;
 
     /// <summary>
     /// The precedence to be assigned.
@@ -38,7 +38,7 @@ public abstract class OpNode : Node
     /// <summary>
     /// Gets the character denoting this operator.
     /// </summary>
-    public char Op => op;
+    public char Symbol => symbol;
 
     /// <summary>
     /// Gets the precedence of this operator.

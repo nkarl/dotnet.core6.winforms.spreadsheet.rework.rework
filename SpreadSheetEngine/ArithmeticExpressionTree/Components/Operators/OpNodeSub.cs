@@ -14,7 +14,7 @@ public class OpNodeSub : OpNode
 {
    static OpNodeSub()
    {
-      op = '-';
+      symbol = '-';
       precedence = 10;
       associativity = OpAssociativity.LTR;
    }

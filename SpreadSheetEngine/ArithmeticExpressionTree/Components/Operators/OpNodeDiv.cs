@@ -14,7 +14,7 @@ public class OpNodeDiv : OpNode
 {
    static OpNodeDiv()
    {
-      op = '/';
+      symbol = '/';
       precedence = 11;
       associativity = OpAssociativity.LTR;
    }

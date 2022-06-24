@@ -14,7 +14,7 @@ public class OpNodeMul : OpNode
 {
    static OpNodeMul()
    {
-      op = '*';
+      symbol = '*';
       precedence = 11;
       associativity = OpAssociativity.LTR;
    }

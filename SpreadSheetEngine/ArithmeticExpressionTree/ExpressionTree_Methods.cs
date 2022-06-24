@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionTree.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionTree_Methods.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -29,34 +29,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Makes a new tree from a postfix list.
-        /// </summary>
-        /// <param name="postfix">the postfix.</param>
-        /// <returns>the new root node of the tree.</returns>
-        internal Node MakeTree(IEnumerable<Node> postfix)
-        {
-            var stack = new Stack<Node>();
-
-            foreach (var node in postfix)
-            {
-                if (node is OpNode op)
-                {
-                    var newOp = ExpressionParser.OperatorDict[op.Op].Invoke();
-                    newOp.Right = stack.Pop();
-                    newOp.Left = stack.Pop();
-                    stack.Push(newOp);
-                }
-                else
-                {
-                    stack.Push(node);
-                }
-            }
-
-            this.Root = stack.Pop();
-            return this.Root;
-        }
-
-        /// <summary>
         /// Sets the variable in the expression tree.
         /// </summary>
         /// <param name="varName">name of the variable.</param>
@@ -79,6 +51,34 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 TODO: Provides implementation for tree evaluation.
              */
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Makes a new tree from a postfix list.
+        /// </summary>
+        /// <param name="postfix">the postfix.</param>
+        /// <returns>the new root node of the tree.</returns>
+        private Node MakeTree(IEnumerable<Node> postfix)
+        {
+            var stack = new Stack<Node>();
+
+            foreach (var node in postfix)
+            {
+                if (node is OpNode opNode)
+                {
+                    // opNode = CastingDict[opNode.Symbol].Invoke(opNode);
+                    opNode.Right = stack.Pop();
+                    opNode.Left = stack.Pop();
+                    stack.Push(opNode);
+                }
+                else
+                {
+                    stack.Push(node);
+                }
+            }
+
+            this.Root = stack.Pop();
+            return this.Root;
         }
 
         /*
