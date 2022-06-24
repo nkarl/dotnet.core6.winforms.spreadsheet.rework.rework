@@ -2,15 +2,14 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
-
 namespace SpreadSheetEngine.ArithmeticExpressionTree;
 
 using System.Text;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components;
 using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 using System.Collections.Immutable;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+
 
 /// <summary>
 /// Contains the methods of the Parser.
@@ -43,44 +42,39 @@ internal static partial class ExpressionParser
             // otherwise, check operator's conditions.
             else
             {
-                // If stack is empty, push the incoming operator on the stack.
-                var top = (opStack.Peek() is OpNode t) ? t : null;
-                if (top is null)
+                if (opStack.Count == 0)
                 {
-                    opStack.Push(incomingOp);
-                    continue;
                 }
-
-                // compare precedence between stackTop and incomingOp.
-                // If precedence of incoming is higher, push incoming to stack.
-                // on the stack.
-                if (incomingOp.Precedence > top.Precedence)
+                else
                 {
-                    opStack.Push(incomingOp);
-                    continue;
-                }
-
-                if (top.Precedence == incomingOp.Precedence)
-                {
-                    if (incomingOp.Associativity == OpAssociativity.LTR)
+                    if (incomingOp.Precedence > ((OpNode)opStack.Peek()).Precedence)
                     {
-                        postfix.Add(opStack.Pop());
                     }
-
-                    opStack.Push(incomingOp);
-                    continue;
-                }
-
-                // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
-                // and then continue testing the new top.
-                while (top != null && incomingOp.Precedence < top.Precedence)
-                {
-                    postfix.Add(opStack.Pop());
-                    top = opStack.Peek() is OpNode t1 ? t1 : null;
+                    else if (incomingOp.Precedence == ((OpNode)opStack.Peek()).Precedence)
+                    {
+                        if (incomingOp.Associativity == OpAssociativity.LTR)
+                        {
+                            postfix.Add(opStack.Pop());
+                        }
+                    }
+                    else
+                    {
+                        // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
+                        // and then continue the same test on the new top.
+                        for (; opStack.Count > 0 && incomingOp.Precedence < ((OpNode)opStack.Peek()).Precedence;)
+                        {
+                            postfix.Add(opStack.Pop());
+                        }
+                    }
                 }
 
                 opStack.Push(incomingOp);
             }
+        }
+
+        for (; opStack.Count > 0;)
+        {
+            postfix.Add(opStack.Pop());
         }
 
         return postfix;
