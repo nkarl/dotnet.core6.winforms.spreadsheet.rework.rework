@@ -4,8 +4,18 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
+/// <summary>
+/// The associativity of a operator.
+/// </summary>
 public enum OpAssociativity
 {
-    RTL = -1,
-    LTR = 1,
+    /// <summary>
+    /// Right to Left associative.
+    /// </summary>
+    Rightward = -1,
+
+    /// <summary>
+    /// Left to Right associative.
+    /// </summary>
+    Leftward = 1,
 }

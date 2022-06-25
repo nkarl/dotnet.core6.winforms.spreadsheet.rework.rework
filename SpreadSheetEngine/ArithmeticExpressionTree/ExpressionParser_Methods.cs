@@ -49,7 +49,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         }
                         else if (incomingOp.Precedence == ((OpNode)opStack.Peek()).Precedence)
                         {
-                            if (incomingOp.Associativity == OpAssociativity.LTR)
+                            if (incomingOp.Associativity == OpAssociativity.Leftward)
                             {
                                 postfix.Add(opStack.Pop());
                             }

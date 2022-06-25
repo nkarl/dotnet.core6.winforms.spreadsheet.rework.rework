@@ -2,20 +2,21 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
-
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
-
-/// <summary>
-/// The Operator Node for Addition.
-/// </summary>
-public class OpNodeAdd : OpNode
+namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
 {
-   static OpNodeAdd()
+   using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+   using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+
+   /// <summary>
+   /// The Operator Node for Addition.
+   /// </summary>
+   public class OpNodeAdd : OpNode
    {
-      symbol = '+';
-      precedence = 10;
-      associativity = OpAssociativity.LTR;
+      static OpNodeAdd()
+      {
+         symbol = '+';
+         precedence = 10;
+         associativity = OpAssociativity.Leftward;
+      }
    }
 }
