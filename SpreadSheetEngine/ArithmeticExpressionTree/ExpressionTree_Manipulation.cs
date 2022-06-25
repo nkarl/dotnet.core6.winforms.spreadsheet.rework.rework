@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
     /// The Binary Tree to hold all nodes in an arithmetic expression tree.
