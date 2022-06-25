@@ -23,15 +23,23 @@ void ExecuteConsoleApp(bool appIsRunning)
 {
     while (appIsRunning)
     {
+        ExpressionTree? tree = null;
+
         Console.Write($"\tEnter a menu option: ");
         option = Console.ReadLine() ?? string.Empty;
         switch (option)
         {
             case "1": // Asks user to enter an expression.
+                /*
+                 * TODO: Clean up the logic of this case.
+                 */
                 Console.Write("Enter an expression: ");
                 currentExpression = Console.ReadLine() ?? string.Empty;
+                tree = new ExpressionTree(currentExpression);
+                /*
                 var nodes = ExpressionParser.Parse(currentExpression);
                 var postfix = ExpressionParser.MakePostfix(nodes);
+                */
                 break;
 
             case "2": // Sets a variable in the expression tree.
@@ -42,10 +50,12 @@ void ExecuteConsoleApp(bool appIsRunning)
                 break;
 
             case "3": // Evaluates the expression tree.
-                Console.WriteLine("Evaluating the expression");
                 /*
-                    TODO: Implement the option to evaluate the ExpressionTree.
+                 * TODO: Clean up the logic of this case.
                  */
+                Console.WriteLine("Evaluating the expression");
+                tree ??= new ExpressionTree();
+                tree.Evaluate();
                 break;
 
             case "4": // Quits the app.
