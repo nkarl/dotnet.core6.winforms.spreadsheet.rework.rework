@@ -21,10 +21,10 @@ void DisplayMenu()
 
 void ExecuteConsoleApp(bool appIsRunning)
 {
+    ExpressionTree? tree = null;
+
     while (appIsRunning)
     {
-        ExpressionTree? tree = null;
-
         Console.Write($"\tEnter a menu option: ");
         option = Console.ReadLine() ?? string.Empty;
         switch (option)
