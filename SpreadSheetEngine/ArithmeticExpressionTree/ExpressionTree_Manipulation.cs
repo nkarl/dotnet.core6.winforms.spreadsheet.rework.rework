@@ -36,10 +36,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>final result of type double.</returns>
         internal double Evaluate()
         {
-            /*
-                TODO: Provides implementation for tree evaluation.
-             */
-            throw new NotImplementedException();
+            return this.Eval(this.Root);
         }
 
         /// <summary>
@@ -59,6 +56,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 /*
                  * TODO: Implement the logic for extracting value from VarNode or ConstNode.
                  */
+                return 0;
             }
             else
             {
