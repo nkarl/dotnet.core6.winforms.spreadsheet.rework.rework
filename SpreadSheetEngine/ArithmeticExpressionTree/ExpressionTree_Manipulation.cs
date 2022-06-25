@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Runtime.CompilerServices;
+using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
 [assembly: InternalsVisibleTo("ExpressionTreeTests")]
 [assembly: InternalsVisibleTo("ExpressionTreeConsole")]
@@ -41,6 +42,33 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// traverse and eval the tree.
+        /// </summary>
+        /// <param name="node">the current node in the tree.</param>
+        /// <returns>a double value (evaluated).</returns>
+        private double Eval(Node? node)
+        {
+            if (node is null)
+            {
+                return 0;
+            }
+
+            if (node is not OpNode op)
+            {
+                /*
+                 * TODO: Implement the logic for extracting value from VarNode or ConstNode.
+                 */
+            }
+            else
+            {
+                double leftValue = this.Eval(op.Left);
+                double rightValue = this.Eval(op.Right);
+
+                return UseOperator[op.Symbol].Invoke(leftValue, rightValue);
+            }
+        }
+
         /*
          * REQUIREMENTS FOR THE TREE:
          *  - Supports operators +, -, *, /
@@ -53,7 +81,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          *      + ConstantNode (NO CHILDREN)
          *      + VariableNode (NO CHILDREN)
          *      + BinaryOperatorNode
-
+         *
          *  - Supports multichar values like "A2"
          *
          *  - Requirements for variables:

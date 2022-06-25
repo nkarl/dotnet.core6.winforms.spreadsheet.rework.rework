@@ -2,6 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Reflection.PortableExecutable;
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
@@ -27,10 +29,18 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         private static readonly Dictionary<char, Func<OpNode, OpNode>> OperatorCastDict = new ()
         {
-            { '+', (x) => (OpNodeAdd)x },
-            { '-', (x) => (OpNodeSub)x },
-            { '*', (x) => (OpNodeMul)x },
-            { '/', (x) => (OpNodeDiv)x },
+            { '+', (op) => (OpNodeAdd)op },
+            { '-', (op) => (OpNodeSub)op },
+            { '*', (op) => (OpNodeMul)op },
+            { '/', (op) => (OpNodeDiv)op },
+        };
+
+        private static readonly Dictionary<char, Func<double, double, double>> UseOperator = new ()
+        {
+            { '+', (a, b) => a + b },
+            { '-', (a, b) => a - b },
+            { '*', (a, b) => a * b },
+            { '/', (a, b) => a / b },
         };
 
         /// <summary>
