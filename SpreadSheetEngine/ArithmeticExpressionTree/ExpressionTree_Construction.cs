@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionTree_Fields.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionTree_Construction.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -20,10 +20,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          *  - OPERATORS ARE INTERNAL NODES.
          *  - OPERANDS ARE LEAF NODES.
          *
-         */
-
-        /*
-         * TODO: MOVE THE CORE CONSTRUCTION TO AN ABSTRACT CLASS, BinaryOperatorTree.
          */
 
         /// <summary>
@@ -52,5 +48,33 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// Gets or sets the root node of this tree.
         /// </summary>
         private Node? Root { get; set; }
+
+        /// <summary>
+        /// Makes a new tree from a postfix list.
+        /// </summary>
+        /// <param name="postfix">the postfix.</param>
+        /// <returns>the new root node of the tree.</returns>
+        private Node MakeTree(IEnumerable<Node> postfix)
+        {
+            var stack = new Stack<Node>();
+
+            foreach (var node in postfix)
+            {
+                if (node is OpNode op)
+                {
+                    op = OperatorCastDict[op.Symbol].Invoke(op);
+                    op.Right = stack.Pop();
+                    op.Left = stack.Pop();
+                    stack.Push(op);
+                }
+                else
+                {
+                    stack.Push(node);
+                }
+            }
+
+            this.Root = stack.Pop();
+            return this.Root;
+        }
     }
 }

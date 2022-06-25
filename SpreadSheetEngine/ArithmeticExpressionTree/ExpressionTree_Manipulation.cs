@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionTree_Methods.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionTree_Manipulation.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -40,34 +40,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 TODO: Provides implementation for tree evaluation.
              */
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Makes a new tree from a postfix list.
-        /// </summary>
-        /// <param name="postfix">the postfix.</param>
-        /// <returns>the new root node of the tree.</returns>
-        private Node MakeTree(IEnumerable<Node> postfix)
-        {
-            var stack = new Stack<Node>();
-
-            foreach (var node in postfix)
-            {
-                if (node is OpNode op)
-                {
-                    // op = OperatorCastDict[op.Symbol].Invoke(op);
-                    op.Right = stack.Pop();
-                    op.Left = stack.Pop();
-                    stack.Push(op);
-                }
-                else
-                {
-                    stack.Push(node);
-                }
-            }
-
-            this.Root = stack.Pop();
-            return this.Root;
         }
 
         /*
