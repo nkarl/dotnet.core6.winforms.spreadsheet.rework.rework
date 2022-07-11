@@ -58,13 +58,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                  */
                 return 0;
             }
-            else
-            {
-                double leftValue = this.Eval(op.Left);
-                double rightValue = this.Eval(op.Right);
 
-                return UseOperator[op.Symbol].Invoke(leftValue, rightValue);
-            }
+            double leftValue = this.Eval(op.Left);
+            double rightValue = this.Eval(op.Right);
+
+            return EvaluateOperator[op.Symbol].Invoke(leftValue, rightValue);
         }
 
         /*

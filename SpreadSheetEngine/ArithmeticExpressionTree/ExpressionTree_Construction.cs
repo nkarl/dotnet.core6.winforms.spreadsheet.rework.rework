@@ -33,7 +33,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', (op) => (OpNodeDiv)op },
         };
 
-        private static readonly Dictionary<char, Func<double, double, double>> UseOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> EvaluateOperator = new ()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
