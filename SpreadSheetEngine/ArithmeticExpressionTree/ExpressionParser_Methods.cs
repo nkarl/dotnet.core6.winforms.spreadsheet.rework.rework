@@ -118,13 +118,22 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             blockExpression.Add(block.ToString()); // adds the final block.
             return blockExpression;
+        }
 
-            /*
+        public static void TestBraces(string expression)
+        {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
-            var expression = "(A1+B2)+C3";
-            var braces = "{[()]}";
+            // var expression = "(A1+B2)+C3";
+            var braces = "{[()]}";  // the braces should probably be put into a dict as key-value pair.
 
-            Dictionary<char, Func<char>> OperatorSymbolDict = new ()
+            Dictionary<char, char> BraceDict = new ()
+            {
+                { '{', '}' },
+                { '[', ']' },
+                { '(', ')' },
+            };
+
+            Dictionary<char, Func<char>> OperatorDict = new ()
             {
               { '+', () => '+' },
               { '-', () => '-' },
@@ -136,6 +145,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 from op in OperatorDict
                 select op.Key).ToArray();
 
+
+            // var operatorList = opList.ToArray();
+
             // first, parse only operators from the expression.
             var operators = (
                 from c in expression
@@ -146,24 +158,23 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             // then, parse only operands by splitting it by operators.
             var operands = expression.Split(operatorList);
 
-            foreach(var block in operands)
+            foreach (var block in operands)
             {
-                if(block[0] is char braceOpen && braces.Contains(braceOpen))
+                if (block[0] is char openB && braces.Contains(openB))
                 {
-                    Console.WriteLine(braceOpen);
+                    Console.WriteLine(openB);
                     Console.WriteLine(block[1..]);
                 }
-                else if (block[^1] is char braceClose && braces.Contains(braceClose))
+                else if (block[^1] is char closeB && braces.Contains(closeB))
                 {
                     Console.WriteLine(block[0..^1]);
-                    Console.WriteLine(braceClose);
+                    Console.WriteLine(closeB);
                 }
                 else
                 {
                     Console.WriteLine(block);
                 }
             }
-            */
         }
 
         /// <summary>
