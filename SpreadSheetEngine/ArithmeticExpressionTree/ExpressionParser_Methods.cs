@@ -11,15 +11,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
-    /// Contains the methods of the Parser.
+    /// Contains methods only.
+    ///
+    /// This is a static class. It takes an input expression as string and process that into a node-based
+    /// version ready to be consumed by the Expression Tree's constructor.
+    ///
     /// </summary>
     internal static partial class ExpressionParser
     {
-        /*
-         * TODO: IMPLEMENT THE POSTFIX CONVERSION FOR THE NODES.
-         *
-         */
-
         /// <summary>
         /// Make a postfix from an infix list of nodes.
         /// </summary>
@@ -32,8 +31,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var node in infix)
             {
-                // if node is not an operator node, add it to postfix.
-                if (node is not OpNode incomingOp)
+                // if node is not an operator, add it to postfix.
+                if (node is not OpNode incoming)
                 {
                     postfix.Add(node);
                 }
@@ -44,12 +43,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     }
                     else
                     {
-                        if (incomingOp.Precedence > ((OpNode)opStack.Peek()).Precedence)
+                        if (incoming.Precedence > ((OpNode)opStack.Peek()).Precedence)
                         {
                         }
-                        else if (incomingOp.Precedence == ((OpNode)opStack.Peek()).Precedence)
+                        else if (incoming.Precedence == ((OpNode)opStack.Peek()).Precedence)
                         {
-                            if (incomingOp.Associativity == OpAssociativity.Leftward)
+                            if (incoming.Associativity == OpAssociativity.Leftward)
                             {
                                 postfix.Add(opStack.Pop());
                             }
@@ -58,14 +57,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         {
                             // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
                             // and then continue the same test on the new top.
-                            for (; opStack.Count > 0 && incomingOp.Precedence < ((OpNode)opStack.Peek()).Precedence;)
+                            for (; opStack.Count > 0 && incoming.Precedence < ((OpNode)opStack.Peek()).Precedence;)
                             {
                                 postfix.Add(opStack.Pop());
                             }
                         }
                     }
 
-                    opStack.Push(incomingOp);
+                    opStack.Push(incoming);
                 }
             }
 
@@ -74,7 +73,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 postfix.Add(opStack.Pop());
             }
 
-            // foreach (var op in postfix) Console.WriteLine(op.Type);
+            /* foreach (var op in postfix) Console.WriteLine(op.Type); */
             return postfix;
         }
 
@@ -101,31 +100,31 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             // From an expression string, iterate through each character and try to build up blocks of operands and operators.
             //  the block resets at either the next operator or the end of expression.
-            var blocks = new List<string>();
+            var blockExpression = new List<string>();
             var block = new StringBuilder();
             foreach (var c in expression)
             {
                 if (OperatorDict.ContainsKey(c))
                 {
-                    blocks.Add(block.ToString());
-                    blocks.Add(c.ToString());
-                    block = new StringBuilder();
+                    blockExpression.Add(block.ToString());  // adds the operand as new block.
+                    blockExpression.Add(c.ToString());      // adds the detected operator as new block.
+                    block = new StringBuilder();                // resets the block.
                 }
                 else
                 {
-                    block.Append(c);
+                    block.Append(c);    // otherwise, continue appending the character to the block.
                 }
             }
 
-            blocks.Add(block.ToString()); // adds the final block.
-            return blocks;
+            blockExpression.Add(block.ToString()); // adds the final block.
+            return blockExpression;
 
             /*
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
             var expression = "(A1+B2)+C3";
-            var paren = "{[()]}";
+            var braces = "{[()]}";
 
-            public static readonly Dictionary<char, Func<int>> OperatorDict = new ()
+            Dictionary<char, Func<char>> OperatorSymbolDict = new ()
             {
               { '+', () => '+' },
               { '-', () => '-' },
@@ -137,25 +136,27 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 from op in OperatorDict
                 select op.Key).ToArray();
 
+            // first, parse only operators from the expression.
             var operators = (
                 from c in expression
                 where operatorList.Contains(c)
                 select string.Empty + c
             ).ToArray();
 
+            // then, parse only operands by splitting it by operators.
             var operands = expression.Split(operatorList);
 
             foreach(var block in operands)
             {
-                if(block[0] is char c && paren.Contains(c))
+                if(block[0] is char braceOpen && braces.Contains(braceOpen))
                 {
-                    Console.WriteLine(c);
+                    Console.WriteLine(braceOpen);
                     Console.WriteLine(block[1..]);
                 }
-                else if (block[^1] is char d && paren.Contains(d))
+                else if (block[^1] is char braceClose && braces.Contains(braceClose))
                 {
                     Console.WriteLine(block[0..^1]);
-                    Console.WriteLine(d);
+                    Console.WriteLine(braceClose);
                 }
                 else
                 {

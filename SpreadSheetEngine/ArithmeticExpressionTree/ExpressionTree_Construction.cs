@@ -2,8 +2,6 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-using System.Reflection.PortableExecutable;
-
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
@@ -68,6 +66,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             var stack = new Stack<Node>();
 
+            // For each item in the postfix, push to stack if it is NOT an OpNode,
+            // otherwise do some magic and then push it.
             foreach (var node in postfix)
             {
                 if (node is OpNode op)
