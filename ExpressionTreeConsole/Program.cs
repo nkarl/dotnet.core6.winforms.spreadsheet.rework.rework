@@ -30,20 +30,13 @@ void ExecuteConsoleApp(bool appIsRunning)
         switch (option)
         {
             case "1": // Asks user to enter an expression.
-                /*
-                 * TODO: Clean up the logic of this case.
-                 */
-                Console.Write("Enter an expression: ");
+                Console.Write("\tEnter an expression: ");
                 currentExpression = Console.ReadLine() ?? string.Empty;
                 tree = new ExpressionTree(currentExpression);
-                /*
-                var nodes = ExpressionParser.Parse(currentExpression);
-                var postfix = ExpressionParser.MakePostfix(nodes);
-                */
                 break;
 
             case "2": // Sets a variable in the expression tree.
-                Console.WriteLine("Setting a variable");
+                Console.WriteLine("\tSetting a variable . . .");
                 /*
                     TODO: Implement the option for setting a variable in the ExpressionTree.
                  */
@@ -53,7 +46,7 @@ void ExecuteConsoleApp(bool appIsRunning)
                 /*
                  * TODO: Clean up the logic of this case.
                  */
-                Console.WriteLine("Evaluating the expression");
+                Console.WriteLine("\tEvaluating the expression . . .");
                 tree ??= new ExpressionTree();
                 tree.Evaluate();
                 break;
