@@ -5,6 +5,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionParserTests")]
+[assembly: InternalsVisibleTo("PostFixMakerConsole")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {

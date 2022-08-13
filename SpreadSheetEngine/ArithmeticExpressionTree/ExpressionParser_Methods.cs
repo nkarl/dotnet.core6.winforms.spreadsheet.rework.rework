@@ -26,9 +26,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>a postfix list of nodes.</returns>
         public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
         {
-            var opStack = new Stack<Node>();
+            var stack = new Stack<Node>();
             var postfix = new List<Node>();
-
+            int count = 0;
             foreach (var node in infix)
             {
                 // if node is not an operator, add it to postfix.
@@ -38,44 +38,125 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
-                    if (opStack.Count == 0)
+                    if (stack.Count == 0)
                     {
                     }
                     else
                     {
-                        if (incoming.Precedence > ((OpNode)opStack.Peek()).Precedence)
+                        if (incoming.Precedence > ((OpNode)stack.Peek()).Precedence)
                         {
                         }
-                        else if (incoming.Precedence == ((OpNode)opStack.Peek()).Precedence)
+                        else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                         {
                             if (incoming.Associativity == OpAssociativity.Leftward)
                             {
-                                postfix.Add(opStack.Pop());
+                                postfix.Add(stack.Pop());
                             }
                         }
                         else
                         {
                             // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
                             // and then continue the same test on the new top.
-                            for (; opStack.Count > 0 && incoming.Precedence < ((OpNode)opStack.Peek()).Precedence;)
+                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
                             {
-                                postfix.Add(opStack.Pop());
+                                postfix.Add(stack.Pop());
                             }
                         }
                     }
 
-                    opStack.Push(incoming);
+                    stack.Push(incoming);
                 }
+
+                /*
+                 * TODO: FIX THE LOGIC OF PRECEDENCE CHECK.
+                 */
+                Console.Write("INFIX  : ");
+                foreach (var i in infix)
+                {
+                    Console.Write(i.Type + " ");
+                }
+                Console.WriteLine();
+
+                Console.WriteLine($"NODE {count} : {node.Type}");
+                Console.Write("STACK  : ");
+                foreach (var i in stack)
+                {
+                    Console.Write(i.Type + " ");
+                }
+                Console.WriteLine();
+
+                Console.Write("POSTFIX: ");
+                foreach (var i in postfix)
+                {
+                    Console.Write(i.Type + " ");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+                ++count;
             }
 
-            for (; opStack.Count > 0;)
+            for (; stack.Count > 0;)
             {
-                postfix.Add(opStack.Pop());
+                postfix.Add(stack.Pop());
             }
 
             /* foreach (var op in postfix) Console.WriteLine(op.Type); */
             return postfix;
         }
+
+        /*
+        public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
+        {
+            var stack = new Stack<Node>();
+            var postfix = new List<Node>();
+            foreach (var node in infix)
+            {
+                // if node is not an operator, add it to postfix.
+                if (node is not OpNode incoming)
+                {
+                    postfix.Add(node);
+                }
+                else
+                {
+                    if (stack.Count == 0)
+                    {
+                    }
+                    else
+                    {
+                        if (incoming.Precedence > ((OpNode)stack.Peek()).Precedence)
+                        {
+                        }
+                        else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
+                        {
+                            if (incoming.Associativity == OpAssociativity.Leftward)
+                            {
+                                postfix.Add(stack.Pop());
+                            }
+                        }
+                        else
+                        {
+                            // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
+                            // and then continue the same test on the new top.
+                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
+                            {
+                                postfix.Add(stack.Pop());
+                            }
+                        }
+                    }
+
+                    stack.Push(incoming);
+                }
+            }
+
+            for (; stack.Count > 0;)
+            {
+                postfix.Add(stack.Pop());
+            }
+
+            /* foreach (var op in postfix) Console.WriteLine(op.Type); #1#
+            return postfix;
+        }
+        */
 
         /// <summary>
         /// Parses a given string into a list of nodes.
@@ -120,6 +201,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return blockExpression;
         }
 
+        /*
         public static void TestBraces(string expression)
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
@@ -176,6 +258,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
             }
         }
+        */
 
         /// <summary>
         /// Converts the block expression into a node expression.
