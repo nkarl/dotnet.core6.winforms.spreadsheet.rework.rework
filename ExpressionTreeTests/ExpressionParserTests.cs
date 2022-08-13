@@ -11,6 +11,15 @@
         {
         }
 
+        [TestCase("A1+B2+C3", new []{"A1", "+", "B2", "+", "C3"})]
+        [TestCase("A1+Hello+2", new []{"A1", "+", "Hello", "+", "2"})]
+        [TestCase("A+Hello+b", new []{"A", "+", "Hello", "+", "b"})]
+        public void FromExpressionToBlocksTest(string expression, string[] blocks)
+        {
+            var output = ExpressionParser.FromStrToBlocks(expression).ToArray();
+            Assert.That(output, Is.EqualTo(blocks));
+        }
+
         [TestCase("A1+B2+C3", new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeAdd", "VarNode" })]
         [TestCase("A1+22+C3", new [] { "VarNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "VarNode" })]
         [TestCase("11+22+33", new [] { "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "ConstNode" })]
