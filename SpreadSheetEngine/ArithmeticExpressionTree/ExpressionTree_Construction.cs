@@ -8,7 +8,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /// <summary>
-    /// The Binary Tree to hold all nodes in an arithmetic expression tree.
+    ///     The Binary Tree to hold all nodes in an arithmetic expression tree.
     /// </summary>
     internal partial class ExpressionTree
     {
@@ -23,17 +23,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          */
 
         /// <summary>
-        /// Dictionary for casting from the general OpNode to specialized operator node.
+        ///     Dictionary for casting from the general OpNode to specialized operator node.
         /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> OperatorCastDict = new ()
+        private static readonly Dictionary<char, Func<OpNode, OpNode>> OperatorCastDict = new()
         {
-            { '+', (op) => (OpNodeAdd)op },
-            { '-', (op) => (OpNodeSub)op },
-            { '*', (op) => (OpNodeMul)op },
-            { '/', (op) => (OpNodeDiv)op },
+            { '+', op => (OpNodeAdd)op },
+            { '-', op => (OpNodeSub)op },
+            { '*', op => (OpNodeMul)op },
+            { '/', op => (OpNodeDiv)op },
         };
 
-        private static readonly Dictionary<char, Func<double, double, double>> EvaluateOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> EvaluateOperator = new()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
@@ -42,7 +42,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExpressionTree"/> class.
+        ///     Initializes a new instance of the <see cref="ExpressionTree" /> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string expression = "A1+B2+C3")
@@ -53,12 +53,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Gets or sets the root node of this tree.
+        ///     Gets or sets the root node of this tree.
         /// </summary>
         private Node? Root { get; set; }
 
         /// <summary>
-        /// Makes a new tree from a postfix list.
+        ///     Makes a new tree from a postfix list.
         /// </summary>
         /// <param name="postfix">the postfix.</param>
         /// <returns>the new root node of the tree.</returns>

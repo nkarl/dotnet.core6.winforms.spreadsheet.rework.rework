@@ -4,11 +4,11 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    using Abstract;
+    using EnumAttributes;
 
     /// <summary>
-    /// The Operator Node for Division.
+    ///     The Operator Node for Division.
     /// </summary>
     public class OpNodeDiv : OpNode
     {

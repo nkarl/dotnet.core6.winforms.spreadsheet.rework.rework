@@ -1,22 +1,23 @@
-﻿using SpreadSheetEngine.ArithmeticExpressionTree;
-
-namespace ExpressionTreeTests;
-
-[TestFixture]
-public class OperatorNodeTests
+﻿namespace ExpressionTreeTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
+    using SpreadSheetEngine.ArithmeticExpressionTree;
 
-    [TestCase('+', ExpectedResult = "OpNodeAdd")]
-    [TestCase('-', ExpectedResult = "OpNodeSub")]
-    [TestCase('*', ExpectedResult = "OpNodeMul")]
-    [TestCase('/', ExpectedResult = "OpNodeDiv")]
-    public string OpNodeFactoryTest(char op)
+    [TestFixture]
+    public class OperatorNodeTests
     {
-        var newNode = ExpressionParser.OpNodeFactory(op);
-        return newNode.Type;
+        [SetUp]
+        public void Setup()
+        {
+        }
+
+        [TestCase('+', ExpectedResult = "OpNodeAdd")]
+        [TestCase('-', ExpectedResult = "OpNodeSub")]
+        [TestCase('*', ExpectedResult = "OpNodeMul")]
+        [TestCase('/', ExpectedResult = "OpNodeDiv")]
+        public string OpNodeFactoryTest(char op)
+        {
+            var newNode = ExpressionParser.OpNodeFactory(op);
+            return newNode.Type;
+        }
     }
 }

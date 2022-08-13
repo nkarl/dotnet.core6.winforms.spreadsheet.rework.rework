@@ -11,16 +11,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
-    /// Contains methods only.
-    ///
-    /// This is a static class. It takes an input expression as string and process that into a node-based
-    /// version ready to be consumed by the Expression Tree's constructor.
-    ///
+    ///     Contains methods only.
+    ///     This is a static class. It takes an input expression as string and process that into a node-based
+    ///     version ready to be consumed by the Expression Tree's constructor.
     /// </summary>
     internal static partial class ExpressionParser
     {
         /// <summary>
-        /// Make a postfix from an infix list of nodes.
+        ///     Make a postfix from an infix list of nodes.
         /// </summary>
         /// <param name="infix">the infix list of nodes.</param>
         /// <returns>a postfix list of nodes.</returns>
@@ -31,32 +29,20 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var node in infix)
             {
-                // if node is not an operator, add it to postfix.
-                if (node is not OpNode incoming)
+                if (node is OpNode incoming)
                 {
-                    postfix.Add(node);
-                }
-                else
-                {
-                    if (stack.Count == 0)
+                    if (stack.Count > 0)
                     {
-                    }
-                    else
-                    {
-                        if (incoming.Precedence > ((OpNode)stack.Peek()).Precedence)
-                        {
-                        }
-                        else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
+                        if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                         {
                             if (incoming.Associativity == OpAssociativity.Leftward)
                             {
                                 postfix.Add(stack.Pop());
                             }
                         }
-                        else
+                        else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
                         {
-                            // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
-                            // and then continue the same test on the new top.
+                            // pop stack and add to postfix, and then continue the same test on the new top.
                             for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
                             {
                                 postfix.Add(stack.Pop());
@@ -65,6 +51,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     }
 
                     stack.Push(incoming);
+                }
+                else
+                {
+                    postfix.Add(node);
                 }
             }
 
@@ -77,7 +67,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Parses a given string into a list of nodes.
+        ///     Parses a given string into a list of nodes.
         /// </summary>
         /// <param name="expression">the string expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
@@ -89,7 +79,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Converts the string expression into a list of string blocks.
+        ///     Converts the string expression into a list of string blocks.
         /// </summary>
         /// <param name="expression">the original string expression.</param>
         /// <returns>a list of string blocks.</returns>
@@ -177,23 +167,22 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         */
 
         /// <summary>
-        /// Converts the block expression into a node expression.
+        ///     Converts the block expression into a node expression.
         /// </summary>
         /// <param name="blocks">the expression previously converted into blocks.</param>
         /// <returns>the expression as nodes.</returns>
         internal static IEnumerable<Node> FromBlocksToNodes(IEnumerable<string> blocks)
         {
-            var nodes = (
+            return (
                 from block in blocks
-                select (block.Length == 1)
+                select block.Length == 1
                     ? NodeFromChar(block[0])
                     : NodeFromStr(block)
             ).ToImmutableList();
-            return nodes;
         }
 
         /// <summary>
-        /// Factory for creating new operator node.
+        ///     Factory for creating new operator node.
         /// </summary>
         /// <param name="op">char denoting the supported operator.</param>
         /// <returns>a new specialized operator node.</returns>
@@ -205,58 +194,44 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Creates a new node from a single char.
+        ///     Creates a new node from a single char.
         /// </summary>
         /// <param name="c">the single character.</param>
         /// <returns>newly created node.</returns>
         private static Node NodeFromChar(char c)
         {
-            Node newNode;
-            if (OperatorDict.ContainsKey(c))
+            return c switch
             {
-                newNode = OpNodeFactory(c); // operator node: DONE
-            }
-            else if (UpperCase.Contains(c))
-            {
-                newNode = new VarNode("var"); // var node
-            }
-            else if (Digits.Contains(c))
-            {
-                newNode = new ConstNode(c - '0'); // constant node
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-
-            return newNode;
+                _ when OperatorDict.ContainsKey(c) => OpNodeFactory(c),
+                _ when UpperCase.Contains(c) => new VarNode($"{c}"),
+                _ when LowerCase.Contains(c) => new VarNode($"{c}"),
+                _ when Digits.Contains(c) => new ConstNode(c - '0'),
+                _ => throw new NotImplementedException(),
+            };
         }
 
         /// <summary>
-        /// Creates a new node from a block of string.
+        ///     Creates a new node from a block of string.
         /// </summary>
         /// <param name="block">a block of string previously parsed.</param>
         /// <returns>a newly created node.</returns>
         private static Node NodeFromStr(string block)
         {
-            Node newNode;
             try
             {
                 var constant = int.Parse(block);
-                newNode = new ConstNode(constant);
+                return new ConstNode(constant);
             }
             catch (FormatException)
             {
-                newNode = new VarNode(block);
                 Console.WriteLine("Safely caught the parsed string as int.");
+                return new VarNode(block);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new NotImplementedException("Unable to parse string into int.");
             }
-
-            return newNode;
         }
     }
 }

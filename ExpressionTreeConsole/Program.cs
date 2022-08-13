@@ -25,7 +25,7 @@ void ExecuteConsoleApp(bool appIsRunning)
 
     while (appIsRunning)
     {
-        Console.Write($"\tEnter a menu option: ");
+        Console.Write("\tEnter a menu option: ");
         option = Console.ReadLine() ?? string.Empty;
         switch (option)
         {

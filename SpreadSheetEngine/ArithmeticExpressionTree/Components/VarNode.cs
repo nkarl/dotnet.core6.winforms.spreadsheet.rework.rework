@@ -5,21 +5,24 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
     using System.Diagnostics.CodeAnalysis;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using Abstract;
 
     /// <summary>
-    /// The Variable Node.
+    ///     The Variable Node.
     /// </summary>
     public class VarNode : Node
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="VarNode"/> class.
+        ///     Initializes a new instance of the <see cref="VarNode" /> class.
         /// </summary>
         /// <param name="name">name of this variable.</param>
-        public VarNode(string name) => this.Name = name;
+        public VarNode(string name)
+        {
+            this.Name = name;
+        }
 
         /// <summary>
-        /// Gets the name of this variable node.
+        ///     Gets the name of this variable node.
         /// </summary>
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Disabled Until Tree Implementation.")]
         public string Name { get; }

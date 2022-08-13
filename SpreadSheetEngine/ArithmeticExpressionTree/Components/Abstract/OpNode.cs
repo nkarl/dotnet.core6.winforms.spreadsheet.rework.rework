@@ -4,31 +4,31 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    using Operators.EnumAttributes;
 
     /// <summary>
-    /// The Operator Node.
+    ///     The Operator Node.
     /// </summary>
     public abstract class OpNode : Node
     {
         /// <summary>
-        /// The operator to be assigned.
-        /// </summary>
-        protected char symbol;
-
-        /// <summary>
-        /// The precedence to be assigned.
-        /// </summary>
-        protected int precedence;
-
-        /// <summary>
-        /// The associativity to be assigned.
+        ///     The associativity to be assigned.
         /// </summary>
         protected OpAssociativity associativity;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpNode"/> class.
-        /// The Operator Node.
+        ///     The precedence to be assigned.
+        /// </summary>
+        protected int precedence;
+
+        /// <summary>
+        ///     The operator to be assigned.
+        /// </summary>
+        protected char symbol;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="OpNode" /> class.
+        ///     The Operator Node.
         /// </summary>
         protected OpNode()
         {
@@ -36,27 +36,27 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         }
 
         /// <summary>
-        /// Gets the character denoting this operator.
+        ///     Gets the character denoting this operator.
         /// </summary>
         public char Symbol => symbol;
 
         /// <summary>
-        /// Gets the precedence of this operator.
+        ///     Gets the precedence of this operator.
         /// </summary>
         public int Precedence => precedence;
 
         /// <summary>
-        /// Gets the associativity of this operator. LTR=1 and RTL=-1.
+        ///     Gets the associativity of this operator. LTR=1 and RTL=-1.
         /// </summary>
         public OpAssociativity Associativity => associativity;
 
         /// <summary>
-        /// Gets or sets the left child-node.
+        ///     Gets or sets the left child-node.
         /// </summary>
         public Node? Left { get; set; }
 
         /// <summary>
-        /// Gets or sets the right child-node.
+        ///     Gets or sets the right child-node.
         /// </summary>
         public Node? Right { get; set; }
     }

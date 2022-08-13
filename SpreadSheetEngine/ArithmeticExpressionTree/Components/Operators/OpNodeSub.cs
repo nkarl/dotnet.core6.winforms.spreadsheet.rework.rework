@@ -4,11 +4,11 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    using Abstract;
+    using EnumAttributes;
 
     /// <summary>
-    /// The Operator Node for Subtraction.
+    ///     The Operator Node for Subtraction.
     /// </summary>
     public class OpNodeSub : OpNode
     {

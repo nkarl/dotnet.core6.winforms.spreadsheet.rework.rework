@@ -1,6 +1,5 @@
 namespace ExpressionTreeTests
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree;
     public class BlockExpressionTests
     {
         [SetUp]

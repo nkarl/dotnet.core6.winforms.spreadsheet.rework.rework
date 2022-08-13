@@ -2,81 +2,80 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.SheetLogic;
-
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text;
-
-/// <summary>
-/// The abstract base class for a single cell.
-/// </summary>
-public abstract class BaseCell : INotifyPropertyChanged
+namespace SpreadSheetEngine.SheetLogic
 {
-    private string text = string.Empty;
-    private string value = string.Empty;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseCell"/> class.
+    ///     The abstract base class for a single cell.
     /// </summary>
-    /// <param name="rowIndex">the cell's row index.</param>
-    /// <param name="columnIndex">the cell's column index.</param>
-    protected BaseCell(int rowIndex, int columnIndex)
+    public abstract class BaseCell : INotifyPropertyChanged
     {
-        RowIndex = rowIndex;
-        ColumnIndex = columnIndex;
-    }
+        private string text = string.Empty;
 
-    /// <inheritdoc/>
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    /// <summary>
-    /// Gets the row index of the cell.
-    /// </summary>
-    public int RowIndex { get; }
-
-    /// <summary>
-    /// Gets the column index of the cell.
-    /// </summary>
-    public int ColumnIndex { get; }
-
-    /// <summary>
-    /// Gets or sets the text of the cell.
-    /// </summary>
-    public string Text
-    {
-        get => text;
-
-        set
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="BaseCell" /> class.
+        /// </summary>
+        /// <param name="rowIndex">the cell's row index.</param>
+        /// <param name="columnIndex">the cell's column index.</param>
+        protected BaseCell(int rowIndex, int columnIndex)
         {
-            if (value == text)
-            {
-                return;
-            }
-
-            text = value;
-            OnPropertyChanged();
+            this.RowIndex = rowIndex;
+            this.ColumnIndex = columnIndex;
         }
-    }
 
-    /// <summary>
-    /// Gets the value of the cell.
-    /// </summary>
-    public string Value => value;
+        /// <summary>
+        ///     Gets the row index of the cell.
+        /// </summary>
+        public int RowIndex { get; }
 
-    /// <summary>
-    /// Evaluates and sets the Text property of this cell. Not accessible to the outside world.
-    /// </summary>
-    /// <param name="expression">the new string text to be evaluated.</param>
-    protected void SetValue(string expression) // either protected or internal
-    {
-        // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
-        value = expression;
-        Text = value;
-    }
+        /// <summary>
+        ///     Gets the column index of the cell.
+        /// </summary>
+        public int ColumnIndex { get; }
 
-    private void OnPropertyChanged([CallerMemberName] string? name = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        /// <summary>
+        ///     Gets or sets the text of the cell.
+        /// </summary>
+        public string Text
+        {
+            get => text;
+
+            set
+            {
+                if (value == text)
+                {
+                    return;
+                }
+
+                text = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Gets the value of the cell.
+        /// </summary>
+        public string Value { get; private set; } = string.Empty;
+
+        /// <inheritdoc />
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        ///     Evaluates and sets the Text property of this cell. Not accessible to the outside world.
+        /// </summary>
+        /// <param name="expression">the new string text to be evaluated.</param>
+        protected void SetValue(string expression) // either protected or internal
+        {
+            // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
+            this.Value = expression;
+            this.Text = this.Value;
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }

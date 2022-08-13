@@ -3,22 +3,21 @@
 // </copyright>
 
 using System.Runtime.CompilerServices;
-using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
 [assembly: InternalsVisibleTo("ExpressionTreeTests")]
 [assembly: InternalsVisibleTo("ExpressionTreeConsole")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
-    /// The Binary Tree to hold all nodes in an arithmetic expression tree.
+    ///     The Binary Tree to hold all nodes in an arithmetic expression tree.
     /// </summary>
     internal partial class ExpressionTree
     {
         /// <summary>
-        /// Sets the variable in the expression tree.
+        ///     Sets the variable in the expression tree.
         /// </summary>
         /// <param name="varName">name of the variable.</param>
         /// <param name="varValue">value of the variable.</param>
@@ -31,7 +30,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// Evaluates the expression tree to yield a double value.
+        ///     Evaluates the expression tree to yield a double value.
         /// </summary>
         /// <returns>final result of type double.</returns>
         internal double Evaluate()
@@ -40,7 +39,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        /// traverse and eval the tree.
+        ///     traverse and eval the tree.
         /// </summary>
         /// <param name="node">the current node in the tree.</param>
         /// <returns>a double value (evaluated).</returns>
@@ -59,8 +58,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 return 0;
             }
 
-            double leftValue = this.Eval(op.Left);
-            double rightValue = this.Eval(op.Right);
+            var leftValue = this.Eval(op.Left);
+            var rightValue = this.Eval(op.Right);
 
             return EvaluateOperator[op.Symbol].Invoke(leftValue, rightValue);
         }

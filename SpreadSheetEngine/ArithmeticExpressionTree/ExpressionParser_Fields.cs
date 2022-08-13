@@ -12,11 +12,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /// <summary>
-    /// Contains fields only.
-    ///
-    /// This is a static class. It takes an input expression as string and process that into a node-based
-    /// version ready to be consumed by the Expression Tree's constructor.
-    ///
+    ///     Contains fields only.
+    ///     This is a static class. It takes an input expression as string and process that into a node-based
+    ///     version ready to be consumed by the Expression Tree's constructor.
     /// </summary>
     internal static partial class ExpressionParser
     {
