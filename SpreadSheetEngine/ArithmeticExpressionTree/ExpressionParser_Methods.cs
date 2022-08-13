@@ -69,27 +69,27 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Parses a given string into a list of nodes.
         /// </summary>
-        /// <param name="expression">the string expression to be parsed.</param>
+        /// <param name="infix">the input expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        public static IEnumerable<Node> Parse(string expression)
+        public static IEnumerable<Node> Parse(string infix)
         {
-            var blocks = FromStrToBlocks(expression);
+            var blocks = FromInfixToBlocks(infix);
             var nodes = FromBlocksToNodes(blocks);
             return nodes;
         }
 
         /// <summary>
-        ///     Converts the string expression into a list of string blocks.
+        ///     Converts the string expression into a list of strings.
         /// </summary>
-        /// <param name="expression">the original string expression.</param>
-        /// <returns>a list of string blocks.</returns>
-        internal static IEnumerable<string> FromStrToBlocks(string expression)
+        /// <param name="infix">the original string expression.</param>
+        /// <returns>a list of strings.</returns>
+        internal static IEnumerable<string> FromInfixToBlocks(string infix)
         {
             // From an expression string, iterate through each character and try to build up blocks of operands and operators.
             //  the block resets at either the next operator or the end of expression.
             var blockExpression = new List<string>();
             var block = new StringBuilder();
-            foreach (var c in expression)
+            foreach (var c in infix)
             {
                 if (OperatorDict.ContainsKey(c))
                 {
@@ -110,8 +110,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Parse expression with braces accounted for.
         /// </summary>
-        /// <param name="expression">the original expression.</param>
-        internal static void ParseWithBraces(string expression)
+        /// <param name="infix">the original expression.</param>
+        internal static void ParseWithBraces(string infix)
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
             // var expression = "(A1+B2)+C3";
@@ -140,13 +140,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             // first, parse only operators from the expression.
             var operators = (
-                from c in expression
+                from c in infix
                 where operatorList.Contains(c)
                 select string.Empty + c
             ).ToArray();
 
             // then, parse only operands by splitting it by operators.
-            var operands = expression.Split(operatorList);
+            var operands = infix.Split(operatorList);
 
             foreach (var block in operands)
             {
@@ -168,10 +168,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Converts the block expression into a node expression.
+        ///     Converts block expression into node expression.
         /// </summary>
-        /// <param name="blocks">the expression previously converted into blocks.</param>
-        /// <returns>the expression as nodes.</returns>
+        /// <param name="blocks">expression as blocks of string.</param>
+        /// <returns>expression as nodes.</returns>
         internal static IEnumerable<Node> FromBlocksToNodes(IEnumerable<string> blocks)
         {
             return (
@@ -183,10 +183,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Factory for creating new operator node.
+        ///     Factory method to create a new operator node.
         /// </summary>
-        /// <param name="op">char denoting the supported operator.</param>
-        /// <returns>a new specialized operator node.</returns>
+        /// <param name="op">char symbol for the supported operator.</param>
+        /// <returns>a new node of specialized operator.</returns>
         internal static Node OpNodeFactory(char op)
         {
             return OperatorDict.ContainsKey(op)
@@ -197,7 +197,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Creates a new node from a single char.
         /// </summary>
-        /// <param name="c">the single character.</param>
+        /// <param name="c">a single parsed character.</param>
         /// <returns>newly created node.</returns>
         private static Node NodeFromChar(char c)
         {
@@ -214,7 +214,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Creates a new node from a block of string.
         /// </summary>
-        /// <param name="block">a block of string previously parsed.</param>
+        /// <param name="block">a parsed block of string.</param>
         /// <returns>a newly created node.</returns>
         private static Node NodeFromStr(string block)
         {

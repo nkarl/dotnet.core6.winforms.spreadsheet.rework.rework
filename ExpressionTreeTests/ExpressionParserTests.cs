@@ -16,7 +16,7 @@
         [TestCase("A+Hello+b", new [] { "A", "+", "Hello", "+", "b" })]
         public void FromExpressionToBlocksTest(string expression, string [] blocks)
         {
-            var output = ExpressionParser.FromStrToBlocks(expression).ToArray();
+            var output = ExpressionParser.FromInfixToBlocks(expression).ToArray();
             Assert.That(output, Is.EqualTo(blocks));
         }
 
@@ -29,7 +29,7 @@
             new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeSub", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "VarNode" })]
         public void ParseNodeFromStringTest(string input, string [] expected)
         {
-            var blocks = ExpressionParser.FromStrToBlocks(input);
+            var blocks = ExpressionParser.FromInfixToBlocks(input);
             var nodes = ExpressionParser.FromBlocksToNodes(blocks);
             var output = (
                 from n in nodes
@@ -47,7 +47,7 @@
             new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "OpNodeSub" })]
         public void ConvertNodesToPostfixTest(string input, string [] expected)
         {
-            var blocks = ExpressionParser.FromStrToBlocks(input);
+            var blocks = ExpressionParser.FromInfixToBlocks(input);
             var nodes = ExpressionParser.FromBlocksToNodes(blocks);
             var postfix = ExpressionParser.MakePostfix(nodes);
             var output = (
