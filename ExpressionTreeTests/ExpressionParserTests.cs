@@ -24,6 +24,7 @@
         [TestCase("A1+22+C3", new [] { "VarNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "VarNode" })]
         [TestCase("11+22+33", new [] { "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "ConstNode" })]
         [TestCase("11-22*33", new [] { "ConstNode", "OpNodeSub", "ConstNode", "OpNodeMul", "ConstNode" })]
+        [TestCase("A-22*b", new [] { "VarNode", "OpNodeSub", "ConstNode", "OpNodeMul", "VarNode" })]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeSub", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "VarNode" })]
         public void ParseNodeFromStringTest(string input, string [] expected)
@@ -41,6 +42,7 @@
         [TestCase("A1+22+C3", new [] { "VarNode", "ConstNode", "OpNodeAdd", "VarNode", "OpNodeAdd" })]
         [TestCase("11+22+33", new [] { "ConstNode", "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd" })]
         [TestCase("11-22*33", new [] { "ConstNode", "ConstNode", "ConstNode", "OpNodeMul", "OpNodeSub" })]
+        [TestCase("A-22*b", new [] { "VarNode", "ConstNode", "VarNode", "OpNodeMul", "OpNodeSub" })]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "OpNodeSub" })]
         public void ConvertNodesToPostfixTest(string input, string [] expected)
