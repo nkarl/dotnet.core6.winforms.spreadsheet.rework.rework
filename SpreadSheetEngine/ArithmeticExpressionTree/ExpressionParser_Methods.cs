@@ -115,21 +115,21 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
             // var expression = "(A1+B2)+C3";
-            var braces = "{[()]}";  // the braces should probably be put into a dict as key-value pair.
+            var braces = "{[()]}"; // the braces should probably be put into a dict as key-value pair.
 
-            Dictionary<char, char> localBraceDict = new()
+            Dictionary<char, char> localBraceDict = new ()
             {
                 { '{', '}' },
                 { '[', ']' },
                 { '(', ')' },
             };
 
-            Dictionary<char, Func<char>> localOperatorDict = new()
+            Dictionary<char, Func<char>> localOperatorDict = new ()
             {
-              { '+', () => '+' },
-              { '-', () => '-' },
-              { '*', () => '*' },
-              { '/', () => '/' },
+                { '+', () => '+' },
+                { '-', () => '-' },
+                { '*', () => '*' },
+                { '/', () => '/' },
             };
 
             var operatorList = (
@@ -157,7 +157,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else if (block[^1] is var closeB && braces.Contains(closeB))
                 {
-                    Console.WriteLine(block[0..^1]);
+                    Console.WriteLine(block[..^1]);
                     Console.WriteLine(closeB);
                 }
                 else

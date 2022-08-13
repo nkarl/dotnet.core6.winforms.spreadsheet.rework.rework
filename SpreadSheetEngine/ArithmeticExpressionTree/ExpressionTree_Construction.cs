@@ -25,7 +25,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Dictionary for casting from the general OpNode to specialized operator node.
         /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> OperatorCastDict = new()
+        private static readonly Dictionary<char, Func<OpNode, OpNode>> OperatorCastDict = new ()
         {
             { '+', op => (OpNodeAdd)op },
             { '-', op => (OpNodeSub)op },
@@ -33,7 +33,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', op => (OpNodeDiv)op },
         };
 
-        private static readonly Dictionary<char, Func<double, double, double>> EvaluateOperator = new()
+        private static readonly Dictionary<char, Func<double, double, double>> EvaluateOperator = new ()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
