@@ -18,10 +18,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     internal static partial class ExpressionParser
     {
         /// <summary>
-        ///     Make a postfix from an infix list of nodes.
+        ///     Make a postfix from an infix as list of nodes.
         /// </summary>
-        /// <param name="infix">the infix list of nodes.</param>
-        /// <returns>a postfix list of nodes.</returns>
+        /// <param name="infix">the infix as list of nodes.</param>
+        /// <returns>new postfix as list of nodes.</returns>
         public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
         {
             var stack = new Stack<Node>();
@@ -71,7 +71,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the input expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        public static IEnumerable<Node> Parse(string infix)
+        public static IEnumerable<Node> ParseInfix(string infix)
         {
             var blocks = FromInfixToBlocks(infix);
             var nodes = FromBlocksToNodes(blocks);

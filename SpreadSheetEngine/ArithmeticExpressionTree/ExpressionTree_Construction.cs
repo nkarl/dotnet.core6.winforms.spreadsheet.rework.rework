@@ -47,8 +47,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string expression = "A1+B2+C3")
         {
-            var nodes = ExpressionParser.Parse(expression);
-            var postfix = ExpressionParser.MakePostfix(nodes);
+            var infix = ExpressionParser.ParseInfix(expression);
+            var postfix = ExpressionParser.MakePostfix(infix);
             this.Root = this.MakeTree(postfix);
         }
 
