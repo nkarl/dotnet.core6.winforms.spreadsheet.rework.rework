@@ -107,21 +107,24 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return blockExpression;
         }
 
-        /*
-        public static void TestBraces(string expression)
+        /// <summary>
+        ///     Parse expression with braces accounted for.
+        /// </summary>
+        /// <param name="expression">the original expression.</param>
+        internal static void ParseWithBraces(string expression)
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
             // var expression = "(A1+B2)+C3";
             var braces = "{[()]}";  // the braces should probably be put into a dict as key-value pair.
 
-            Dictionary<char, char> BraceDict = new ()
+            Dictionary<char, char> localBraceDict = new()
             {
                 { '{', '}' },
                 { '[', ']' },
                 { '(', ')' },
             };
 
-            Dictionary<char, Func<char>> OperatorDict = new ()
+            Dictionary<char, Func<char>> localOperatorDict = new()
             {
               { '+', () => '+' },
               { '-', () => '-' },
@@ -130,9 +133,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             };
 
             var operatorList = (
-                from op in OperatorDict
+                from op in localOperatorDict
                 select op.Key).ToArray();
-
 
             // var operatorList = opList.ToArray();
 
@@ -164,7 +166,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
             }
         }
-        */
 
         /// <summary>
         ///     Converts the block expression into a node expression.
