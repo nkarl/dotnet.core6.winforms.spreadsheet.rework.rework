@@ -33,6 +33,7 @@ public class ExpressionParserTests
     [TestCase("A1+22+C3", new [] {"VarNode", "ConstNode", "OpNodeAdd", "VarNode", "OpNodeAdd"})]
     [TestCase("11+22+33", new [] {"ConstNode", "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd"})]
     [TestCase("11-22*33", new [] {"ConstNode", "ConstNode", "ConstNode", "OpNodeMul", "OpNodeSub"})]
+    [TestCase("A1+B2-C3*D4/E5", new [] {"VarNode", "VarNode", "OpNodeAdd", "VarNode", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "OpNodeSub"})]
     public void ConvertNodesToPostfixTest(string input, string[] expected)
     {
         var blocks = ExpressionParser.FromStrToBlocks(input);

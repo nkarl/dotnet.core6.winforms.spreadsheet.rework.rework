@@ -4,19 +4,19 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
 {
-   using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-   using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
-   /// <summary>
-   /// The Operator Node for Multiplication.
-   /// </summary>
-   public class OpNodeMul : OpNode
-   {
-      static OpNodeMul()
-      {
-         symbol = '*';
-         precedence = 11;
-         associativity = OpAssociativity.Leftward;
-      }
-   }
+    /// <summary>
+    /// The Operator Node for Multiplication.
+    /// </summary>
+    public class OpNodeMul : OpNode
+    {
+        public OpNodeMul()
+        {
+            symbol = '*';
+            precedence = 11;
+            associativity = OpAssociativity.Leftward;
+        }
+    }
 }

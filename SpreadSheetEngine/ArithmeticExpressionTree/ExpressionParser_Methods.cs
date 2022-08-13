@@ -26,7 +26,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>a postfix list of nodes.</returns>
         public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
         {
-            var opStack = new Stack<Node>();
+            var stack = new Stack<Node>();
             var postfix = new List<Node>();
 
             foreach (var node in infix)
@@ -38,39 +38,41 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
-                    if (opStack.Count == 0)
+                    if (stack.Count == 0)
                     {
                     }
                     else
                     {
-                        if (incoming.Precedence > ((OpNode)opStack.Peek()).Precedence)
+                        if (incoming.Precedence > ((OpNode)stack.Peek()).Precedence)
                         {
                         }
-                        else if (incoming.Precedence == ((OpNode)opStack.Peek()).Precedence)
+                        else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                         {
+                            var top = (OpNode)stack.Peek();
+                            Console.WriteLine($"stacktop: {top.Type} {top.Precedence}");
                             if (incoming.Associativity == OpAssociativity.Leftward)
                             {
-                                postfix.Add(opStack.Pop());
+                                postfix.Add(stack.Pop());
                             }
                         }
                         else
                         {
                             // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
                             // and then continue the same test on the new top.
-                            for (; opStack.Count > 0 && incoming.Precedence < ((OpNode)opStack.Peek()).Precedence;)
+                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
                             {
-                                postfix.Add(opStack.Pop());
+                                postfix.Add(stack.Pop());
                             }
                         }
                     }
 
-                    opStack.Push(incoming);
+                    stack.Push(incoming);
                 }
             }
 
-            for (; opStack.Count > 0;)
+            for (; stack.Count > 0;)
             {
-                postfix.Add(opStack.Pop());
+                postfix.Add(stack.Pop());
             }
 
             /* foreach (var op in postfix) Console.WriteLine(op.Type); */
@@ -106,13 +108,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 if (OperatorDict.ContainsKey(c))
                 {
-                    blockExpression.Add(block.ToString());  // adds the operand as new block.
-                    blockExpression.Add(c.ToString());      // adds the detected operator as new block.
-                    block = new StringBuilder();                // resets the block.
+                    blockExpression.Add(block.ToString()); // adds the operand as new block.
+                    blockExpression.Add(c.ToString()); // adds the detected operator as new block.
+                    block = new StringBuilder(); // resets the block.
                 }
                 else
                 {
-                    block.Append(c);    // otherwise, continue appending the character to the block.
+                    block.Append(c); // otherwise, continue appending the character to the block.
                 }
             }
 
@@ -253,7 +255,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                // Console.WriteLine(e);
                 throw new NotImplementedException("Unable to parse string into int.");
             }
 

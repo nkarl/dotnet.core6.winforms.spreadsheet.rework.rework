@@ -14,17 +14,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <summary>
         /// The operator to be assigned.
         /// </summary>
-        protected static char symbol;
+        protected char symbol;
 
         /// <summary>
         /// The precedence to be assigned.
         /// </summary>
-        protected static int precedence;
+        protected int precedence;
 
         /// <summary>
         /// The associativity to be assigned.
         /// </summary>
-        protected static OpAssociativity associativity;
+        protected OpAssociativity associativity;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpNode"/> class.
