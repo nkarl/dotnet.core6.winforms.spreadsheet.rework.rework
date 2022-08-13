@@ -48,8 +48,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         }
                         else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                         {
-                            var top = (OpNode)stack.Peek();
-                            Console.WriteLine($"stacktop: {top.Type} {top.Precedence}");
                             if (incoming.Associativity == OpAssociativity.Leftward)
                             {
                                 postfix.Add(stack.Pop());
@@ -75,7 +73,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 postfix.Add(stack.Pop());
             }
 
-            /* foreach (var op in postfix) Console.WriteLine(op.Type); */
             return postfix;
         }
 
@@ -87,9 +84,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public static IEnumerable<Node> Parse(string expression)
         {
             var blocks = FromStrToBlocks(expression);
-            /* foreach (var b in blocks) Console.WriteLine(b); */
             var nodes = FromBlocksToNodes(blocks);
-            /* foreach (var n in nodes) Console.WriteLine(n.Type); */
             return nodes;
         }
 
@@ -122,6 +117,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return blockExpression;
         }
 
+        /*
         public static void TestBraces(string expression)
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
@@ -162,12 +158,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var block in operands)
             {
-                if (block[0] is char openB && braces.Contains(openB))
+                if (block[0] is var openB && braces.Contains(openB))
                 {
                     Console.WriteLine(openB);
                     Console.WriteLine(block[1..]);
                 }
-                else if (block[^1] is char closeB && braces.Contains(closeB))
+                else if (block[^1] is var closeB && braces.Contains(closeB))
                 {
                     Console.WriteLine(block[0..^1]);
                     Console.WriteLine(closeB);
@@ -178,6 +174,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
             }
         }
+        */
 
         /// <summary>
         /// Converts the block expression into a node expression.
@@ -255,7 +252,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (Exception e)
             {
-                // Console.WriteLine(e);
+                Console.WriteLine(e);
                 throw new NotImplementedException("Unable to parse string into int.");
             }
 
