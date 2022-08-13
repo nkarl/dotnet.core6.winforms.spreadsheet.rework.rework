@@ -6,6 +6,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
     using System.Text;
+    using Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
@@ -45,9 +46,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     {
                         if (incoming.Precedence > ((OpNode)stack.Peek()).Precedence)
                         {
+                            Console.WriteLine("incoming precedence > stack top");
+                            Console.WriteLine($"incoming: {incoming.Type} {incoming.Precedence}");
                         }
                         else if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                         {
+                            Console.WriteLine("incoming precedence == stack top");
+                            Console.WriteLine($"incoming: {incoming.Type} {incoming.Precedence}");
+                            var top = (OpNode)stack.Peek();
+                            Console.WriteLine($"stacktop: {top.Type} {top.Precedence}");
                             if (incoming.Associativity == OpAssociativity.Leftward)
                             {
                                 postfix.Add(stack.Pop());
@@ -55,10 +62,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         }
                         else
                         {
+                            Console.WriteLine("incoming precedence < stack top");
+                            Console.WriteLine($"incoming: {incoming.Type} {incoming.Precedence}");
                             // Otherwise, if precedence of incoming is lower, pop stack and add to postfix,
                             // and then continue the same test on the new top.
                             for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
                             {
+                                Console.Write(((OpNode)stack.Peek()).Type + " ");
                                 postfix.Add(stack.Pop());
                             }
                         }
@@ -273,6 +283,32 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                     ? NodeFromChar(block[0])
                     : NodeFromStr(block)
             ).ToImmutableList();
+            /*
+             * TODO: INVESTIGATE AND FIX THE PROBLEM WITH OpNode LOSING INFORMATION.
+             *  PROBLEM:
+             *      The static methods for OpNode is incorrect, because the first
+             *      operator's information will be locked into OpNode static information.
+             *      Need to come up with a way to bind the information to the specialized
+             *      operator node.
+             *
+             *  SOLUTION:
+             *      - Make specialized node inherit the base node methods.
+             *      - Make the methods non-static.
+             */
+
+            Console.WriteLine("FROM BLOCKS TO NODES:");
+            foreach (var newNode in nodes)
+            {
+                if (newNode is OpNode node)
+                {
+                    Console.Write($" <{node.Symbol} {node.Type} {node.Precedence} {node.Associativity}>");
+                }
+                else
+                {
+                    Console.Write($" {newNode.Type}");
+                }
+            }
+            Console.WriteLine();
             return nodes;
         }
 
@@ -295,23 +331,28 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>newly created node.</returns>
         private static Node NodeFromChar(char c)
         {
+            Console.Write(c);
             Node newNode;
             if (OperatorDict.ContainsKey(c))
             {
                 newNode = OpNodeFactory(c); // operator node: DONE
+                Console.Write($"\t {newNode.Type} {((OpNode)newNode).Precedence} {((OpNode)newNode).Associativity}");
             }
             else if (UpperCase.Contains(c))
             {
                 newNode = new VarNode("var"); // var node
+                Console.Write($"\t {newNode.Type}");
             }
             else if (Digits.Contains(c))
             {
                 newNode = new ConstNode(c - '0'); // constant node
+                Console.Write($"\t {newNode.Type}");
             }
             else
             {
                 throw new NotImplementedException();
             }
+            Console.WriteLine();
 
             return newNode;
         }
@@ -323,22 +364,26 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>a newly created node.</returns>
         private static Node NodeFromStr(string block)
         {
+            Console.Write(block);
             Node newNode;
             try
             {
                 var constant = int.Parse(block);
                 newNode = new ConstNode(constant);
+                Console.Write($"\t {newNode.Type}");
             }
             catch (FormatException)
             {
                 newNode = new VarNode(block);
                 Console.WriteLine("Safely caught the parsed string as int.");
+                Console.Write($"\t {newNode.Type}");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw new NotImplementedException("Unable to parse string into int.");
             }
+            Console.WriteLine();
 
             return newNode;
         }
