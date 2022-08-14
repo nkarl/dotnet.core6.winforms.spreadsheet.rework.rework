@@ -4,7 +4,7 @@
 
 using SpreadSheetEngine.ArithmeticExpressionTree;
 
-string option;
+string menuOption;
 string currentExpression;
 
 void DisplayMenu()
@@ -26,13 +26,23 @@ void ExecuteConsoleApp(bool appIsRunning)
     while (appIsRunning)
     {
         Console.Write("\tEnter a menu option: ");
-        option = Console.ReadLine() ?? string.Empty;
-        switch (option)
+        menuOption = Console.ReadLine() ?? string.Empty;
+        switch (menuOption)
         {
             case "1": // Asks user to enter an expression.
-                Console.Write("\tEnter an expression: ");
-                currentExpression = Console.ReadLine() ?? string.Empty;
-                tree = new ExpressionTree(currentExpression);
+                tree = null;
+                while (tree is null)
+                {
+                    Console.Write("\tEnter an expression: ");
+                    currentExpression = Console.ReadLine() ?? string.Empty;
+                    tree = new ExpressionTree(currentExpression);
+                    if (tree.IsEmpty())
+                    {
+                        Console.WriteLine("\tInvalid variable name. Enter the expression again.");
+                        tree = null;
+                    }
+                }
+
                 break;
 
             case "2": // Sets a variable in the expression tree.

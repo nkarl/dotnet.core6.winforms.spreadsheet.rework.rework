@@ -71,7 +71,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the input expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        public static IEnumerable<Node> ParseInfix(string infix)
+        public static IEnumerable<Node>? ParseInfix(string infix)
         {
             var blocks = FromInfixToBlocks(infix);
             var nodes = FromBlocksToNodes(blocks);
@@ -172,7 +172,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="blocks">expression as blocks of string.</param>
         /// <returns>expression as nodes.</returns>
-        internal static IEnumerable<Node> FromBlocksToNodes(IEnumerable<string> blocks)
+        internal static IEnumerable<Node>? FromBlocksToNodes(IEnumerable<string> blocks)
         {
             /*
             return (
@@ -192,20 +192,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
-                    var newNode = NodeFromStr(b);
-                    try
+                    if (IsValidVariableName(b))
                     {
-                        if (newNode is VarNode && Digits.Contains(b[0]))
-                        {
-                            throw new FormatException();
-                        }
-
+                        var newNode = NodeFromStr(b);
                         nodes.Add(newNode);
                     }
-                    catch (FormatException)
+                    else
                     {
-                        Console.WriteLine("Invalid name for variable node");
-                        return null!;
+                        return null;
                     }
                 }
             }
@@ -256,7 +250,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (FormatException)
             {
-                Console.WriteLine("Safely caught the parsed string as a variable.");
+                Console.WriteLine($"Safely caught the parsed string {block} as a variable.");
                 return new VarNode(block);
             }
             catch (Exception e)
@@ -264,6 +258,28 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 Console.WriteLine(e);
                 throw new NotImplementedException("Unable to parse string into int.");
             }
+        }
+
+        /// <summary>
+        ///     Checks if each block starts with a digit, if True then
+        ///     check the rest of the string for any letters.
+        /// </summary>
+        /// <param name="varName">the variable name.</param>
+        /// <returns>true or false.</returns>
+        private static bool IsValidVariableName(string varName)
+        {
+            if (Digits.Contains(varName[0]))
+            {
+                foreach (var c in varName[1..])
+                {
+                    if (UpperCase.Contains(c) || LowerCase.Contains(c))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

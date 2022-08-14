@@ -25,17 +25,25 @@
         [TestCase("11+22+33", new [] { "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd", "ConstNode" })]
         [TestCase("11-22*33", new [] { "ConstNode", "OpNodeSub", "ConstNode", "OpNodeMul", "ConstNode" })]
         [TestCase("A-22*b", new [] { "VarNode", "OpNodeSub", "ConstNode", "OpNodeMul", "VarNode" })]
+        [TestCase("A-22*1b", null)]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeSub", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "VarNode" })]
         public void ParseNodeFromStringTest(string input, string [] expected)
         {
             var blocks = ExpressionParser.FromInfixToBlocks(input);
             var nodes = ExpressionParser.FromBlocksToNodes(blocks);
-            var output = (
-                from n in nodes
-                select n.Type).ToImmutableList();
-
-            Assert.That(output, Is.EqualTo(expected));
+            IEnumerable<string>? output = null;
+            if (nodes is not null)
+            {
+                output = (
+                    from n in nodes
+                    select n.Type);
+                Assert.That(output.ToImmutableList(), Is.EqualTo(expected));
+            }
+            else
+            {
+                Assert.That(output, Is.Null);
+            }
         }
 
         [TestCase("A1+B2+C3", new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "OpNodeAdd" })]

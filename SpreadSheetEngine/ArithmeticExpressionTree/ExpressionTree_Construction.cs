@@ -48,8 +48,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public ExpressionTree(string expression = "A1+B2+C3")
         {
             var infix = ExpressionParser.ParseInfix(expression);
-            var postfix = ExpressionParser.MakePostfix(infix);
-            this.Root = this.MakeTree(postfix);
+            if (infix is not null)
+            {
+                var postfix = ExpressionParser.MakePostfix(infix);
+                this.Root = this.MakeTree(postfix);
+            }
         }
 
         /// <summary>
@@ -86,5 +89,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             this.Root = stack.Pop();
             return this.Root;
         }
+
+        /// <summary>
+        ///   Checks if tree is empty.
+        /// </summary>
+        /// <returns>true or false.</returns>
+        public bool IsEmpty()
+        {
+            return this.Root is null;
+        }
+
     }
 }

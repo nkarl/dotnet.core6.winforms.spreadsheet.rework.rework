@@ -5,6 +5,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionParserTests")]
+[assembly: InternalsVisibleTo("BracesCheckConsole")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
