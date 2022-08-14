@@ -174,12 +174,43 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>expression as nodes.</returns>
         internal static IEnumerable<Node> FromBlocksToNodes(IEnumerable<string> blocks)
         {
+            /*
             return (
                 from block in blocks
                 select block.Length == 1
                     ? NodeFromChar(block[0])
                     : NodeFromStr(block)
             ).ToImmutableList();
+            */
+            var nodes = new List<Node>();
+
+            foreach (var b in blocks)
+            {
+                if (b.Length == 1)
+                {
+                    nodes.Add(NodeFromChar(b[0]));
+                }
+                else
+                {
+                    var newNode = NodeFromStr(b);
+                    try
+                    {
+                        if (newNode is VarNode && Digits.Contains(b[0]))
+                        {
+                            throw new FormatException();
+                        }
+
+                        nodes.Add(newNode);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid name for variable node");
+                        return null!;
+                    }
+                }
+            }
+
+            return nodes.ToImmutableList();
         }
 
         /// <summary>
@@ -225,7 +256,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (FormatException)
             {
-                Console.WriteLine("Safely caught the parsed string as int.");
+                Console.WriteLine("Safely caught the parsed string as a variable.");
                 return new VarNode(block);
             }
             catch (Exception e)

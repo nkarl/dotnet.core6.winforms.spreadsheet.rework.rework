@@ -24,7 +24,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         internal void SetVariable(string varName, double varValue)
         {
             /*
-                TODO: Sets a new variable into the expression tree.
+                TODO: Sets the value of a variable in the expression tree.
              */
             throw new NotImplementedException();
         }
@@ -61,7 +61,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var leftValue = this.Eval(op.Left);
             var rightValue = this.Eval(op.Right);
 
-            return EvaluateOperator[op.Symbol].Invoke(leftValue, rightValue);
+            return InvokeOperator[op.Symbol].Invoke(leftValue, rightValue);
         }
 
         /*
