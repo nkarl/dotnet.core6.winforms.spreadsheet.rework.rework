@@ -61,6 +61,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         private Node? Root { get; set; }
 
         /// <summary>
+        ///     Checks if tree is empty.
+        /// </summary>
+        /// <returns>true or false.</returns>
+        public bool IsEmpty()
+        {
+            return this.Root is null;
+        }
+
+        /// <summary>
         ///     Makes a new tree from a postfix list.
         /// </summary>
         /// <param name="postfix">the postfix.</param>
@@ -88,15 +97,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             this.Root = stack.Pop();
             return this.Root;
-        }
-
-        /// <summary>
-        ///     Checks if tree is empty.
-        /// </summary>
-        /// <returns>true or false.</returns>
-        public bool IsEmpty()
-        {
-            return this.Root is null;
         }
     }
 }

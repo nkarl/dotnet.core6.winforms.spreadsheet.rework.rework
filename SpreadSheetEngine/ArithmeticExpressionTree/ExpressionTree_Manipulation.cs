@@ -64,6 +64,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return InvokeOperator[op.Symbol].Invoke(leftValue, rightValue);
         }
 
+        private Node LookUpVar(string name)
+        {
+            /*
+             * TODO: implement recursive look up in the tree.
+             */
+            throw new NotImplementedException();
+        }
+
         /*
          * REQUIREMENTS FOR THE TREE:
          *  - Supports operators +, -, *, /
