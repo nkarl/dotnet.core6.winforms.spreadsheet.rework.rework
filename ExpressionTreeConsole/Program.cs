@@ -2,6 +2,8 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Collections.Immutable;
+using System.Security.Cryptography;
 using SpreadSheetEngine.ArithmeticExpressionTree;
 
 string menuOption;
@@ -46,6 +48,24 @@ void ExecuteConsoleApp(bool appIsRunning)
                 break;
 
             case "2": // Sets a variable in the expression tree.
+                string?[]? input = null;
+                while (input is null)
+                {
+                    Console.Write("\tEnter the variable name and its new value: ");
+                    input = Console.ReadLine()?.Split(' ');
+                    try
+                    {
+                        var parsedInput = (Name: input?[0], Value: double.Parse(input?[1] ?? string.Empty));
+                        Console.WriteLine($"\t\t{parsedInput.Name} {parsedInput.Value}");
+                        Console.WriteLine($"\t\t{parsedInput.Name?.GetType()} {parsedInput.Value.GetType()}");
+                    }
+                    catch (Exception ex) when (ex is IndexOutOfRangeException || ex is FormatException)
+                    {
+                        Console.WriteLine($"\t\tERROR: {ex.Message}");
+                        input = null;
+                    }
+                }
+
                 Console.WriteLine("\tSetting a variable . . .");
                 /*
                     TODO: Implement the option for setting a variable in the ExpressionTree.
