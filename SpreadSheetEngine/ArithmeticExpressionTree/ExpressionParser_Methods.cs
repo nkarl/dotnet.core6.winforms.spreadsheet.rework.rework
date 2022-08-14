@@ -117,14 +117,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             // var expression = "(A1+B2)+C3";
             var braces = "{[()]}"; // the braces should probably be put into a dict as key-value pair.
 
-            Dictionary<char, char> localBraceDict = new ()
+            Dictionary<char, char> localBraceDict = new()
             {
                 { '{', '}' },
                 { '[', ']' },
                 { '(', ')' },
             };
 
-            Dictionary<char, Func<char>> localOperatorDict = new ()
+            Dictionary<char, Func<char>> localOperatorDict = new()
             {
                 { '+', () => '+' },
                 { '-', () => '-' },
@@ -142,8 +142,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var operators = (
                 from c in infix
                 where operatorList.Contains(c)
-                select string.Empty + c
-            ).ToArray();
+                select string.Empty + c).ToArray();
 
             // then, parse only operands by splitting it by operators.
             var operands = infix.Split(operatorList);

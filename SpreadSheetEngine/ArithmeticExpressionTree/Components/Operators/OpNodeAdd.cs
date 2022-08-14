@@ -4,19 +4,27 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
 {
-    using Abstract;
-    using EnumAttributes;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
     ///     The Operator Node for Addition.
     /// </summary>
     public class OpNodeAdd : OpNode
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpNodeAdd"/> class.
+        /// </summary>
         public OpNodeAdd()
         {
-            symbol = '+';
-            precedence = 10;
-            associativity = OpAssociativity.Leftward;
+            this.SetSymbol('+');
+            this.SetPrecedence(10);
+            this.SetAssociativity(OpAssociativity.Leftward);
+            /*
+            this.symbol = '+';
+            this.precedence = 10;
+            this.associativity = OpAssociativity.Leftward;
+        */
         }
     }
 }

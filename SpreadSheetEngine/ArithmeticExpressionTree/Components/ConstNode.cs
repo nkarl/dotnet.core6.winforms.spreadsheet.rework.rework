@@ -5,7 +5,7 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
     using System.Diagnostics.CodeAnalysis;
-    using Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
     ///     Holds a constant value.
@@ -24,7 +24,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// <summary>
         ///     Gets the value of this node.
         /// </summary>
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Disabled Until Tree Implementation.")]
         public double Value { get; }
     }
 }

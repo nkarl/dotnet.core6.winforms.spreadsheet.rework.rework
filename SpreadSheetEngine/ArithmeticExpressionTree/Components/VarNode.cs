@@ -5,7 +5,7 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
     using System.Diagnostics.CodeAnalysis;
-    using Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
     ///     The Variable Node.

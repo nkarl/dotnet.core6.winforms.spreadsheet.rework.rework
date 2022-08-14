@@ -19,14 +19,23 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Sets the variable in the expression tree.
         /// </summary>
-        /// <param name="varName">name of the variable.</param>
-        /// <param name="varValue">value of the variable.</param>
-        internal void SetVariable(string varName, double varValue)
+        /// <param name="variable">the variable to be set.</param>
+        internal void SetVariable((string? Name, double Value) variable)
         {
             /*
                 TODO: Sets the value of a variable in the expression tree.
              */
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        ///     Checks if var name is in tree.
+        /// </summary>
+        /// <param name="name">name of variable.</param>
+        /// <returns>true or false.</returns>
+        internal bool IsInTree(string name)
+        {
+            return false;
         }
 
         /// <summary>

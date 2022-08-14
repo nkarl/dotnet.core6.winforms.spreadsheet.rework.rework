@@ -25,7 +25,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Dictionary for casting from the general OpNode to specialized operator node.
         /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new ()
+        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new()
         {
             { '+', op => (OpNodeAdd)op },
             { '-', op => (OpNodeSub)op },
@@ -33,7 +33,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', op => (OpNodeDiv)op },
         };
 
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
@@ -45,8 +45,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Initializes a new instance of the <see cref="ExpressionTree" /> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression as input string.</param>
-        public ExpressionTree(string expression = "A1+B2+C3")
+        public ExpressionTree(string expression = "1+2+3")
         {
+            this.Expression = expression;
             var infix = ExpressionParser.ParseInfix(expression);
             if (infix is not null)
             {
@@ -54,6 +55,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 this.Root = this.MakeTree(postfix);
             }
         }
+
+        /// <summary>
+        /// Gets the expression of this tree.
+        /// </summary>
+        public string Expression { get; }
 
         /// <summary>
         ///     Gets or sets the root node of this tree.

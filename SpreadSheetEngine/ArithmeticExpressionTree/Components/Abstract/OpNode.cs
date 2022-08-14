@@ -4,7 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
 {
-    using Operators.EnumAttributes;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
     ///     The Operator Node.
@@ -12,19 +12,22 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
     public abstract class OpNode : Node
     {
         /// <summary>
-        ///     The associativity to be assigned.
+        ///     The operator to be assigned.
         /// </summary>
-        protected OpAssociativity associativity;
+        // ReSharper disable once InconsistentNaming
+        private char symbol;
 
         /// <summary>
         ///     The precedence to be assigned.
         /// </summary>
-        protected int precedence;
+        // ReSharper disable once InconsistentNaming
+        private int precedence;
 
         /// <summary>
-        ///     The operator to be assigned.
+        ///     The associativity to be assigned.
         /// </summary>
-        protected char symbol;
+        // ReSharper disable once InconsistentNaming
+        private OpAssociativity associativity;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="OpNode" /> class.
@@ -38,17 +41,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <summary>
         ///     Gets the character denoting this operator.
         /// </summary>
-        public char Symbol => symbol;
+        public char Symbol => this.symbol;
 
         /// <summary>
         ///     Gets the precedence of this operator.
         /// </summary>
-        public int Precedence => precedence;
+        public int Precedence => this.precedence;
 
         /// <summary>
         ///     Gets the associativity of this operator. LTR=1 and RTL=-1.
         /// </summary>
-        public OpAssociativity Associativity => associativity;
+        public OpAssociativity Associativity => this.associativity;
 
         /// <summary>
         ///     Gets or sets the left child-node.
@@ -59,5 +62,23 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         ///     Gets or sets the right child-node.
         /// </summary>
         public Node? Right { get; set; }
+
+        /// <summary>
+        /// Sets the Symbol for specialized operator.
+        /// </summary>
+        /// <param name="sym">specialized symbol.</param>
+        protected void SetSymbol(char sym) => this.symbol = sym;
+
+        /// <summary>
+        /// Sets the Precedence for specialized operator.
+        /// </summary>
+        /// <param name="pre">specialized Precedence.</param>
+        protected void SetPrecedence(int pre) => this.precedence = pre;
+
+        /// <summary>
+        /// Sets the Associativity for specialized operator.
+        /// </summary>
+        /// <param name="assoc">specialized associativity.</param>
+        protected void SetAssociativity(OpAssociativity assoc) => this.associativity = assoc;
     }
 }
