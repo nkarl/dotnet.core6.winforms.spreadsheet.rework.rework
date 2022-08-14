@@ -17,14 +17,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
         /// </summary>
         public OpNodeMul()
         {
-            this.SetSymbol('*');
-            this.SetPrecedence(11);
-            this.SetAssociativity(OpAssociativity.Leftward);
-            /*
-            this.symbol = '*';
-            this.precedence = 11;
-            this.associativity = OpAssociativity.Leftward;
-        */
+            this.SetAttributes('*', 11, OpAssociativity.Leftward);
         }
     }
 }

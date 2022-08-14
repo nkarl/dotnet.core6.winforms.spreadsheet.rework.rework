@@ -64,21 +64,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         public Node? Right { get; set; }
 
         /// <summary>
-        /// Sets the Symbol for specialized operator.
+        ///     Sets the attributes of the specialized operator.
         /// </summary>
         /// <param name="sym">specialized symbol.</param>
-        protected void SetSymbol(char sym) => this.symbol = sym;
-
-        /// <summary>
-        /// Sets the Precedence for specialized operator.
-        /// </summary>
         /// <param name="pre">specialized Precedence.</param>
-        protected void SetPrecedence(int pre) => this.precedence = pre;
-
-        /// <summary>
-        /// Sets the Associativity for specialized operator.
-        /// </summary>
         /// <param name="assoc">specialized associativity.</param>
-        protected void SetAssociativity(OpAssociativity assoc) => this.associativity = assoc;
+        protected void SetAttributes(char sym, int pre, OpAssociativity assoc)
+        {
+            this.symbol = sym;
+            this.precedence = pre;
+            this.associativity = assoc;
+        }
     }
 }
