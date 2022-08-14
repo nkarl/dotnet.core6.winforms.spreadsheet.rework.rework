@@ -35,9 +35,8 @@
             IEnumerable<string>? output = null;
             if (nodes is not null)
             {
-                output = (
-                    from n in nodes
-                    select n.Type);
+                output = from n in nodes
+                    select n.Type;
                 Assert.That(output.ToImmutableList(), Is.EqualTo(expected));
             }
             else
@@ -51,18 +50,27 @@
         [TestCase("11+22+33", new [] { "ConstNode", "ConstNode", "OpNodeAdd", "ConstNode", "OpNodeAdd" })]
         [TestCase("11-22*33", new [] { "ConstNode", "ConstNode", "ConstNode", "OpNodeMul", "OpNodeSub" })]
         [TestCase("A-22*b", new [] { "VarNode", "ConstNode", "VarNode", "OpNodeMul", "OpNodeSub" })]
+        [TestCase("A-22*1b", null)]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "OpNodeSub" })]
         public void ConvertNodesToPostfixTest(string input, string [] expected)
         {
             var blocks = ExpressionParser.FromInfixToBlocks(input);
             var nodes = ExpressionParser.FromBlocksToNodes(blocks);
-            var postfix = ExpressionParser.MakePostfix(nodes);
-            var output = (
-                from n in postfix
-                select n.Type).ToImmutableList();
+            IEnumerable<string>? output = null;
+            if (nodes is not null)
+            {
+                var postfix = ExpressionParser.MakePostfix(nodes);
+                output = (
+                    from n in postfix
+                    select n.Type).ToImmutableList();
 
-            Assert.That(output, Is.EqualTo(expected));
+                Assert.That(output, Is.EqualTo(expected));
+            }
+            else
+            {
+                Assert.That(output, Is.Null);
+            }
         }
     }
 }

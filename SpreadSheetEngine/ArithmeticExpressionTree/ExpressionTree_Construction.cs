@@ -91,13 +91,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///   Checks if tree is empty.
+        ///     Checks if tree is empty.
         /// </summary>
         /// <returns>true or false.</returns>
         public bool IsEmpty()
         {
             return this.Root is null;
         }
-
     }
 }

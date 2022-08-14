@@ -111,7 +111,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Parse expression with braces accounted for.
         /// </summary>
         /// <param name="infix">the original expression.</param>
-        internal static void ParseWithBraces(string infix)
+        internal static void ParseInfixWithBraces(string infix)
         {
             // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
             // var expression = "(A1+B2)+C3";
@@ -184,23 +184,23 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             */
             var nodes = new List<Node>();
 
-            foreach (var b in blocks)
+            foreach (var block in blocks)
             {
-                if (b.Length == 1)
+                if (block.Length > 1)
                 {
-                    nodes.Add(NodeFromChar(b[0]));
-                }
-                else
-                {
-                    if (IsValidVariableName(b))
+                    if (IsValidVarName(block))
                     {
-                        var newNode = NodeFromStr(b);
+                        var newNode = NodeFromStr(block);
                         nodes.Add(newNode);
                     }
                     else
                     {
                         return null;
                     }
+                }
+                else
+                {
+                    nodes.Add(NodeFromChar(block[0]));
                 }
             }
 
@@ -266,7 +266,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="varName">the variable name.</param>
         /// <returns>true or false.</returns>
-        private static bool IsValidVariableName(string varName)
+        private static bool IsValidVarName(string varName)
         {
             if (Digits.Contains(varName[0]))
             {
