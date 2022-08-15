@@ -4,6 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
@@ -12,24 +13,29 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        /// <summary>
-        ///     Dictionary for casting from the general OpNode to specialized operator node.
-        /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new ()
-        {
-            { '+', op => (OpNodeAdd)op },
-            { '-', op => (OpNodeSub)op },
-            { '*', op => (OpNodeMul)op },
-            { '/', op => (OpNodeDiv)op },
-        };
-
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
             { '*', (a, b) => a * b },
             { '/', (a, b) => a / b },
         };
+
+        // ReSharper disable once InconsistentNaming
+        private readonly Dictionary<string, VarNode> varDict;
+
+        /*
+        /// <summary>
+        ///     Dictionary for casting from the general OpNode to specialized operator node.
+        /// </summary>
+        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new()
+        {
+            { '+', op => (OpNodeAdd)op },
+            { '-', op => (OpNodeSub)op },
+            { '*', op => (OpNodeMul)op },
+            { '/', op => (OpNodeDiv)op },
+        };
+        */
 
         /// <summary>
         ///     Gets the expression of this tree.

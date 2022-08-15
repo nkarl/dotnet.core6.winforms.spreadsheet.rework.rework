@@ -78,12 +78,12 @@ void ExecuteConsoleApp(bool appIsRunning)
                 tree ??= new ExpressionTree();
                 Console.WriteLine(tree.Expression);
 
-                (string? Name, double Value) newVar;
+                (string? Name, double Value) @var;
 
                 while (true)
                 {
-                    newVar = GetNewVar();
-                    if (newVar.Name != null && tree.IsInTree(newVar.Name))
+                    @var = GetNewVar();
+                    if (@var.Name != null && tree.HasVar(@var.Name))
                     {
                         break;
                     }
@@ -95,13 +95,10 @@ void ExecuteConsoleApp(bool appIsRunning)
                 */
 
                 Console.WriteLine("Setting a variable . . .");
-                tree.SetVariable(newVar);
+                tree.SetVariable(@var);
                 break;
 
             case "3": // Evaluates the expression tree.
-                /*
-                 * TODO: Clean up the logic of this case.
-                 */
                 Console.WriteLine("Evaluating the expression . . .");
                 tree ??= new ExpressionTree();
                 var result = tree.Evaluate();

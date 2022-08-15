@@ -20,13 +20,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Sets the variable in the expression tree.
         /// </summary>
-        /// <param name="variable">the variable to be set.</param>
-        internal void SetVariable((string? Name, double Value) variable)
+        /// <param name="var">the variable to be set.</param>
+        internal void SetVariable((string? Name, double Value) @var)
         {
-            /*
-                TODO: Sets the value of a variable in the expression tree.
-             */
-            throw new NotImplementedException();
+            if (var.Name != null)
+            {
+                var node = this.varDict[@var.Name];
+                node.Value = @var.Value;
+            }
         }
 
         /// <summary>
@@ -34,38 +35,20 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="name">name of variable.</param>
         /// <returns>true or false.</returns>
-        internal bool IsInTree(string name)
+        internal bool HasVar(string name)
         {
-            /*
-             * TODO: this is used on the client side.
-             */
-            throw new NotImplementedException();
+            return this.varDict.ContainsKey(name);
         }
 
         /// <summary>
         ///     Looks up a variable in the tree by its name.
         /// </summary>
         /// <param name="name">the name of the var.</param>
-        /// <param name="node">the var node to look up.</param>
         /// <returns>the VarNode.</returns>
-        internal VarNode? LookUpVar(string name, Node? node)
+        internal VarNode? LookUpVar(string name)
         {
-            if (node is VarNode v && v.Name == name)
-            {
-                return v;
-            }
-
-            VarNode? res = null;
-            if (node is OpNode op)
-            {
-                var vl = this.LookUpVar(name, op.Left);
-                var vr = this.LookUpVar(name, op.Right);
-                res =
-                    vl != null && vl.Name == name ? vl :
-                    vr != null && vr.Name == name ? vr : null;
-            }
-
-            return res;
+            this.varDict.TryGetValue(name, out var varNode);
+            return varNode;
         }
     }
 }

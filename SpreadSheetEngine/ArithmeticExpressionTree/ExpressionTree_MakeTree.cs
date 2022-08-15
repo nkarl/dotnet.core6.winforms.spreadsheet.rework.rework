@@ -4,6 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
@@ -18,6 +19,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string expression = "1+2+3")
         {
+            this.varDict = new Dictionary<string, VarNode>();
             this.Expression = expression;
             var infix = ExpressionParser.ParseInfix(expression);
             if (infix is not null)
@@ -51,7 +53,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 if (node is OpNode op)
                 {
-                    op = CastOperator[op.Symbol].Invoke(op);
+                    // op = CastOperator[op.Symbol].Invoke(op);
                     op.Right = stack.Pop();
                     op.Left = stack.Pop();
                     stack.Push(op);
@@ -59,6 +61,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 else
                 {
                     stack.Push(node);
+                    if (node is VarNode variable)
+                    {
+                        this.varDict.Add(variable.Name, variable);
+                    }
                 }
             }
 

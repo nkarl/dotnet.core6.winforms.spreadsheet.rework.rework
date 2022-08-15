@@ -25,6 +25,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             this.ShowPostfix(this.Root);
         }
 
+        /// <summary>
+        ///     Shows the vars and their values in the tree.
+        /// </summary>
+        internal void ShowVarDict()
+        {
+            foreach (var entry in this.varDict)
+            {
+                Console.WriteLine($"{entry.Key} {entry.Value.Value}");
+            }
+        }
+
         private void ShowPostfix(Node? node)
         {
             if (node is not OpNode op)

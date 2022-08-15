@@ -1,10 +1,11 @@
-﻿// <copyright file="ExpressionParser_Methods.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser_Methods_ParseInfix.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
@@ -89,12 +90,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (string block in blocks)
             {
+                Node newNode;
                 if (block.Length > 1)
                 {
                     if (IsValidVarName(block))
                     {
-                        var newNode = NodeFromStr(block);
-                        nodes.Add(newNode);
+                        newNode = NodeFromStr(block);
                     }
                     else
                     {
@@ -103,8 +104,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
-                    nodes.Add(NodeFromChar(block[0]));
+                    newNode = NodeFromChar(block[0]);
                 }
+
+                nodes.Add(newNode);
             }
 
             return nodes.ToImmutableList();
@@ -132,8 +135,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return c switch
             {
                 _ when OperatorDict.ContainsKey(c) => OpNodeFactory(c),
-                _ when UpperCase.Contains(c) => new VarNode($"{c}"),
-                _ when LowerCase.Contains(c) => new VarNode($"{c}"),
+                _ when UpperCase.Contains(c) || LowerCase.Contains(c) => new VarNode($"{c}"),
                 _ when Digits.Contains(c) => new ConstNode(c - '0'),
                 _ => throw new NotImplementedException(),
             };

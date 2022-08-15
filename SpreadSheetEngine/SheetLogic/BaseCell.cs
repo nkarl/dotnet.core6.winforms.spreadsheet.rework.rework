@@ -25,6 +25,9 @@ namespace SpreadSheetEngine.SheetLogic
             this.ColumnIndex = columnIndex;
         }
 
+        /// <inheritdoc />
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         ///     Gets the row index of the cell.
         /// </summary>
@@ -40,16 +43,16 @@ namespace SpreadSheetEngine.SheetLogic
         /// </summary>
         public string Text
         {
-            get => text;
+            get => this.text;
 
             set
             {
-                if (value == text)
+                if (value == this.text)
                 {
                     return;
                 }
 
-                text = value;
+                this.text = value;
                 this.OnPropertyChanged();
             }
         }
@@ -58,9 +61,6 @@ namespace SpreadSheetEngine.SheetLogic
         ///     Gets the value of the cell.
         /// </summary>
         public string Value { get; private set; } = string.Empty;
-
-        /// <inheritdoc />
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     Evaluates and sets the Text property of this cell. Not accessible to the outside world.
@@ -75,7 +75,7 @@ namespace SpreadSheetEngine.SheetLogic
 
         private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
