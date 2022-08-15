@@ -45,6 +45,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             //  the block resets at either the next operator or the end of expression.
             var blockExpression = new List<string>();
             var block = new StringBuilder();
+            var braces = "{[()]}";
 
             // Handles the case where the first block is a negative number.
             if (OperatorDict.ContainsKey(infix[0]))
@@ -55,9 +56,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (char c in infix)
             {
-                if (OperatorDict.ContainsKey(c))
+                if (OperatorDict.ContainsKey(c) || braces.Contains(c))
                 {
-                    blockExpression.Add(block.ToString()); // adds the operand as new block.
+                    if (block.ToString() != string.Empty)
+                    {
+                        // adds as new operand only if block is not empty string.
+                        blockExpression.Add(block.ToString());
+                    }
+
                     blockExpression.Add(c.ToString()); // adds the detected operator as new block.
                     block = new StringBuilder(); // resets the block.
                 }
