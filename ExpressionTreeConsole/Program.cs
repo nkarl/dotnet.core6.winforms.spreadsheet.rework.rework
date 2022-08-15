@@ -37,13 +37,12 @@ ExpressionTree MakeNewTree()
     return tree;
 }
 
-(string? Name, double Value) GetNewVar()
+(string? Name, double Value) GetVarNameAndValue()
 {
     string?[]? input = null;
     (string? Name, double Value) parsed = (string.Empty, 0);
     while (input is null)
     {
-        Console.Write("Enter the variable name and its new value: ");
         input = Console.ReadLine()?.Split(' ');
         try
         {
@@ -66,27 +65,33 @@ void ExecuteConsoleApp(bool appIsRunning)
 
     while (appIsRunning)
     {
+        DisplayMenu();
         Console.Write("Enter a menu option: ");
         menuOption = Console.ReadLine() ?? string.Empty;
         switch (menuOption)
         {
-            case "1": // Asks user to enter an expression.
+            // Asks user to enter an expression.
+            case "1":
                 tree = MakeNewTree();
                 break;
 
-            case "2": // Sets a variable in the expression tree.
+            // Sets a variable in the expression tree.
+            case "2":
                 tree ??= new ExpressionTree();
                 Console.WriteLine(tree.Expression);
 
-                (string? Name, double Value) newVar;
+                (string? Name, double Value) @var;
 
                 while (true)
                 {
-                    newVar = GetNewVar();
-                    if (newVar.Name != null && tree.IsInTree(newVar.Name))
+                    Console.Write("Enter the variable name and its new value: ");
+                    @var = GetVarNameAndValue();
+                    if (@var.Name != null && tree.HasVar(@var.Name))
                     {
                         break;
                     }
+
+                    Console.WriteLine("There is no variable with that name.");
                 }
 
                 /*
@@ -95,20 +100,19 @@ void ExecuteConsoleApp(bool appIsRunning)
                 */
 
                 Console.WriteLine("Setting a variable . . .");
-                tree.SetVariable(newVar);
+                tree.SetVariable(@var);
                 break;
 
-            case "3": // Evaluates the expression tree.
-                /*
-                 * TODO: Clean up the logic of this case.
-                 */
+            // Evaluates the expression tree.
+            case "3":
                 Console.WriteLine("Evaluating the expression . . .");
                 tree ??= new ExpressionTree();
                 var result = tree.Evaluate();
                 Console.WriteLine($"The result of {tree.Expression} = {result}");
                 break;
 
-            case "4": // Quits the app.
+            // Quits the app.
+            case "4":
                 appIsRunning = false;
                 break;
 
@@ -119,5 +123,4 @@ void ExecuteConsoleApp(bool appIsRunning)
     }
 }
 
-DisplayMenu();
 ExecuteConsoleApp(true);

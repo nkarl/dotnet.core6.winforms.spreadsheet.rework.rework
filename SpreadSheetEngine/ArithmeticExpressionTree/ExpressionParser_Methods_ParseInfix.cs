@@ -1,14 +1,19 @@
-﻿// <copyright file="ExpressionParser_Methods.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser_Methods_ParseInfix.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+
+    /*
+     * TODO: Handle the exception when the first parsed block is a negative value.
+     */
 
     /// <summary>
     ///     Contains methods only.
@@ -17,55 +22,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal static partial class ExpressionParser
     {
-        /// <summary>
-        ///     Make a postfix from an infix as list of nodes.
-        /// </summary>
-        /// <param name="infix">the infix as list of nodes.</param>
-        /// <returns>new postfix as list of nodes.</returns>
-        public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
-        {
-            var stack = new Stack<Node>();
-            var postfix = new List<Node>();
-
-            foreach (var node in infix)
-            {
-                if (node is OpNode incoming)
-                {
-                    if (stack.Count > 0)
-                    {
-                        if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
-                        {
-                            if (incoming.Associativity == OpAssociativity.Leftward)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                        else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
-                        {
-                            // pop stack and add to postfix, and then continue the same test on the new top.
-                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                    }
-
-                    stack.Push(incoming);
-                }
-                else
-                {
-                    postfix.Add(node);
-                }
-            }
-
-            for (; stack.Count > 0;)
-            {
-                postfix.Add(stack.Pop());
-            }
-
-            return postfix;
-        }
-
         /// <summary>
         ///     Parses a given string into a list of nodes.
         /// </summary>
@@ -89,7 +45,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             //  the block resets at either the next operator or the end of expression.
             var blockExpression = new List<string>();
             var block = new StringBuilder();
-            foreach (var c in infix)
+
+            // Handles the case where the first block is a negative number.
+            if (OperatorDict.ContainsKey(infix[0]))
+            {
+                block.Append(infix[0]);
+                infix = infix[1..];
+            }
+
+            foreach (char c in infix)
             {
                 if (OperatorDict.ContainsKey(c))
                 {
@@ -124,14 +88,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             */
             var nodes = new List<Node>();
 
-            foreach (var block in blocks)
+            foreach (string block in blocks)
             {
+                Node newNode;
                 if (block.Length > 1)
                 {
                     if (IsValidVarName(block))
                     {
-                        var newNode = NodeFromStr(block);
-                        nodes.Add(newNode);
+                        newNode = NodeFromStr(block);
                     }
                     else
                     {
@@ -140,8 +104,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
-                    nodes.Add(NodeFromChar(block[0]));
+                    newNode = NodeFromChar(block[0]);
                 }
+
+                nodes.Add(newNode);
             }
 
             return nodes.ToImmutableList();
@@ -169,8 +135,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return c switch
             {
                 _ when OperatorDict.ContainsKey(c) => OpNodeFactory(c),
-                _ when UpperCase.Contains(c) => new VarNode($"{c}"),
-                _ when LowerCase.Contains(c) => new VarNode($"{c}"),
+                _ when UpperCase.Contains(c) || LowerCase.Contains(c) => new VarNode($"{c}"),
                 _ when Digits.Contains(c) => new ConstNode(c - '0'),
                 _ => throw new NotImplementedException(),
             };
@@ -185,7 +150,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             try
             {
-                var constant = int.Parse(block);
+                var constant = double.Parse(block);
                 return new ConstNode(constant);
             }
             catch (FormatException)
@@ -210,7 +175,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             if (Digits.Contains(varName[0]))
             {
-                foreach (var c in varName[1..])
+                foreach (char c in varName[1..])
                 {
                     if (UpperCase.Contains(c) || LowerCase.Contains(c))
                     {

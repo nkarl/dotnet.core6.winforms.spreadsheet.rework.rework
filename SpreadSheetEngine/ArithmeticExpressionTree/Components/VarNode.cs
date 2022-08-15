@@ -30,8 +30,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         public string Name { get; }
 
         /// <summary>
-        ///     Gets the value of this var node.
+        ///     Gets or sets and sets the value of this var node.
         /// </summary>
-        public double Value { get; }
+        public double Value { get; set; }
     }
 }

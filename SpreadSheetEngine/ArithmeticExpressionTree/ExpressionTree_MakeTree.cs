@@ -1,9 +1,10 @@
-﻿// <copyright file="ExpressionTree_Construction.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionTree_MakeTree.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
@@ -12,41 +13,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        /*
-         * ASSUMPTIONS:
-         *  - THAT: the input expression is in correct format and parser works.
-         *
-         * TREE STRUCTURE:
-         *  - OPERATORS ARE INTERNAL NODES.
-         *  - OPERANDS ARE LEAF NODES.
-         *
-         */
-
-        /// <summary>
-        ///     Dictionary for casting from the general OpNode to specialized operator node.
-        /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new()
-        {
-            { '+', op => (OpNodeAdd)op },
-            { '-', op => (OpNodeSub)op },
-            { '*', op => (OpNodeMul)op },
-            { '/', op => (OpNodeDiv)op },
-        };
-
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
-        {
-            { '+', (a, b) => a + b },
-            { '-', (a, b) => a - b },
-            { '*', (a, b) => a * b },
-            { '/', (a, b) => a / b },
-        };
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="ExpressionTree" /> class.
         /// </summary>
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string expression = "1+2+3")
         {
+            this.varDict = new Dictionary<string, VarNode>();
             this.Expression = expression;
             var infix = ExpressionParser.ParseInfix(expression);
             if (infix is not null)
@@ -55,16 +28,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 this.Root = this.MakeTree(postfix);
             }
         }
-
-        /// <summary>
-        /// Gets the expression of this tree.
-        /// </summary>
-        public string Expression { get; }
-
-        /// <summary>
-        ///     Gets or sets the root node of this tree.
-        /// </summary>
-        private Node? Root { get; set; }
 
         /// <summary>
         ///     Checks if tree is empty.
@@ -86,11 +49,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             // For each item in postfix, simply push to stack if it is not an operator,
             // otherwise do some magic and then push.
-            foreach (var node in postfix)
+            foreach (Node node in postfix)
             {
                 if (node is OpNode op)
                 {
-                    op = CastOperator[op.Symbol].Invoke(op);
+                    // op = CastOperator[op.Symbol].Invoke(op);
                     op.Right = stack.Pop();
                     op.Left = stack.Pop();
                     stack.Push(op);
@@ -98,11 +61,43 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 else
                 {
                     stack.Push(node);
+                    if (node is VarNode variable)
+                    {
+                        this.varDict.Add(variable.Name, variable);
+                    }
                 }
             }
 
             this.Root = stack.Pop();
             return this.Root;
         }
+
+        /*
+         * REQUIREMENTS FOR THE TREE:
+         *  - Supports operators +, -, *, /
+         *  - Supports:
+         *      - parsing of user-entered expression.
+         *      - building an expression tree out of that input.
+         *
+         * SPECIFICATIONS:
+         *  - Each node in the tree must be one of the three types:
+         *      + ConstantNode (NO CHILDREN)
+         *      + VariableNode (NO CHILDREN)
+         *      + BinaryOperatorNode
+         *
+         *  - Supports multichar values like "A2"
+         *
+         *  - Requirements for variables:
+         *      + will start with an alphabet char,
+         *      + upper or lower-case,
+         *      + followed by any number of alphabet chars and decimal digits (0-9)
+         *
+         *  - Creating new expression clears the old expression.
+         *
+         *  - Has a default expression, such as "A1+B1+C1", so that the user has something to work with.
+         *
+         *  - If variable is not set, they can be default to 0.
+         *
+         */
     }
 }

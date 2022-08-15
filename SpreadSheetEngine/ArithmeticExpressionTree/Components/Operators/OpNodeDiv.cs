@@ -13,7 +13,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
     public class OpNodeDiv : OpNode
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OpNodeDiv"/> class.
+        ///     Initializes a new instance of the <see cref="OpNodeDiv" /> class.
         /// </summary>
         public OpNodeDiv()
         {
