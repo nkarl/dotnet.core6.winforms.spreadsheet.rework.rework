@@ -21,6 +21,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Parse expression with braces accounted for.
         /// </summary>
         /// <param name="infix">the original expression.</param>
+        /// <returns>the list of string blocks.</returns>
         internal static IEnumerable<string> FromInfixToBlocksWithBraces(string infix)
         {
             /*
@@ -58,7 +59,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
             }
 
-            blockExpression.Add(block.ToString()); // adds the final block.
+            if (block.ToString() != string.Empty)
+            {
+                blockExpression.Add(block.ToString()); // adds the final block.
+            }
+
             return blockExpression;
         }
 

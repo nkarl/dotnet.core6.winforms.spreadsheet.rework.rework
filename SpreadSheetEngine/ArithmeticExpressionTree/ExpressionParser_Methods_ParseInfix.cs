@@ -64,7 +64,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         blockExpression.Add(block.ToString());
                     }
 
-                    blockExpression.Add(c.ToString()); // adds the detected operator as new block.
+                    blockExpression.Add(c.ToString()); // adds operator to the list.
                     block = new StringBuilder(); // resets the block.
                 }
                 else
@@ -73,7 +73,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
             }
 
-            blockExpression.Add(block.ToString()); // adds the final block.
+            if (block.ToString() != string.Empty)
+            {
+                blockExpression.Add(block.ToString()); // adds the final block.
+            }
+
             return blockExpression;
         }
 
