@@ -22,9 +22,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         }
 
         /// <summary>
-        ///     Gets the value of this node.
+        ///     Gets the value of this constant node.
         /// </summary>
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Disabled Until Tree Implementation.")]
         public double Value { get; }
     }
 }

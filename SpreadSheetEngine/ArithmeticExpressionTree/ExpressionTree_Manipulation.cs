@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    using Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
@@ -63,14 +64,26 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 /*
                  * TODO: Implement the logic for extracting value from VarNode or ConstNode.
+                 *  These are definitely leaf nodes, so they should be evaluated as well.
+                 *  This means that I need a look-back/parent to account for the operator.
                  */
-                return 0;
+                double result = 0;
+                if (node is ConstNode c)
+                {
+                    result = c.Value;
+                }
+                else if (node is VarNode v)
+                {
+                    result = v.Value;
+                }
+
+                return result;
             }
 
-            var leftValue = this.Eval(op.Left);
-            var rightValue = this.Eval(op.Right);
-
-            return InvokeOperator[op.Symbol].Invoke(leftValue, rightValue);
+            var left = this.Eval(op.Left);
+            var right = this.Eval(op.Right);
+            var evaluate = InvokeOperator[op.Symbol];
+            return evaluate(left, right);
         }
 
         private Node LookUpVar(string name)

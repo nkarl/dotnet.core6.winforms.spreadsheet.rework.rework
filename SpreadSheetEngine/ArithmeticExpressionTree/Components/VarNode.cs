@@ -16,9 +16,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         ///     Initializes a new instance of the <see cref="VarNode" /> class.
         /// </summary>
         /// <param name="name">name of this variable.</param>
-        public VarNode(string name)
+        /// <param name="value">the default value.</param>
+        public VarNode(string name, double value = 0)
         {
             this.Name = name;
+            this.Value = value;
         }
 
         /// <summary>
@@ -26,5 +28,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
         /// </summary>
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Disabled Until Tree Implementation.")]
         public string Name { get; }
+
+        /// <summary>
+        ///     Gets the value of this var node.
+        /// </summary>
+        public double Value { get; }
     }
 }
