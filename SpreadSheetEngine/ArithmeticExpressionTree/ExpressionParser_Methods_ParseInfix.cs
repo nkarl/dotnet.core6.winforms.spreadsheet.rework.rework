@@ -22,55 +22,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     internal static partial class ExpressionParser
     {
         /// <summary>
-        ///     Make a postfix from an infix as list of nodes.
-        /// </summary>
-        /// <param name="infix">the infix as list of nodes.</param>
-        /// <returns>new postfix as list of nodes.</returns>
-        public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
-        {
-            var stack = new Stack<Node>();
-            var postfix = new List<Node>();
-
-            foreach (var node in infix)
-            {
-                if (node is OpNode incoming)
-                {
-                    if (stack.Count > 0)
-                    {
-                        if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
-                        {
-                            if (incoming.Associativity == OpAssociativity.Leftward)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                        else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
-                        {
-                            // pop stack and add to postfix, and then continue the same test on the new top.
-                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                    }
-
-                    stack.Push(incoming);
-                }
-                else
-                {
-                    postfix.Add(node);
-                }
-            }
-
-            for (; stack.Count > 0;)
-            {
-                postfix.Add(stack.Pop());
-            }
-
-            return postfix;
-        }
-
-        /// <summary>
         ///     Parses a given string into a list of nodes.
         /// </summary>
         /// <param name="infix">the input expression to be parsed.</param>
@@ -93,7 +44,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             //  the block resets at either the next operator or the end of expression.
             var blockExpression = new List<string>();
             var block = new StringBuilder();
-            foreach (var c in infix)
+
+            // Handles the case where the first block is a negative number.
+            if (OperatorDict.ContainsKey(infix[0]))
+            {
+                block.Append(infix[0]);
+                infix = infix[1..];
+            }
+
+            foreach (char c in infix)
             {
                 if (OperatorDict.ContainsKey(c))
                 {
@@ -128,7 +87,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             */
             var nodes = new List<Node>();
 
-            foreach (var block in blocks)
+            foreach (string block in blocks)
             {
                 if (block.Length > 1)
                 {
@@ -214,7 +173,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             if (Digits.Contains(varName[0]))
             {
-                foreach (var c in varName[1..])
+                foreach (char c in varName[1..])
                 {
                     if (UpperCase.Contains(c) || LowerCase.Contains(c))
                     {

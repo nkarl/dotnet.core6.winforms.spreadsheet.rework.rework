@@ -16,7 +16,7 @@
         [TestCase("12-5*7", -23)]
         [TestCase("11*4/2", 22)]
         [TestCase("11/0", double.PositiveInfinity)]
-        [TestCase("-11/2", double.NegativeInfinity)]
+        [TestCase("-11/0", double.NegativeInfinity)]
         public void TreeTest(string input, double expected)
         {
             var tree = new ExpressionTree(input);
