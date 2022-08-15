@@ -10,6 +10,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
+    /*
+     * TODO: Handle the exception when the first parsed block is a negative value.
+     */
+
     /// <summary>
     ///     Contains methods only.
     ///     This is a static class. It takes an input expression as string and process that into a node-based
