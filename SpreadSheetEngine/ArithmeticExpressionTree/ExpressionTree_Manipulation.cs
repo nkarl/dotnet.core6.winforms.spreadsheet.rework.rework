@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    // using Components.Operators.EnumAttributes;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
@@ -48,6 +50,35 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
+        ///     Shows the entire tree.
+        /// </summary>
+        internal void Show()
+        {
+            this.ShowPostfix(this.Root);
+        }
+
+        private void ShowPostfix(Node? node)
+        {
+            if (node is not OpNode op)
+            {
+                if (node is ConstNode c)
+                {
+                    Console.WriteLine($"const: \t{c.Value}");
+                }
+                else if (node is VarNode v)
+                {
+                    Console.WriteLine($"<{v.Name}: \t{v.Value}>");
+                }
+            }
+            else
+            {
+                this.ShowPostfix(op.Left);
+                this.ShowPostfix(op.Right);
+                Console.WriteLine(op.Symbol);
+            }
+        }
+
+        /// <summary>
         ///     traverse and eval the tree.
         /// </summary>
         /// <param name="node">the current node in the tree.</param>
@@ -63,14 +94,26 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 /*
                  * TODO: Implement the logic for extracting value from VarNode or ConstNode.
+                 *  These are definitely leaf nodes, so they should be evaluated as well.
+                 *  This means that I need a look-back/parent to account for the operator.
                  */
-                return 0;
+                double result = 0;
+                if (node is ConstNode c)
+                {
+                    result = c.Value;
+                }
+                else if (node is VarNode v)
+                {
+                    result = v.Value;
+                }
+
+                return result;
             }
 
-            var leftValue = this.Eval(op.Left);
-            var rightValue = this.Eval(op.Right);
-
-            return InvokeOperator[op.Symbol].Invoke(leftValue, rightValue);
+            var evaluate = InvokeOperator[op.Symbol];
+            var right = this.Eval(op.Right);
+            var left = this.Eval(op.Left);
+            return evaluate(left, right);
         }
 
         private Node LookUpVar(string name)
