@@ -123,33 +123,5 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
              */
             throw new NotImplementedException();
         }
-
-        /*
-         * REQUIREMENTS FOR THE TREE:
-         *  - Supports operators +, -, *, /
-         *  - Supports:
-         *      - parsing of user-entered expression.
-         *      - building an expression tree out of that input.
-         *
-         * SPECIFICATIONS:
-         *  - Each node in the tree must be one of the three types:
-         *      + ConstantNode (NO CHILDREN)
-         *      + VariableNode (NO CHILDREN)
-         *      + BinaryOperatorNode
-         *
-         *  - Supports multichar values like "A2"
-         *
-         *  - Requirements for variables:
-         *      + will start with an alphabet char,
-         *      + upper or lower-case,
-         *      + followed by any number of alphabet chars and decimal digits (0-9)
-         *
-         *  - Creating new expression clears the old expression.
-         *
-         *  - Has a default expression, such as "A1+B1+C1", so that the user has something to work with.
-         *
-         *  - If variable is not set, they can be default to 0.
-         *
-         */
     }
 }
