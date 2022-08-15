@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionParser_Methods.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser_Methods_BracesSupport.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -21,10 +21,55 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Parse expression with braces accounted for.
         /// </summary>
         /// <param name="infix">the original expression.</param>
-        internal static void ParseInfixWithBraces(string infix)
+        internal static IEnumerable<string> FromInfixToBlocksWithBraces(string infix)
         {
-            // TODO: IMPLEMENT THE DECOMPOSING LOGIC FOR PARENTHESES.
-            // var expression = "(A1+B2)+C3";
+            /*
+             * From an expression string, iterate through each character and try to build up
+             * blocks of operands and operators. The block resets at either the next operator
+             * or the end of expression.
+             */
+            var blockExpression = new List<string>();
+            var block = new StringBuilder();
+            var braces = "{[()]}"; // the braces should probably be put into a dict as key-value pair.
+
+            // Handles the case where the first block is a negative number.
+            if (OperatorDict.ContainsKey(infix[0]))
+            {
+                block.Append(infix[0]);
+                infix = infix[1..];
+            }
+
+            foreach (char c in infix)
+            {
+                if (OperatorDict.ContainsKey(c) || braces.Contains(c))
+                {
+                    if (block.ToString() != string.Empty)
+                    {
+                        // adds as new operand only if block is not empty string.
+                        blockExpression.Add(block.ToString());
+                    }
+
+                    blockExpression.Add(c.ToString()); // adds operator to the list.
+                    block = new StringBuilder(); // resets the block.
+                }
+                else
+                {
+                    block.Append(c); // otherwise, continue appending the character to the block.
+                }
+            }
+
+            blockExpression.Add(block.ToString()); // adds the final block.
+            return blockExpression;
+        }
+
+        internal static void ParseInfixWithBraces_Zero(string infix = "(A1+B2)+C3")
+        {
+            /*
+             * TODO:
+             *  - Write tests for the braces logic.
+             *  - Fix any errors if exist.
+             */
+
             var braces = "{[()]}"; // the braces should probably be put into a dict as key-value pair.
 
             Dictionary<char, char> localBraceDict = new()
@@ -57,7 +102,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             // then, parse only operands by splitting it by operators.
             var operands = infix.Split(operatorList);
 
-            foreach (var block in operands)
+            foreach (string block in operands)
             {
                 if (block[0] is var openB && braces.Contains(openB))
                 {
