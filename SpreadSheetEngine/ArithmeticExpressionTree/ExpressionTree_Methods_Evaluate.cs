@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionTree_Manipulation.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionTree_Methods_Evaluate.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
