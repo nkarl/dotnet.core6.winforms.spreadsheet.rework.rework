@@ -56,7 +56,15 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var evaluate = InvokeOperator[op.Symbol];
             var right = this.Eval(op.Right);
             var left = this.Eval(op.Left);
-            return evaluate(left, right);
+            try
+            {
+                return evaluate(left, right);
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return double.NaN;
+            }
         }
     }
 }

@@ -46,13 +46,26 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Looks up a variable in the tree by its name.
         /// </summary>
         /// <param name="name">the name of the var.</param>
+        /// <param name="node">the var node to look up.</param>
         /// <returns>the VarNode.</returns>
-        private Node LookUpVar(string name)
+        internal VarNode? LookUpVar(string name, Node? node)
         {
-            /*
-             * TODO: implement recursive look up in the tree.
-             */
-            throw new NotImplementedException();
+            if (node is VarNode v && v.Name == name)
+            {
+                return v;
+            }
+
+            VarNode? res = null;
+            if (node is OpNode op)
+            {
+                var vl = this.LookUpVar(name, op.Left);
+                var vr = this.LookUpVar(name, op.Right);
+                res =
+                    vl != null && vl.Name == name ? vl :
+                    vr != null && vr.Name == name ? vr : null;
+            }
+
+            return res;
         }
     }
 }
