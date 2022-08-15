@@ -5,7 +5,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionParserTests")]
-[assembly: InternalsVisibleTo("CheckConsole")]
+[assembly: InternalsVisibleTo("CheckTreeConsole")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {

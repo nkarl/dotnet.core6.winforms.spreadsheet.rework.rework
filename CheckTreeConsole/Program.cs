@@ -10,3 +10,5 @@ var exp = exp2;
 // ExpressionParser.ParseInfixWithBraces(exp1);
 var tree = new ExpressionTree(exp);
 tree.Show();
+var result = tree.Evaluate();
+Console.WriteLine($"result = {result}");

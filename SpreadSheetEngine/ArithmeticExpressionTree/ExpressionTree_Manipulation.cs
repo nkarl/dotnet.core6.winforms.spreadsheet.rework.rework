@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using Components.Operators.EnumAttributes;
+    // using Components.Operators.EnumAttributes;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
@@ -50,6 +50,35 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
+        ///     Shows the entire tree.
+        /// </summary>
+        internal void Show()
+        {
+            this.ShowPostfix(this.Root);
+        }
+
+        private void ShowPostfix(Node? node)
+        {
+            if (node is not OpNode op)
+            {
+                if (node is ConstNode c)
+                {
+                    Console.WriteLine($"const: \t{c.Value}");
+                }
+                else if (node is VarNode v)
+                {
+                    Console.WriteLine($"<{v.Name}: \t{v.Value}>");
+                }
+            }
+            else
+            {
+                this.ShowPostfix(op.Left);
+                this.ShowPostfix(op.Right);
+                Console.WriteLine(op.Symbol);
+            }
+        }
+
+        /// <summary>
         ///     traverse and eval the tree.
         /// </summary>
         /// <param name="node">the current node in the tree.</param>
@@ -81,9 +110,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 return result;
             }
 
-            var left = this.Eval(op.Left);
-            var right = this.Eval(op.Right);
             var evaluate = InvokeOperator[op.Symbol];
+            var right = this.Eval(op.Right);
+            var left = this.Eval(op.Left);
             return evaluate(left, right);
         }
 
@@ -93,35 +122,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
              * TODO: implement recursive look up in the tree.
              */
             throw new NotImplementedException();
-        }
-
-        /// <summary>
-        ///     Shows the entire tree.
-        /// </summary>
-        internal void Show()
-        {
-            this.ShowPostfix(this.Root);
-        }
-
-        private void ShowPostfix(Node? node)
-        {
-            if (node is not OpNode op)
-            {
-                if (node is ConstNode c)
-                {
-                    Console.WriteLine($"const: \t{c.Value}");
-                }
-                else if (node is VarNode v)
-                {
-                    Console.WriteLine($"<{v.Name}: \t{v.Value}>");
-                }
-            }
-            else
-            {
-                this.ShowPostfix(op.Left);
-                this.ShowPostfix(op.Right);
-                Console.WriteLine(op.Symbol);
-            }
         }
 
         /*

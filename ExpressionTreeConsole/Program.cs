@@ -104,7 +104,8 @@ void ExecuteConsoleApp(bool appIsRunning)
                  */
                 Console.WriteLine("Evaluating the expression . . .");
                 tree ??= new ExpressionTree();
-                tree.Evaluate();
+                var result = tree.Evaluate();
+                Console.WriteLine($"The result of {tree.Expression} = {result}");
                 break;
 
             case "4": // Quits the app.
