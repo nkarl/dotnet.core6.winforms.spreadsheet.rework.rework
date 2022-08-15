@@ -1,5 +1,7 @@
 ﻿namespace ExpressionTreeTests
 {
+    using SpreadSheetEngine.ArithmeticExpressionTree;
+
     [TestFixture]
     public class ExpressionTreeTests
     {
@@ -8,18 +10,18 @@
         {
         }
 
-        public void TreeTest()
+        [TestCase("1+2+3", 6)]
+        [TestCase("1.1+2+3", 6.1)]
+        [TestCase("1.1+2.2+3.3", 6.6)]
+        [TestCase("1*2+3", 5)]
+        [TestCase("5*7-12", 23)]
+        [TestCase("12-5*7", -23)]
+        [TestCase("11*4/2", 22)]
+        public void TreeTest(string input, double expected)
         {
-            /*
-             * I stopped after implementing the tree. I didn't write any tests.
-             * The problem is I don't even know what to write. How should I test that
-             * the tree is valid? How should I test this?
-             *
-             * One possible way to do this is to do a traversal and try to match
-             * the output of parser with the output of the tree traversal method.
-             * The order of the operator and operands should match for both lists.
-             */
-            Assert.Pass();
+            var tree = new ExpressionTree(input);
+            var result = tree.Evaluate();
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }

@@ -185,7 +185,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             try
             {
-                var constant = int.Parse(block);
+                var constant = double.Parse(block);
                 return new ConstNode(constant);
             }
             catch (FormatException)
