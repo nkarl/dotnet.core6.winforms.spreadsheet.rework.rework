@@ -17,7 +17,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
         /// </summary>
         public OpNodeSub()
         {
-            this.SetAttributes('-', 10, OpAssociativity.Leftward);
+            this.SetAttributes('-');
         }
+
+        /// <summary>
+        ///     Gets operator precedence.
+        /// </summary>
+        public override int Precedence => 10;
+
+        /// <summary>
+        ///     Gets operator associativity.
+        /// </summary>
+        public override OpAssociativity Associativity => OpAssociativity.Leftward;
     }
 }

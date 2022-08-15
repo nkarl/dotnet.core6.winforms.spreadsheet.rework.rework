@@ -18,18 +18,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         private char symbol;
 
         /// <summary>
-        ///     The precedence to be assigned.
-        /// </summary>
-        // ReSharper disable once InconsistentNaming
-        private int precedence;
-
-        /// <summary>
-        ///     The associativity to be assigned.
-        /// </summary>
-        // ReSharper disable once InconsistentNaming
-        private OpAssociativity associativity;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="OpNode" /> class.
         ///     The Operator Node.
         /// </summary>
@@ -46,12 +34,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <summary>
         ///     Gets the precedence of this operator.
         /// </summary>
-        public int Precedence => this.precedence;
+        public abstract int Precedence { get; }
 
         /// <summary>
         ///     Gets the associativity of this operator. LTR=1 and RTL=-1.
         /// </summary>
-        public OpAssociativity Associativity => this.associativity;
+        public abstract OpAssociativity Associativity { get; }
 
         /// <summary>
         ///     Gets or sets the left child-node.
@@ -67,13 +55,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         ///     Sets the attributes of the specialized operator.
         /// </summary>
         /// <param name="sym">specialized symbol.</param>
-        /// <param name="pre">specialized Precedence.</param>
-        /// <param name="assoc">specialized associativity.</param>
-        protected void SetAttributes(char sym, int pre, OpAssociativity assoc)
+        protected void SetAttributes(char sym)
         {
             this.symbol = sym;
-            this.precedence = pre;
-            this.associativity = assoc;
         }
     }
 }
