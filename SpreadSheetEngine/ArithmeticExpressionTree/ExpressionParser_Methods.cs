@@ -8,6 +8,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using System.Text;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
@@ -31,26 +32,33 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 if (node is OpNode incoming)
                 {
-                    if (stack.Count > 0)
+                    try
                     {
-                        if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
+                        if (incoming is OpNodeAdd add)
                         {
-                            if (incoming.Associativity == OpAssociativity.Leftward)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
+                            StackingAdd(add, stack, postfix);
                         }
-                        else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
+                        else if (incoming is OpNodeSub sub)
                         {
-                            // pop stack and add to postfix, and then continue the same test on the new top.
-                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
+                            StackingSub(sub, stack, postfix);
+                        }
+                        else if (incoming is OpNodeMul mul)
+                        {
+                            StackingMul(mul, stack, postfix);
+                        }
+                        else if (incoming is OpNodeDiv div)
+                        {
+                            StackingDiv(div, stack, postfix);
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
                         }
                     }
-
-                    stack.Push(incoming);
+                    catch (InvalidCastException)
+                    {
+                        Console.WriteLine($"ERROR: {incoming.GetType().Name} {incoming.Symbol}");
+                    }
                 }
                 else
                 {
@@ -117,14 +125,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             // var expression = "(A1+B2)+C3";
             var braces = "{[()]}"; // the braces should probably be put into a dict as key-value pair.
 
-            Dictionary<char, char> localBraceDict = new()
+            Dictionary<char, char> localBraceDict = new ()
             {
                 { '{', '}' },
                 { '[', ']' },
                 { '(', ')' },
             };
 
-            Dictionary<char, Func<char>> localOperatorDict = new()
+            Dictionary<char, Func<char>> localOperatorDict = new ()
             {
                 { '+', () => '+' },
                 { '-', () => '-' },

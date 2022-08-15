@@ -4,7 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    // using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
     ///     The Operator Node.
@@ -17,6 +17,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         // ReSharper disable once InconsistentNaming
         private char symbol;
 
+        /*
         /// <summary>
         ///     The precedence to be assigned.
         /// </summary>
@@ -28,6 +29,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// </summary>
         // ReSharper disable once InconsistentNaming
         private OpAssociativity associativity;
+
+        */
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="OpNode" /> class.
@@ -43,6 +46,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// </summary>
         public char Symbol => this.symbol;
 
+        /*
         /// <summary>
         ///     Gets the precedence of this operator.
         /// </summary>
@@ -52,6 +56,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         ///     Gets the associativity of this operator. LTR=1 and RTL=-1.
         /// </summary>
         public OpAssociativity Associativity => this.associativity;
+        */
 
         /// <summary>
         ///     Gets or sets the left child-node.
@@ -64,21 +69,21 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         public Node? Right { get; set; }
 
         /// <summary>
-        /// Sets the Symbol for specialized operator.
+        ///     Sets the attributes of the specialized operator.
         /// </summary>
         /// <param name="sym">specialized symbol.</param>
-        protected void SetSymbol(char sym) => this.symbol = sym;
+        protected void SetAttributes(char sym)
+        {
+            this.symbol = sym;
+        }
 
-        /// <summary>
-        /// Sets the Precedence for specialized operator.
-        /// </summary>
-        /// <param name="pre">specialized Precedence.</param>
-        protected void SetPrecedence(int pre) => this.precedence = pre;
-
-        /// <summary>
-        /// Sets the Associativity for specialized operator.
-        /// </summary>
-        /// <param name="assoc">specialized associativity.</param>
-        protected void SetAssociativity(OpAssociativity assoc) => this.associativity = assoc;
+        /*
+        protected void SetAttributes(char sym, int pre, OpAssociativity assoc)
+        {
+            this.symbol = sym;
+            this.precedence = pre;
+            this.associativity = assoc;
+        }
+    */
     }
 }

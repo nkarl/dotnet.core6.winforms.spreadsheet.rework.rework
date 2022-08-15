@@ -36,6 +36,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '*', () => new OpNodeMul() },
             { '/', () => new OpNodeDiv() },
         };
+
+        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastDict = new()
+        {
+            { '+', (x) => (x as OpNodeAdd)! },
+            { '-', (x) => (x as OpNodeSub)! },
+            { '*', (x) => (x as OpNodeMul)! },
+            { '/', (x) => (x as OpNodeDiv)! },
+        };
     }
 
     /*

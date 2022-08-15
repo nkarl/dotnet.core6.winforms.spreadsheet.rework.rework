@@ -12,19 +12,29 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators
     /// </summary>
     public class OpNodeDiv : OpNode
     {
+        private const int PrecedenceValue = 11;
+
+        private const OpAssociativity Assoc = OpAssociativity.Leftward;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OpNodeDiv"/> class.
         /// </summary>
         public OpNodeDiv()
         {
-            this.SetSymbol('/');
-            this.SetPrecedence(11);
-            this.SetAssociativity(OpAssociativity.Leftward);
+            this.SetAttributes('/');
             /*
-            this.symbol = '/';
-            this.precedence = 11;
-            this.associativity = OpAssociativity.Leftward;
+            this.SetAttributes('/', 11, OpAssociativity.Leftward);
         */
         }
+
+        /// <summary>
+        ///     Gets operator precedence.
+        /// </summary>
+        public int Precedence => PrecedenceValue;
+
+        /// <summary>
+        ///     Gets operator associativity.
+        /// </summary>
+        public OpAssociativity Associativity => Assoc;
     }
 }
