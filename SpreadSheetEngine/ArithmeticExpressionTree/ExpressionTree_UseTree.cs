@@ -9,7 +9,6 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    // using Components.Operators.EnumAttributes;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
@@ -37,7 +36,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>true or false.</returns>
         internal bool IsInTree(string name)
         {
-            return false;
+            /*
+             * TODO: this is used on the client side.
+             */
+            throw new NotImplementedException();
         }
 
         /// <summary>
