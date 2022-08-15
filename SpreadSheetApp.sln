@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionTreeTests", "Expr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionTreeConsole", "ExpressionTreeConsole\ExpressionTreeConsole.csproj", "{0B6E2CD8-F0CC-463F-BB75-FA4F06BA7076}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckTreeConsole", "CheckTreeConsole\CheckTreeConsole.csproj", "{1FA4754E-F03A-4003-96ED-4E181BFCA969}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckTreeConsole", "CheckTreeConsole\CheckTreeConsole.csproj", "{6F8BE36B-6801-4830-97F2-0498CF12CB78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{0B6E2CD8-F0CC-463F-BB75-FA4F06BA7076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B6E2CD8-F0CC-463F-BB75-FA4F06BA7076}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B6E2CD8-F0CC-463F-BB75-FA4F06BA7076}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FA4754E-F03A-4003-96ED-4E181BFCA969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FA4754E-F03A-4003-96ED-4E181BFCA969}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FA4754E-F03A-4003-96ED-4E181BFCA969}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FA4754E-F03A-4003-96ED-4E181BFCA969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8BE36B-6801-4830-97F2-0498CF12CB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8BE36B-6801-4830-97F2-0498CF12CB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8BE36B-6801-4830-97F2-0498CF12CB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8BE36B-6801-4830-97F2-0498CF12CB78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
