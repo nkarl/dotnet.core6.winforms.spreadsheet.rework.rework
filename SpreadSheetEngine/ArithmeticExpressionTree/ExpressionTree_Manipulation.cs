@@ -111,6 +111,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return evaluate(left, right);
         }
 
+        /// <summary>
+        ///     Looks up a variable in the tree by its name.
+        /// </summary>
+        /// <param name="name">the name of the var.</param>
+        /// <returns>the VarNode.</returns>
         private Node LookUpVar(string name)
         {
             /*
