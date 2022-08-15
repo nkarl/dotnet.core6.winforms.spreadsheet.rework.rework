@@ -92,11 +92,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             if (node is not OpNode op)
             {
-                /*
-                 * TODO: Implement the logic for extracting value from VarNode or ConstNode.
-                 *  These are definitely leaf nodes, so they should be evaluated as well.
-                 *  This means that I need a look-back/parent to account for the operator.
-                 */
                 double result = 0;
                 if (node is ConstNode c)
                 {
