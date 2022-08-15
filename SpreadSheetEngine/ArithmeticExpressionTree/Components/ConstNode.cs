@@ -4,7 +4,6 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
-    using System.Diagnostics.CodeAnalysis;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>

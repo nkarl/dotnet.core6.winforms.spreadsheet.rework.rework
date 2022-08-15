@@ -1,7 +1,6 @@
 ﻿namespace ExpressionTreeTests
 {
     using System.Collections.Immutable;
-    using SpreadSheetEngine.ArithmeticExpressionTree;
 
     [TestFixture]
     public class ExpressionParserTests

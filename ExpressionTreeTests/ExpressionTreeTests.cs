@@ -1,7 +1,5 @@
 ﻿namespace ExpressionTreeTests
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree;
-
     [TestFixture]
     public class ExpressionTreeTests
     {
