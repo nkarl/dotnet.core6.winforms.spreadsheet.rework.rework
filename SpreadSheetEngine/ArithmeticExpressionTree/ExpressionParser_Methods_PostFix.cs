@@ -10,10 +10,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
-    /*
-     * TODO: Handle the exception when the first parsed block is a negative value.
-     */
-
     /// <summary>
     ///     Contains methods only.
     ///     This is a static class. It takes an input expression as string and process that into a node-based
@@ -21,6 +17,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal static partial class ExpressionParser
     {
+        /*
+         * TODO: Implement support for braces for postfix construction.
+         *  - Maybe, implement BraceNode with precedence gradient.
+         *  - The order is:
+         *      { > [ > (
+         *    and vice versa for their counterparts.
+         */
+
         /// <summary>
         ///     Make a postfix from an infix as list of nodes.
         /// </summary>

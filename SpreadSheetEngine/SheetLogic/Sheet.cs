@@ -100,8 +100,7 @@ namespace SpreadSheetEngine.SheetLogic
         private string Evaluate(string expression)
         {
             /*
-             * TODO:
-             *  - provides implementation for content that is not cell coordinates.
+             * TODO:  provides implementation for content that is not cell coordinates.
              *  - Fixes the edge cases where 'A' - 'A'.
              * Supports:
              *  - Pulling the value from another cell. The remaining part after '='
