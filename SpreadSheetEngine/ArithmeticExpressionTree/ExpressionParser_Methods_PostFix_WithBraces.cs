@@ -1,4 +1,4 @@
-﻿// <copyright file="ExpressionParser_Methods_PostFix.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="ExpressionParser_Methods_PostFix_WithBraces.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
@@ -30,10 +30,18 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the infix as list of nodes.</param>
         /// <returns>new postfix as list of nodes.</returns>
-        public static IEnumerable<Node> MakePostfix(IEnumerable<Node> infix)
+        public static IEnumerable<Node> MakePostfixWithBraces(IEnumerable<Node> infix)
         {
             var stack = new Stack<Node>();
             var postfix = new List<Node>();
+            var leftbraces = "{[(";
+            var rightbraces = ")]}";
+            var braces = new Dictionary<char, char>()
+            {
+                { ')', '(' },
+                { ']', '[' },
+                { '}', '{' },
+            };
 
             foreach (Node node in infix)
             {
@@ -62,6 +70,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 }
                 else
                 {
+                    /*
+                     * TODO: implements the logic for pushing and popping braces from stack.
+                     *  Description,
+                     *      1. whenever the symbol is any left brace, push it to the stack.
+                     *      2. whenever the symbol is any right brace, pop the stack until
+                     *          found its matching left brace. Then discard both.
+                     */
                     postfix.Add(node);
                 }
             }
