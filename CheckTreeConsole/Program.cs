@@ -19,7 +19,7 @@ tree.ShowVarDict();
 var result = tree.Evaluate();
 Console.WriteLine($"result = {result}");*/
 
-var output = ExpressionParser.FromInfixToBlocksWithBraces(exp).ToArray();
+var output = ExpressionParser.FromInfixToBlocks(exp).ToArray();
 
 Console.WriteLine($"var output: {output.GetType().Name}, count={output.Count()}");
 Console.Write('[');
