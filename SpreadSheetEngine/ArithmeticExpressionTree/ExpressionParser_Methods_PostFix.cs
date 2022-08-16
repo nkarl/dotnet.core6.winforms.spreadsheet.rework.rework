@@ -4,9 +4,6 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System.Collections.Immutable;
-    using System.Text;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
@@ -17,14 +14,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal static partial class ExpressionParser
     {
-        /*
-         * TODO: Implement support for braces for postfix construction.
-         *  - Maybe, implement BraceNode with precedence gradient.
-         *  - The order is:
-         *      { > [ > (
-         *    and vice versa for their counterparts.
-         */
-
         /// <summary>
         ///     Make a postfix from an infix as list of nodes.
         /// </summary>

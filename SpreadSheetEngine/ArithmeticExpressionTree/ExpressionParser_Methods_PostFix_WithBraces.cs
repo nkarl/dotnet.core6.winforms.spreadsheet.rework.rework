@@ -4,9 +4,6 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System.Collections.Immutable;
-    using System.Text;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
@@ -71,11 +68,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 else
                 {
                     /*
-                     * TODO: implements the logic for pushing and popping braces from stack.
-                     *  Description,
+                     * Description:
                      *      1. whenever the symbol is any left brace, push it to the stack.
                      *      2. whenever the symbol is any right brace, pop the stack until
-                     *          found its matching left brace. Then discard both.
+                     *          found its matching left. Then discard both.
+                     *
+                     * TODO: Implement the logic for parsing with braces.
+                     *      1. Parse an expression with correct brace order.
+                     *      2. Handle when expression has incorrect brace order.
                      */
                     postfix.Add(node);
                 }
