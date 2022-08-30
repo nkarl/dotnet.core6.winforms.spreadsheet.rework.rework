@@ -30,7 +30,8 @@
         [TestCase("A-22*1b", null)]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeSub", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "VarNode" })]
-        [TestCase("(A1+B1)+C1", new [] { "VarNode", "OpNodeAdd", "VarNode", "OpNodeAdd", "VarNode" })]
+        [TestCase("(A1+B1)+C1",
+            new [] { "OpNodeLeftBrace", "VarNode", "OpNodeAdd", "VarNode", "OpNodeRightBrace", "OpNodeAdd", "VarNode" })]
         public void ParseNodeFromStringTest(string input, string [] expected)
         {
             var blocks = ExpressionParser.FromInfixToBlocks(input);
