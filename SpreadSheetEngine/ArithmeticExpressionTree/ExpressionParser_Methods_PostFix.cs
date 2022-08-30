@@ -24,7 +24,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var stack = new Stack<Node>();
             var postfix = new List<Node>();
 
-            foreach (Node node in infix)
+            foreach (var node in infix)
             {
                 if (node is OpNode incoming)
                 {

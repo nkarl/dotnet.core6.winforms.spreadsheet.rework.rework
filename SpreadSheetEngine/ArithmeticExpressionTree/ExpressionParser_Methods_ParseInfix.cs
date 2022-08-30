@@ -5,11 +5,9 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
-    using System.Runtime.CompilerServices;
     using System.Text;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
     ///     Contains methods only.
@@ -53,7 +51,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 infix = infix[1..];
             }
 
-            foreach (char c in infix)
+            foreach (var c in infix)
             {
                 if (OperatorDict.ContainsKey(c) || braces.Contains(c))
                 {
@@ -92,7 +90,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
              */
             var nodes = new List<Node>();
 
-            foreach (string block in blocks)
+            foreach (var block in blocks)
             {
                 Node newNode;
                 if (block.Length > 1)
@@ -179,7 +177,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             if (Digits.Contains(varName[0]))
             {
-                foreach (char c in varName[1..])
+                foreach (var c in varName[1..])
                 {
                     if (UpperCase.Contains(c) || LowerCase.Contains(c))
                     {

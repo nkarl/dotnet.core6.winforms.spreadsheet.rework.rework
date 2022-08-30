@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
     ///     The Binary Tree to hold all nodes in an arithmetic expression tree.
@@ -21,12 +20,12 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Sets the variable in the expression tree.
         /// </summary>
         /// <param name="var">the variable to be set.</param>
-        internal void SetVariable((string? Name, double Value) @var)
+        internal void SetVariable((string? Name, double Value) var)
         {
             if (var.Name != null)
             {
-                var node = this.varDict[@var.Name];
-                node.Value = @var.Value;
+                var node = this.varDict[var.Name];
+                node.Value = var.Value;
             }
         }
 

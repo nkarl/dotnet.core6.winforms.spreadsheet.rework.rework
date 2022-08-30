@@ -55,7 +55,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             // For each item in postfix, simply push to stack if it is not an operator,
             // otherwise do some magic and then push.
-            foreach (Node node in postfix)
+            foreach (var node in postfix)
             {
                 if (node is OpNode op)
                 {

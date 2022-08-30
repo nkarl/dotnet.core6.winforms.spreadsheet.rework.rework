@@ -24,9 +24,9 @@ var output = str.ToArray();
 
 Console.WriteLine($"var output: {output.GetType().Name}, count={output.Count()}");
 Console.WriteLine('[');
-for (int i = 0; i < output.Count(); ++i)
+for (var i = 0; i < output.Count(); ++i)
 {
-    string b = output[i];
+    var b = output[i];
     Console.Write($"\"{b}\"");
     // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
     if (i < output.Count() - 1)
@@ -34,14 +34,15 @@ for (int i = 0; i < output.Count(); ++i)
         Console.WriteLine(", ");
     }
 }
+
 Console.WriteLine();
 Console.WriteLine(']');
 
 var postfix = ExpressionParser.FromBlocksToPostfixNodes(str);
 var output2 = postfix.ToArray();
-for (int i = 0; i < output2.Count(); ++i)
+for (var i = 0; i < output2.Count(); ++i)
 {
-    string b = output2[i].Type;
+    var b = output2[i].Type;
     Console.Write($"\"{b}\"");
     // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
     if (i < output2.Count() - 1)
@@ -51,7 +52,7 @@ for (int i = 0; i < output2.Count(); ++i)
 }
 /*
 var blockInfix = ExpressionParser.FromInfixToBlocks(exp);
-var output = ExpressionParser.FromBlocksToPosfixNodes(blockInfix).ToArray();
+var output = ExpressionParser.FromBlocksToPostfixNodes(blockInfix).ToArray();
 
 Console.Write('[');
 for (int i = 0; i < output.Count(); ++i)

@@ -49,7 +49,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var stack = new Stack<Node>();
             var postfix = new List<Node>();
 
-            foreach (string block in infix)
+            foreach (var block in infix)
             {
                 Console.WriteLine(block);
 

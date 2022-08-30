@@ -6,14 +6,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /// <summary>
     ///     The Binary Tree to hold all nodes in an arithmetic expression tree.
     /// </summary>
     internal partial class ExpressionTree
     {
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },

@@ -4,7 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
+    using Operators.EnumAttributes;
 
     /// <summary>
     ///     The Operator Node.
@@ -29,7 +29,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <summary>
         ///     Gets the character denoting this operator.
         /// </summary>
-        public char Symbol => this.symbol;
+        public char Symbol => symbol;
 
         /// <summary>
         ///     Gets the precedence of this operator.
@@ -57,7 +57,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
         /// <param name="sym">specialized symbol.</param>
         protected void SetAttributes(char sym)
         {
-            this.symbol = sym;
+            symbol = sym;
         }
     }
 }
