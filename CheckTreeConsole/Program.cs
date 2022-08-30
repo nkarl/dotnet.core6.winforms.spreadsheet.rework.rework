@@ -10,7 +10,7 @@ var exp3 = "1.1+2+3";
 var exp4 = "1.1+2.2+3.3";
 var exp5 = "A1+22+C3";
 var exp6 = "A1*(B1+C1)-(D1+(E1/F1))";
-var exp = exp2;
+var exp = exp1;
 /*
 // ExpressionParser.ParseInfixWithBraces(exp1);
 var tree = new ExpressionTree(exp);
@@ -19,20 +19,37 @@ tree.ShowVarDict();
 var result = tree.Evaluate();
 Console.WriteLine($"result = {result}");*/
 
-/*
-var output = ExpressionParser.FromInfixToBlocks(exp).ToArray();
+var str = ExpressionParser.FromInfixToBlocks(exp);
+var output = str.ToArray();
 
 Console.WriteLine($"var output: {output.GetType().Name}, count={output.Count()}");
-Console.Write('[');
+Console.WriteLine('[');
 for (int i = 0; i < output.Count(); ++i)
 {
     string b = output[i];
-    Console.Write($"\"{b}\", ");
+    Console.Write($"\"{b}\"");
     // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
+    if (i < output.Count() - 1)
+    {
+        Console.WriteLine(", ");
+    }
 }
-Console.Write(']');
-*/
+Console.WriteLine();
+Console.WriteLine(']');
 
+var postfix = ExpressionParser.FromBlocksToPosfixNodes(str);
+var output2 = postfix.ToArray();
+for (int i = 0; i < output2.Count(); ++i)
+{
+    string b = output2[i].Type;
+    Console.Write($"\"{b}\"");
+    // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
+    if (i < output2.Count() - 1)
+    {
+        Console.WriteLine(", ");
+    }
+}
+/*
 var blockInfix = ExpressionParser.FromInfixToBlocks(exp);
 var output = ExpressionParser.FromBlocksToPosfixNodes(blockInfix).ToArray();
 
@@ -44,3 +61,4 @@ for (int i = 0; i < output.Count(); ++i)
     // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
 }
 Console.Write(']');
+*/

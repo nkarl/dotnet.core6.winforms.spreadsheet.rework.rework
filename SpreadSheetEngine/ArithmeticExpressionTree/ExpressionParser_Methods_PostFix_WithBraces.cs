@@ -5,6 +5,7 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
+    using Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
@@ -33,6 +34,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (string block in infix)
             {
+                Console.WriteLine(block);
+
                 Node newNode;
                 if (block.Length > 1)
                 {
@@ -57,6 +60,24 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         /*
                          * TODO: Implement Left and Right brace operators.
                          */
+                        if (incoming is OpNodeLeftBrace)
+                        {
+                            stack.Push(incoming);
+                        }
+                        else
+                        {
+                            while (stack.Count > 0 && stack.Peek() is not OpNodeLeftBrace)
+                            {
+                                postfix.Add(stack.Pop());
+                            }
+
+                            if (stack.Count == 0)
+                            {
+                                return null;
+                            }
+
+                            stack.Pop();
+                        }
                     }
                     else
                     {

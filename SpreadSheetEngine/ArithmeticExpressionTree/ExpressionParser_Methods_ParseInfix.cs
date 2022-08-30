@@ -44,8 +44,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var braces = "{[()]}";
 
             // Handles the case where the first block is a negative number.
-            if (OperatorDict.ContainsKey(infix[0]))
+            if (infix[0] == '-')
             {
+                /*
+                 * TODO: fix this to capture the entire negative number.
+                 */
                 block.Append(infix[0]);
                 infix = infix[1..];
             }
