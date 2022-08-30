@@ -35,6 +35,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '-', () => new OpNodeSub() },
             { '*', () => new OpNodeMul() },
             { '/', () => new OpNodeDiv() },
+            { '(', () => new OpNodeLeftBrace() },
+            { ')', () => new OpNodeRightBrace() },
         };
     }
 

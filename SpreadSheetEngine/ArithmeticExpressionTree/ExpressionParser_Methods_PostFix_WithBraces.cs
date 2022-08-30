@@ -52,7 +52,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
                 if (newNode is OpNode incoming)
                 {
-                    if ("+-*/".Contains(incoming.Symbol))
+                    if ("()".Contains(incoming.Symbol))
+                    {
+                        /*
+                         * TODO: Implement Left and Right brace operators.
+                         */
+                    }
+                    else
                     {
                         if (stack.Count > 0)
                         {
@@ -74,12 +80,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         }
 
                         stack.Push(incoming);
-                    }
-                    else if ("()".Contains(incoming.Symbol))
-                    {
-                        /*
-                         * TODO: Implement Left and Right brace operators.
-                         */
                     }
                 }
                 else
