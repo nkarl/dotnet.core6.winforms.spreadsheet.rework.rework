@@ -13,8 +13,9 @@
         [TestCase("A1+B2+C3", new [] { "A1", "+", "B2", "+", "C3" })]
         [TestCase("A1+Hello+2", new [] { "A1", "+", "Hello", "+", "2" })]
         [TestCase("A+Hello+b", new [] { "A", "+", "Hello", "+", "b" })]
-        [TestCase("(A1+B1)+C1", new [] { "(", "A1", "+", "B1",")" , "+", "C1" })]
-        [TestCase("A1*(B1+C1)-(D1+(E1/F1))", new [] { "A1", "*", "(", "B1", "+", "C1", ")", "-", "(", "D1", "+", "(", "E1", "/", "F1", ")", ")" })]
+        [TestCase("(A1+B1)+C1", new [] { "(", "A1", "+", "B1", ")", "+", "C1" })]
+        [TestCase("A1*(B1+C1)-(D1+(E1/F1))",
+            new [] { "A1", "*", "(", "B1", "+", "C1", ")", "-", "(", "D1", "+", "(", "E1", "/", "F1", ")", ")" })]
         public void FromExpressionToBlocksTest(string expression, string [] blocks)
         {
             var output = ExpressionParser.FromInfixToBlocks(expression).ToArray();

@@ -61,7 +61,7 @@ ExpressionTree MakeNewTree()
 
 void ExecuteConsoleApp(bool appIsRunning)
 {
-    ExpressionTree? tree = null;
+    ExpressionTree? tree = null;    // initialize the first tree on app start up.
 
     while (appIsRunning)
     {
@@ -86,7 +86,7 @@ void ExecuteConsoleApp(bool appIsRunning)
                 {
                     Console.Write("Enter the variable name and its new value: ");
                     @var = GetVarNameAndValue();
-                    if (@var.Name != null && tree.HasVar(@var.Name))
+                    if (@var.Name != null && tree.HasVariable(@var.Name))
                     {
                         break;
                     }

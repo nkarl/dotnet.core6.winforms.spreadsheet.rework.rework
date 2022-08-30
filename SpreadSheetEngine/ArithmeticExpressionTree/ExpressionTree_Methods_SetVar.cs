@@ -35,7 +35,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="name">name of variable.</param>
         /// <returns>true or false.</returns>
-        internal bool HasVar(string name)
+        internal bool HasVariable(string name)
         {
             return this.varDict.ContainsKey(name);
         }

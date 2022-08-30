@@ -33,7 +33,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var postfix = new List<Node>();
             var leftbraces = "{[(";
             var rightbraces = ")]}";
-            var braces = new Dictionary<char, char>()
+            var rightBraces = new Dictionary<char, char>()
+            {
+                { '(', ')' },
+                { '[', ']' },
+                { '{', '}' },
+            };
+            var leftBraces = new Dictionary<char, char>()
             {
                 { ')', '(' },
                 { ']', '[' },

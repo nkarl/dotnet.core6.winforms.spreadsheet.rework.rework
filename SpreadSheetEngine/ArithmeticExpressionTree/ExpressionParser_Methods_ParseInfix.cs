@@ -85,13 +85,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         internal static IEnumerable<Node>? FromBlocksToNodes(IEnumerable<string> blocks)
         {
             /*
-            return (
-                from block in blocks
-                select block.Length == 1
-                    ? NodeFromChar(block[0])
-                    : NodeFromStr(block)
-            ).ToImmutableList();
-            */
+             * TODO: Audit this and see if it's possible to combine this with the PostFix maker.
+             */
             var nodes = new List<Node>();
 
             foreach (string block in blocks)
