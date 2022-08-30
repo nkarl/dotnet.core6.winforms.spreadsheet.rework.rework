@@ -37,7 +37,7 @@ for (int i = 0; i < output.Count(); ++i)
 Console.WriteLine();
 Console.WriteLine(']');
 
-var postfix = ExpressionParser.FromBlocksToPosfixNodes(str);
+var postfix = ExpressionParser.FromBlocksToPostfixNodes(str);
 var output2 = postfix.ToArray();
 for (int i = 0; i < output2.Count(); ++i)
 {

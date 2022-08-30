@@ -6,7 +6,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using SpreadSheetEngine.ArithmeticExpressionTree.Components;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
-    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
 
     /// <summary>
     ///     The Binary Tree to hold all nodes in an arithmetic expression tree.
@@ -21,10 +20,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             this.varDict = new Dictionary<string, VarNode>();
             this.Expression = expression;
+            /*
             var infix = ExpressionParser.ParseInfix(expression);
             if (infix is not null)
             {
                 var postfix = ExpressionParser.MakePostfix(infix);
+                this.Root = this.MakeTree(postfix);
+            }
+            */
+            var postfix = ExpressionParser.MakePostFix2(expression);
+            if (postfix != null)
+            {
                 this.Root = this.MakeTree(postfix);
             }
         }

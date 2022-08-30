@@ -86,7 +86,7 @@
         public void ConvertStringsToPostfixTest(string input, string [] expected)
         {
             var blocks = ExpressionParser.FromInfixToBlocks(input);
-            var postfix = ExpressionParser.FromBlocksToPosfixNodes(blocks);
+            var postfix = ExpressionParser.FromBlocksToPostfixNodes(blocks);
             var output = (
                 from n in postfix
                 select n.Type).ToImmutableList();

@@ -5,8 +5,8 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
-    using Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
+    using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
@@ -24,7 +24,24 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          *    and vice versa for their counterparts.
          */
 
-        internal static IEnumerable<Node>? FromBlocksToPosfixNodes(IEnumerable<string> infix)
+        /// <summary>
+        ///     Make a postfix from an infix as list of nodes.
+        /// </summary>
+        /// <param name="expression">the string expression.</param>
+        /// <returns>new postfix as list of nodes.</returns>
+        internal static IEnumerable<Node>? MakePostFix2(string expression)
+        {
+            var blocks = FromInfixToBlocks(expression);
+            var postfix = FromBlocksToPostfixNodes(blocks);
+            return postfix;
+        }
+
+        /// <summary>
+        ///     Converts blocks of string to postfix nodes.
+        /// </summary>
+        /// <param name="infix">infix expression as list of string.</param>
+        /// <returns>postfix as list of nodes.</returns>
+        internal static IEnumerable<Node>? FromBlocksToPostfixNodes(IEnumerable<string> infix)
         {
             /*
              * TODO: Audit this and see if it's possible to combine this with the PostFix maker.
@@ -115,79 +132,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
 
             return postfix.ToImmutableList();
-        }
-
-        /// <summary>
-        ///     Make a postfix from an infix as list of nodes.
-        /// </summary>
-        /// <param name="infix">the infix as list of nodes.</param>
-        /// <returns>new postfix as list of nodes.</returns>
-        public static IEnumerable<Node> MakePostfixWithBraces(IEnumerable<Node> infix)
-        {
-            var stack = new Stack<Node>();
-            var postfix = new List<Node>();
-            var leftbraces = "{[(";
-            var rightbraces = ")]}";
-            var rightBraces = new Dictionary<char, char>()
-            {
-                { '(', ')' },
-                { '[', ']' },
-                { '{', '}' },
-            };
-            var leftBraces = new Dictionary<char, char>()
-            {
-                { ')', '(' },
-                { ']', '[' },
-                { '}', '{' },
-            };
-
-            foreach (Node node in infix)
-            {
-                if (node is OpNode incoming)
-                {
-                    if (stack.Count > 0)
-                    {
-                        if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
-                        {
-                            if (incoming.Associativity == OpAssociativity.Leftward)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                        else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
-                        {
-                            // pop stack and add to postfix, and then continue the same test on the new top.
-                            for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
-                            {
-                                postfix.Add(stack.Pop());
-                            }
-                        }
-                    }
-
-                    stack.Push(incoming);
-                }
-                else
-                {
-                    /*
-                     * Description:
-                     *      1. whenever the symbol is any left brace, push it to the stack.
-                     *      2. whenever the symbol is any right brace, pop the stack until
-                     *          found its matching left. Then discard both.
-                     *
-                     * TODO: Implement the logic for parsing with braces.
-                     *      1. Parse an expression with correct brace order.
-                     *      2. Handle when expression has incorrect brace order.
-                     */
-                    postfix.Add(node);
-                }
-            }
-
-            for (; stack.Count > 0;)
-            {
-                postfix.Add(stack.Pop());
-            }
-
-            return postfix;
         }
     }
 }
