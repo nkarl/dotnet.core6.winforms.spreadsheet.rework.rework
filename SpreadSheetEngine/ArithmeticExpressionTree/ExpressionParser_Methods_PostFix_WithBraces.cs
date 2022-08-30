@@ -4,6 +4,7 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
+    using System.Collections.Immutable;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
@@ -21,6 +22,79 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
          *      { > [ > (
          *    and vice versa for their counterparts.
          */
+
+        internal static IEnumerable<Node>? FromBlocksToPosfixNodes(IEnumerable<string> infix)
+        {
+            /*
+             * TODO: Audit this and see if it's possible to combine this with the PostFix maker.
+             */
+            var stack = new Stack<Node>();
+            var postfix = new List<Node>();
+
+            foreach (string block in infix)
+            {
+                Node newNode;
+                if (block.Length > 1)
+                {
+                    if (IsValidVarName(block))
+                    {
+                        newNode = NodeFromStr(block);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    newNode = NodeFromChar(block[0]);
+                }
+
+                if (newNode is OpNode incoming)
+                {
+                    if ("+-*/".Contains(incoming.Symbol))
+                    {
+                        if (stack.Count > 0)
+                        {
+                            if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
+                            {
+                                if (incoming.Associativity == OpAssociativity.Leftward)
+                                {
+                                    postfix.Add(stack.Pop());
+                                }
+                            }
+                            else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
+                            {
+                                // pop stack and add to postfix, and then continue the same test on the new top.
+                                for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
+                                {
+                                    postfix.Add(stack.Pop());
+                                }
+                            }
+                        }
+
+                        stack.Push(incoming);
+                    }
+                    else if ("()".Contains(incoming.Symbol))
+                    {
+                        /*
+                         * TODO: Implement Left and Right brace operators.
+                         */
+                    }
+                }
+                else
+                {
+                    postfix.Add(newNode);
+                }
+            }
+
+            for (; stack.Count > 0;)
+            {
+                postfix.Add(stack.Pop());
+            }
+
+            return postfix.ToImmutableList();
+        }
 
         /// <summary>
         ///     Make a postfix from an infix as list of nodes.
