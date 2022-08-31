@@ -15,8 +15,7 @@ namespace SpreadSheetEngine.SheetLogic
     /// <summary>
     ///     The data source controller for the 2D array of cells.
     /// </summary>
-    internal class Sheet : INotifyPropertyChanged
-
+    internal sealed class Sheet : INotifyPropertyChanged
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
@@ -133,8 +132,11 @@ namespace SpreadSheetEngine.SheetLogic
         /// <param name="propertyName"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
+            /*
+             * TODO: audit this because I am not sure why it is here.
+             */
             if (EqualityComparer<T>.Default.Equals(field, value))
             {
                 return false;
@@ -149,7 +151,7 @@ namespace SpreadSheetEngine.SheetLogic
         /// Should raise a notifying event whenever a property is changed.
         /// </summary>
         /// <param name="propertyName">the name of the caller member method.</param>
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
