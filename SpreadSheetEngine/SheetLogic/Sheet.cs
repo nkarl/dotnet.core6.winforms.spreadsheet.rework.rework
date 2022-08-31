@@ -9,12 +9,14 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.SheetLogic
 {
+    using System.ComponentModel;
     using SpreadSheetEngine.SheetLogic.Components;
 
     /// <summary>
     ///     The data source controller for the 2D array of cells.
     /// </summary>
-    internal class Sheet
+    internal class Sheet : INotifyPropertyChanged
+
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
@@ -50,11 +52,12 @@ namespace SpreadSheetEngine.SheetLogic
              */
         }
 
-        /// <summary>
-        ///     This Event Handler allows the outside world (the GUI) to subscribe and listen for any property changes in any
-        ///     cells.
-        /// </summary>
-        public event EventHandler CellPropertyChanged = (sender, e) => { };
+        /*
+         * public event PropertyChangedEventHandler PropertyChanged;
+         */
+
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /*
             TODO: Flesh and design a scheme for this Event Handler.
@@ -99,6 +102,11 @@ namespace SpreadSheetEngine.SheetLogic
             cell.SetValue(expression);
         }
 
+        /// <summary>
+        /// Trigger the the expression evaluation.
+        /// </summary>
+        /// <param name="expression">the input expression.</param>
+        /// <returns>the value evaluated as string.</returns>
         private string Evaluate(string expression)
         {
             /*
@@ -115,6 +123,35 @@ namespace SpreadSheetEngine.SheetLogic
             var row = int.Parse(expression[1..expression.Length]);
 
             return this.table[row - 1, col].Text;
+        }
+
+        /// <summary>
+        /// Sets the field of the data sheet.
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="value"></param>
+        /// <param name="propertyName"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value))
+            {
+                return false;
+            }
+
+            field = value;
+            this.OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        /// <summary>
+        /// Should raise a notifying event whenever a property is changed.
+        /// </summary>
+        /// <param name="propertyName">the name of the caller member method.</param>
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

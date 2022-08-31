@@ -4,28 +4,30 @@
 
 namespace SpreadSheetEngine.SheetLogic.Components
 {
+    using SpreadSheetEngine.SheetLogic.Components.Abstract;
+
     /// <summary>
     ///     Contains the implementation of BaseCell abstract class.
     /// </summary>
-        internal class Cell : BaseCell
+    internal class Cell : BaseCell
+    {
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Cell" /> class.
+        /// </summary>
+        /// <param name="rowIndex">the cell's row coordinate.</param>
+        /// <param name="columnIndex">the cell's column coordinate.</param>
+        internal Cell(int rowIndex, int columnIndex)
+            : base(rowIndex, columnIndex)
         {
-            /// <summary>
-            ///     Initializes a new instance of the <see cref="Cell" /> class.
-            /// </summary>
-            /// <param name="rowIndex">the cell's row coordinate.</param>
-            /// <param name="columnIndex">the cell's column coordinate.</param>
-            internal Cell(int rowIndex, int columnIndex)
-                : base(rowIndex, columnIndex)
-            {
-            }
+        }
 
-            /// <summary>
-            ///     Sets the value of the cell.
-            /// </summary>
-            /// <param name="expression">the new expression.</param>
-            internal new void SetValue(string expression)
-            {
-                base.SetValue(expression);
-            }
+        /// <summary>
+        ///     Sets the value of the cell.
+        /// </summary>
+        /// <param name="expression">the new expression.</param>
+        internal new void SetValue(string expression)
+        {
+            base.SetValue(expression);
+        }
     }
 }

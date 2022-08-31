@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.SheetLogic
+namespace SpreadSheetEngine.SheetLogic.Components.Abstract
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -54,14 +54,14 @@ namespace SpreadSheetEngine.SheetLogic
                 }
 
                 this.text = value;
-                this.OnPropertyChanged();
+                this.NotifyOnPropertyChanged();
             }
         }
 
         /// <summary>
         ///     Gets the value of the cell.
         /// </summary>
-        public string Value { get; private set; } = string.Empty;
+        internal string Value { get; private set; } = string.Empty;
 
         /// <summary>
         ///     Evaluates and sets the Text property of this cell. Not accessible to the outside world.
@@ -74,7 +74,11 @@ namespace SpreadSheetEngine.SheetLogic
             this.Text = this.Value;
         }
 
-        private void OnPropertyChanged([CallerMemberName] string? name = null)
+        /// <summary>
+        ///     Should be raised the event whenever a property is changed.
+        /// </summary>
+        /// <param name="name">the name of caller method.</param>
+        private void NotifyOnPropertyChanged([CallerMemberName] string? name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }

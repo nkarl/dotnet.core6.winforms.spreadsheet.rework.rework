@@ -1,5 +1,7 @@
 namespace SpreadSheetEngineTests
 {
+    using SpreadSheetEngine.SheetLogic.Components.Abstract;
+
     public class CellTests
     {
         private static object [] _tuples =
