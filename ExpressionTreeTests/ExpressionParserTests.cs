@@ -35,7 +35,7 @@
         public void ParseNodeFromStringTest(string input, string [] expected)
         {
             var blocks = ExpressionParser.FromInputToStringBlocks(input);
-            var nodes = ExpressionParser.FromBlocksToNodes(blocks);
+            var nodes = ExpressionParser.FromStringBlocksToNodes(blocks);
             IEnumerable<string>? output = null;
             if (nodes is not null)
             {

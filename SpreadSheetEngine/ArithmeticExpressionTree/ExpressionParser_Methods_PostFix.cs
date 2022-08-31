@@ -24,9 +24,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>the list of nodes in postfix style.</returns>
         public static IEnumerable<Node>? MakePostfix(string expression)
         {
-            var strings = FromInputToStringBlocks(expression);
-            var postfix = MakePostfixNodes(strings);
-            return postfix;
+            var strings = ParseInfix(expression);
+            return MakePostfixNodes(strings);
         }
 
         /// <summary>

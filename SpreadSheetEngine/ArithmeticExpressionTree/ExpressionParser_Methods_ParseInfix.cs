@@ -21,11 +21,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the input expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        public static IEnumerable<Node>? ParseInfix(string infix)
+        internal static IEnumerable<string> ParseInfix(string infix)
         {
-            var blocks = FromInputToStringBlocks(infix);
-            var nodes = FromBlocksToNodes(blocks);
-            return nodes;
+            return FromInputToStringBlocks(infix);
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="blocks">expression as blocks of string.</param>
         /// <returns>expression as nodes.</returns>
-        internal static IEnumerable<Node>? FromBlocksToNodes(IEnumerable<string> blocks)
+        internal static IEnumerable<Node>? FromStringBlocksToNodes(IEnumerable<string> blocks)
         {
             var nodes = new List<Node>();
 
