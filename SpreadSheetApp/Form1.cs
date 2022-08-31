@@ -59,7 +59,12 @@ namespace SpreadSheetApp
             currentCell.Value = sheetCell.Text;
 
             var targetCell = this.dataGridView1[0, 0];
-            targetCell.Value = $"{currentCell.Value} <- [{this.dataGridView1.CurrentRow.HeaderCell.Value},{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}]";
+            var dataGridViewRow = this.dataGridView1.CurrentRow;
+            if (dataGridViewRow != null)
+            {
+                targetCell.Value =
+                    $"{currentCell.Value} <- [{dataGridViewRow.HeaderCell.Value},{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}]";
+            }
         }
     }
 }

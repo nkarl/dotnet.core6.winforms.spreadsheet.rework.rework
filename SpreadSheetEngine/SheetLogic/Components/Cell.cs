@@ -1,17 +1,12 @@
-﻿// <copyright file="Sheet_Cell.cs" company="Charles Nguyen -- 011606177">
+﻿// <copyright file="Cell.cs" company="Charles Nguyen -- 011606177">
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.SheetLogic
+namespace SpreadSheetEngine.SheetLogic.Components
 {
     /// <summary>
     ///     Contains the implementation of BaseCell abstract class.
     /// </summary>
-    internal partial class Sheet
-    {
-        /// <summary>
-        ///     Implements the abstract base class BaseCell.
-        /// </summary>
         internal class Cell : BaseCell
         {
             /// <summary>
@@ -32,6 +27,5 @@ namespace SpreadSheetEngine.SheetLogic
             {
                 base.SetValue(expression);
             }
-        }
     }
 }

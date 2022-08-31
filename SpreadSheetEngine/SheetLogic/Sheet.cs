@@ -9,17 +9,19 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.SheetLogic
 {
+    using SpreadSheetEngine.SheetLogic.Components;
+
     /// <summary>
     ///     The data source controller for the 2D array of cells.
     /// </summary>
-    internal partial class Sheet
+    internal class Sheet
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
          */
 
         // ReSharper disable once InconsistentNaming
-        private readonly Cell [,] table;
+        private readonly Cell[,] table;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Sheet" /> class.
@@ -28,14 +30,14 @@ namespace SpreadSheetEngine.SheetLogic
         /// <param name="numColumns">the number of columns in this sheet.</param>
         public Sheet(int numRows, int numColumns)
         {
-            table = new Cell[numRows, numColumns];
+            this.table = new Cell[numRows, numColumns];
 
             // Iterates and instantiates all cells in the sheet.
             for (var r = 0; r < numRows; r++)
             {
                 for (var c = 0; c < numColumns; c++)
                 {
-                    table[r, c] = new Cell(r, c);
+                    this.table[r, c] = new Cell(r, c);
 
                     // this.table[r, c].PropertyChanged += this.SetCell;
                 }
@@ -48,6 +50,12 @@ namespace SpreadSheetEngine.SheetLogic
              */
         }
 
+        /// <summary>
+        ///     This Event Handler allows the outside world (the GUI) to subscribe and listen for any property changes in any
+        ///     cells.
+        /// </summary>
+        public event EventHandler CellPropertyChanged = (sender, e) => { };
+
         /*
             TODO: Flesh and design a scheme for this Event Handler.
          */
@@ -55,18 +63,12 @@ namespace SpreadSheetEngine.SheetLogic
         /// <summary>
         ///     Gets the row count of the sheet.
         /// </summary>
-        public int RowCount => table.GetLength(0);
+        public int RowCount => this.table.GetLength(0);
 
         /// <summary>
         ///     Gets the column count of the sheet.
         /// </summary>
-        public int ColumnCount => table.GetLength(1);
-
-        /// <summary>
-        ///     This Event Handler allows the outside world (the GUI) to subscribe and listen for any property changes in any
-        ///     cells.
-        /// </summary>
-        public event EventHandler CellPropertyChanged = (sender, e) => { };
+        public int ColumnCount => this.table.GetLength(1);
 
         /// <summary>
         ///     Returns the reference to the cell at the given coordinates.
@@ -76,7 +78,7 @@ namespace SpreadSheetEngine.SheetLogic
         /// <returns>the cell if found.</returns>
         internal Cell GetCell(int rowIndex, int columnIndex)
         {
-            return table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
+            return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
         }
 
         /// <summary>
@@ -112,7 +114,7 @@ namespace SpreadSheetEngine.SheetLogic
             var col = expression[0] - 'A';
             var row = int.Parse(expression[1..expression.Length]);
 
-            return table[row - 1, col].Text;
+            return this.table[row - 1, col].Text;
         }
     }
 }

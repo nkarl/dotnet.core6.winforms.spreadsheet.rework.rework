@@ -1,5 +1,7 @@
 namespace SpreadSheetEngineTests
 {
+    using SpreadSheetEngine.SheetLogic.Components;
+
     public class SheetTests
     {
         [SetUp]

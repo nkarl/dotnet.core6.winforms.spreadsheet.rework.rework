@@ -6,9 +6,10 @@
         <Nullable>enable</Nullable>
         <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
 
-    <ItemGroup>
+	<ItemGroup>
         <None Remove="stylecop.json"/>
     </ItemGroup>
 
