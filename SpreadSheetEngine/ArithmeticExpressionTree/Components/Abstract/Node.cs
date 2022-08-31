@@ -5,12 +5,12 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract
 {
     /// <summary>
-    /// The abstract base class for any and all tree node.
+    ///     The abstract base class for any and all tree node.
     /// </summary>
     public abstract class Node
     {
         /// <summary>
-        /// Gets the type of this Node.
+        ///     Gets the type of this Node.
         /// </summary>
         public string Type => this.GetType().Name;
     }

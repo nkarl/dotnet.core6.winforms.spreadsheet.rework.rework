@@ -4,62 +4,115 @@
 
 using SpreadSheetEngine.ArithmeticExpressionTree;
 
-string option;
+string menuOption;
 string currentExpression;
 
 void DisplayMenu()
 {
     Console.WriteLine(@"
-    EXPRESSION TREE CONSOLE MENU
-    ----------------------------
-        1. Enter an expression
-        2. Set a variable
-        3. Evaluate expression
-        4. Quit
+EXPRESSION TREE CONSOLE MENU
+----------------------------
+    1. Enter an expression
+    2. Set a variable
+    3. Evaluate expression
+    4. Quit
 ");
+}
+
+ExpressionTree MakeNewTree()
+{
+    ExpressionTree? tree = null;
+    while (tree is null)
+    {
+        Console.Write("Enter an expression: ");
+        currentExpression = Console.ReadLine() ?? string.Empty;
+        tree = new ExpressionTree(currentExpression);
+        if (tree.IsEmpty())
+        {
+            Console.WriteLine("Invalid variable name. Enter the expression again.");
+            tree = null;
+        }
+    }
+
+    return tree;
+}
+
+(string? Name, double Value) GetVarNameAndValue()
+{
+    string?[]? input = null;
+    (string? Name, double Value) parsed = (string.Empty, 0);
+    while (input is null)
+    {
+        input = Console.ReadLine()?.Split(' ');
+        try
+        {
+            var parsedInput = (Name: input?[0], Value: double.Parse(input?[1] ?? string.Empty));
+            parsed = (parsedInput.Name, parsedInput.Value);
+        }
+        catch (Exception ex) when (ex is IndexOutOfRangeException || ex is FormatException)
+        {
+            Console.WriteLine($"ERROR: {ex.Message}");
+            input = null;
+        }
+    }
+
+    return parsed;
 }
 
 void ExecuteConsoleApp(bool appIsRunning)
 {
+    ExpressionTree? tree = null; // initialize the first tree on app start up.
+
     while (appIsRunning)
     {
-        Console.Write($"\tEnter a menu option: ");
-        option = Console.ReadLine() ?? string.Empty;
-        switch (option)
+        DisplayMenu();
+        Console.Write("Enter a menu option: ");
+        menuOption = Console.ReadLine() ?? string.Empty;
+        switch (menuOption)
         {
-            case "1": // Asks user to enter an expression.
-                Console.Write("Enter an expression: ");
-                currentExpression = Console.ReadLine() ?? string.Empty;
-                /*
-                    TODO: Implement the class instantiation of the class ExpressionTree.
-                 */
+            // Asks user to enter an expression.
+            case "1":
+                tree = MakeNewTree();
+                break;
 
-                ExpressionParser parser = new ExpressionParser();
-                var blocks = parser.StrToBlockExpression(currentExpression);
+            // Sets a variable in the expression tree.
+            case "2":
+                tree ??= new ExpressionTree();
+                Console.WriteLine(tree.Expression);
+
+                (string? Name, double Value) var;
+
+                while (true)
+                {
+                    Console.Write("Enter the variable name and its new value: ");
+                    var = GetVarNameAndValue();
+                    if (var.Name != null && tree.HasVariable(var.Name))
+                    {
+                        break;
+                    }
+
+                    Console.WriteLine("There is no variable with that name.");
+                }
+
                 /*
-                foreach (var b in blocks) Console.WriteLine(b);
+                Console.WriteLine($"{variable.Name} {variable.Value}");
+                Console.WriteLine($"{variable.Name?.GetType()} {variable.Value.GetType()}");
                 */
-                var nodes = parser.BlockToNodeExpression(blocks);
-                /*
-                foreach (var n in nodes) Console.WriteLine(n.Type);
-                */
+
+                Console.WriteLine("Setting a variable . . .");
+                tree.SetVariable(var);
                 break;
 
-            case "2": // Sets a variable in the expression tree.
-                Console.WriteLine("Setting a variable");
-                /*
-                    TODO: Implement the option for setting a variable in the ExpressionTree.
-                 */
+            // Evaluates the expression tree.
+            case "3":
+                Console.WriteLine("Evaluating the expression . . .");
+                tree ??= new ExpressionTree();
+                var result = tree.Evaluate();
+                Console.WriteLine($"The result of {tree.Expression} = {result}");
                 break;
 
-            case "3": // Evaluates the expression tree.
-                Console.WriteLine("Evaluating the expression");
-                /*
-                    TODO: Implement the option to evaluate the ExpressionTree.
-                 */
-                break;
-
-            case "4": // Quits the app.
+            // Quits the app.
+            case "4":
                 appIsRunning = false;
                 break;
 
@@ -70,5 +123,4 @@ void ExecuteConsoleApp(bool appIsRunning)
     }
 }
 
-DisplayMenu();
 ExecuteConsoleApp(true);

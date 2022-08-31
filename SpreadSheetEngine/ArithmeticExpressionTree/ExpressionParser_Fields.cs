@@ -5,12 +5,40 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("ExpressionParserTests")]
+[assembly: InternalsVisibleTo("CheckTreeConsole")]
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
-    using System.Collections;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
+
+    /// <summary>
+    ///     Contains fields only.
+    ///     This is a static class. It takes an input expression as string and process that into a node-based
+    ///     version ready to be consumed by the Expression Tree's constructor.
+    /// </summary>
+    internal static partial class ExpressionParser
+    {
+        private const string Digits = "0123456789";
+
+        private static readonly string UpperCase = string.Concat((
+            from c in Enumerable.Range('A', 'Z' - 'A' + 1)
+            select (char)c).ToArray());
+
+        private static readonly string LowerCase = string.Concat((
+            from c in Enumerable.Range('a', 'z' - 'a' + 1)
+            select (char)c).ToArray());
+
+        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new()
+        {
+            { '+', () => new OpNodeAdd() },
+            { '-', () => new OpNodeSub() },
+            { '*', () => new OpNodeMul() },
+            { '/', () => new OpNodeDiv() },
+            { '(', () => new OpNodeLeftBrace() },
+            { ')', () => new OpNodeRightBrace() },
+        };
+    }
 
     /*
      * ASSUMPTIONS ABOUT EXPRESSIONS:
@@ -33,96 +61,4 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
      *  - This way, the parsing step is decoupled from the tree construction stepped.
      *
      */
-
-    /// <summary>
-    /// Contains the fields of the Parser.
-    /// </summary>
-    internal partial class ExpressionParser
-    {
-        /*
-            TODO:
-                - Read guidelines on how to write an interface in C#.
-                - Decide and design the interface methods/functions.
-         */
-
-        /// <summary>
-        /// Lookup set for natural decimal digits.
-        /// </summary>
-        private static readonly string Digits = "0123456789"; // digit map
-
-        /// <summary>
-        /// Lookup set for uppercase letters.
-        /// </summary>
-        private static readonly string UpperCase = string.Concat(( // uppercase map
-            from c in Enumerable.Range('A', 'Z' - 'A' + 1)
-            select (char)c).ToArray());
-
-        /// <summary>
-        /// Look up set for lowercase letters.
-        /// </summary>
-        private static readonly string LowerCase = string.Concat(( // lowercase map
-            from c in Enumerable.Range('a', 'z' - 'a' + 1)
-            select (char)c).ToArray());
-
-        /// <summary>
-        /// Used by by OpNodeFactory to create new operator node.
-        /// </summary>
-        private static readonly Dictionary<char, Func<OpNode>> OperatorDict = new ()
-        {
-            { '+', () => new OpNodeAdd() },
-            { '-', () => new OpNodeSub() },
-            { '*', () => new OpNodeMul() },
-            { '/', () => new OpNodeDiv() },
-        };
-
-        /// <summary>
-        /// Parses a given string into a list of nodes.
-        /// </summary>
-        /// <param name="expression">the string expression to be parsed.</param>
-        /// <returns>an ArrayList of Nodes.</returns>
-        public ArrayList? Parse(string? expression)
-        {
-            /*
-                TODO: Implement the logic of parsing.
-
-                DESIGN:
-                - The parsing is a filtering process.
-                - There are 3 possible categories of nodes a new string unit can be captured: operator, constant, variable
-                    + The operator type is the trivial case, where
-                        * the length of string is 1 and the char must be one of 4 cases: +, -, *, /
-                    + The remaining two categories are: constant and variable, where
-                        * the length of string > 1, or the char not one of (+, -, *, /)
-
-                - How to handle the remaining 2 cases:
-                    + Use a StringBuilder to build a possible unit, where
-                        * the terminating condition is the next operator.
-                    + Once the unit has been captured, the unit then is filtered into the remaining two cases.
-                        * a possible solution is to build a tuple of three, where
-                            the map contains 3 categories: col, row, extra
-                        * then, each tuple will be checked for qualifications.
-                        * the scenarios are as follows:
-                            i.   length > 0 in col, length > 0 in row, length == 0 in extra: possible cell coordinates.
-                            ii.  length > 0 in col, length > 0 in row, length > 0 in extra: guaranteed variable.
-                            iii. length == 0, length > 0 in row, any in extra: error.
-                            iv.  else, variable.
-
-                        * mapping for each tuple:
-                            if i,
-                                check if tuple.1 is in alphabet
-                                check if tuple.2 is in range [0, 50]
-                                check if tuple.3 is empty
-                                if all true, is cell coordinates.
-                            else,
-                                variable
-
-                DO NOT FORGET TO CHANGE THE RETURN TYPE.
-             */
-            if (expression is null)
-            {
-                return null;
-            }
-
-            return new ArrayList();
-        }
-    }
 }

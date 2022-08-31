@@ -4,32 +4,25 @@
 
 namespace SpreadSheetEngine.ArithmeticExpressionTree.Components
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
-    /// Holds a constant value.
+    ///     Holds a constant value.
     /// </summary>
     public class ConstNode : Node
     {
         /// <summary>
-        /// 
+        ///     Initializes a new instance of the <see cref="ConstNode" /> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">the constant value.</param>
         public ConstNode(double value = 0.0)
         {
             this.Value = value;
         }
 
         /// <summary>
-        /// Gets the value of this node.
+        ///     Gets the value of this constant node.
         /// </summary>
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
         public double Value { get; }
     }
 }
