@@ -28,7 +28,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                 this.Root = this.MakeTree(postfix);
             }
             */
-            var postfix = ExpressionParser.MakePostFix2(expression);
+
+            var postfix = ExpressionParser.MakePostfix(expression);
             if (postfix != null)
             {
                 this.Root = this.MakeTree(postfix);

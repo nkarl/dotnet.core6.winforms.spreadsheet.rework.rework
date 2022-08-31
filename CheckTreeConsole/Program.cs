@@ -19,7 +19,7 @@ tree.ShowVarDict();
 var result = tree.Evaluate();
 Console.WriteLine($"result = {result}");*/
 
-var str = ExpressionParser.FromInfixToBlocks(exp);
+var str = ExpressionParser.FromInputToStringBlocks(exp);
 var output = str.ToArray();
 
 Console.WriteLine($"var output: {output.GetType().Name}, count={output.Count()}");
@@ -38,18 +38,22 @@ for (var i = 0; i < output.Count(); ++i)
 Console.WriteLine();
 Console.WriteLine(']');
 
-var postfix = ExpressionParser.FromBlocksToPostfixNodes(str);
-var output2 = postfix.ToArray();
-for (var i = 0; i < output2.Count(); ++i)
+var postfix = ExpressionParser.MakePostfix(exp);
+if (postfix != null)
 {
-    var b = output2[i].Type;
-    Console.Write($"\"{b}\"");
-    // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
-    if (i < output2.Count() - 1)
+    var output2 = postfix.ToArray();
+    for (var i = 0; i < output2.Count(); ++i)
     {
-        Console.WriteLine(", ");
+        var b = output2[i].Type;
+        Console.Write($"\"{b}\"");
+        // Console.WriteLine($"output[{i}]: \"{b}\", type={b.GetType().Name}, isEmptyStr={b==string.Empty}");
+        if (i < output2.Count() - 1)
+        {
+            Console.WriteLine(", ");
+        }
     }
 }
+
 /*
 var blockInfix = ExpressionParser.FromInfixToBlocks(exp);
 var output = ExpressionParser.FromBlocksToPostfixNodes(blockInfix).ToArray();

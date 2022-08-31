@@ -23,7 +23,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>an ArrayList of Nodes.</returns>
         public static IEnumerable<Node>? ParseInfix(string infix)
         {
-            var blocks = FromInfixToBlocks(infix);
+            var blocks = FromInputToStringBlocks(infix);
             var nodes = FromBlocksToNodes(blocks);
             return nodes;
         }
@@ -33,7 +33,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the original string expression.</param>
         /// <returns>a list of strings.</returns>
-        internal static IEnumerable<string> FromInfixToBlocks(string infix)
+        internal static IEnumerable<string> FromInputToStringBlocks(string infix)
         {
             // From an expression string, iterate through each character and try to build up blocks of operands and operators.
             //  the block resets at either the next operator or the end of expression.
@@ -85,9 +85,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>expression as nodes.</returns>
         internal static IEnumerable<Node>? FromBlocksToNodes(IEnumerable<string> blocks)
         {
-            /*
-             * TODO: Audit this and see if it's possible to combine this with the PostFix maker.
-             */
             var nodes = new List<Node>();
 
             foreach (var block in blocks)
