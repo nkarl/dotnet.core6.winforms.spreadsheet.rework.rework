@@ -16,9 +16,20 @@ namespace SpreadSheetEngine.SheetLogic.Components
         /// </summary>
         /// <param name="rowIndex">the cell's row coordinate.</param>
         /// <param name="columnIndex">the cell's column coordinate.</param>
-        internal Cell(int rowIndex, int columnIndex)
+        private Cell(int rowIndex, int columnIndex)
             : base(rowIndex, columnIndex)
         {
+        }
+
+        /// <summary>
+        /// Creates a new cell.
+        /// </summary>
+        /// <param name="rowIndex">the cell's row index.</param>
+        /// <param name="columnIndex">the cell's column index.</param>
+        /// <returns>a new cell.</returns>
+        public static Cell CreateInstance(int rowIndex, int columnIndex)
+        {
+            return new Cell(rowIndex, columnIndex);
         }
 
         /// <summary>

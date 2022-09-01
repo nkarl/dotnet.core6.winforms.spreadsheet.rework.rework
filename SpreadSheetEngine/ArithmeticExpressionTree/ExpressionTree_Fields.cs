@@ -12,7 +12,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },

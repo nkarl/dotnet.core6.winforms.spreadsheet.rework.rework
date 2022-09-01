@@ -28,7 +28,6 @@ namespace SpreadSheetEngine.SheetLogic.Components.Abstract
         /// <inheritdoc />
         public event PropertyChangedEventHandler? PropertyChanged;
 
-
         /// <summary>
         ///     Gets the row index of the cell.
         /// </summary>

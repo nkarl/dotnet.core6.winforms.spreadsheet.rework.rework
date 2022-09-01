@@ -62,6 +62,9 @@ namespace SpreadSheetApp
         /// <param name="e">event.</param>
         private void OnDataGridViewCellEdited(object sender, DataGridViewCellEventArgs e)
         {
+            /*
+             * TODO: Audit this to test out the event handler for starting and ending CellEdit.
+             */
             var currentCell = this.dataGridView1.CurrentCell;
             var sheetCell = this.sheet.GetCell(currentCell.RowIndex, currentCell.ColumnIndex);
 
@@ -69,13 +72,14 @@ namespace SpreadSheetApp
             currentCell.Value = sheetCell.Text;
 
             var targetCell = this.dataGridView1[0, 0];  // the target cell for debugging input and display event.
-            var dataGridViewRow = this.dataGridView1.CurrentRow;
-            if (dataGridViewRow != null)
+            var currentRow = this.dataGridView1.CurrentRow;
+
+            if (currentRow != null)
             {
-                // this pipes the input into the target cell, which is set at [0,0].
-                targetCell.Value =
-                    $"{currentCell.Value} <- [{dataGridViewRow.HeaderCell.Value},{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}]";
+                this.sheet.SetCell(0, 0, $"{currentCell.Value} <- [{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}{currentRow.HeaderCell.Value}]");
             }
+
+            targetCell.Value = this.sheet.GetCell(0, 0).Text;
         }
     }
 }

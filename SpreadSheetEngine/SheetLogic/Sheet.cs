@@ -22,7 +22,7 @@ namespace SpreadSheetEngine.SheetLogic
          */
 
         // ReSharper disable once InconsistentNaming
-        private readonly Cell[,] table;
+        private readonly Cell?[,] table;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Sheet" /> class.
@@ -34,15 +34,17 @@ namespace SpreadSheetEngine.SheetLogic
             this.table = new Cell[numRows, numColumns];
 
             // Iterates and instantiates all cells in the sheet.
+            /*
             for (var r = 0; r < numRows; r++)
             {
                 for (var c = 0; c < numColumns; c++)
                 {
-                    this.table[r, c] = new Cell(r, c);
+                    this.table[r, c] = Cell.CreateInstance(r, c);
 
                     // this.table[r, c].PropertyChanged += this.SetCell;
                 }
             }
+            */
 
             /*
              * Might not need to instantiate all cells at construction. I can do that for first input, as in
@@ -57,10 +59,6 @@ namespace SpreadSheetEngine.SheetLogic
 
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        /*
-            TODO: Flesh and design a scheme for this Event Handler.
-         */
 
         /// <summary>
         ///     Gets the row count of the sheet.
@@ -80,7 +78,17 @@ namespace SpreadSheetEngine.SheetLogic
         /// <returns>the cell if found.</returns>
         internal Cell GetCell(int rowIndex, int columnIndex)
         {
-            return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
+            var cell = this.table[rowIndex, columnIndex];
+
+            if (cell != null)
+            {
+                return cell;
+            }
+
+            cell = Cell.CreateInstance(rowIndex, columnIndex);
+            this.table[rowIndex, columnIndex] = cell;
+
+            return cell;
         }
 
         /// <summary>
@@ -122,7 +130,7 @@ namespace SpreadSheetEngine.SheetLogic
             var col = expression[0] - 'A';
             var row = int.Parse(expression[1..expression.Length]);
 
-            return this.table[row - 1, col].Text;
+            return this.GetCell(row - 1, col).Text;
         }
 
         /// <summary>
