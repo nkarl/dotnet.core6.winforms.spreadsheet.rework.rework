@@ -4,7 +4,6 @@
 
 namespace SpreadSheetApp
 {
-    using SpreadSheetApp.Specification;
     using SpreadSheetEngine.SheetLogic;
 
     /// <summary>
@@ -12,6 +11,8 @@ namespace SpreadSheetApp
     /// </summary>
     public partial class Form1 : Form
     {
+        // ReSharper disable once InconsistentNaming
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private Sheet sheet;
 
         /// <summary>
@@ -21,12 +22,12 @@ namespace SpreadSheetApp
         {
             this.InitializeComponent();
             this.InitializeDataGridView();
-            this.sheet = new Sheet(GridDimensions.MaxRows, GridDimensions.MaxColumns);  // Initializes sheet dimensions.
-            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(this.OnDataGridViewCellEdited !);
+            this.sheet = new Sheet(50, 'Z' - 'A');  // Initializes sheet dimensions.
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.dataGridView1.CellEndEdit += this.OnDataGridViewCellEdited !;
         }
 
         /// <summary>
@@ -34,22 +35,28 @@ namespace SpreadSheetApp
         /// </summary>
         private void InitializeDataGridView()
         {
-            foreach (var c in GridDimensions.ColumnLabels)
+            // Initializes the number of columns.
+            for (var c = 'A'; c <= 'Z'; ++c)
             {
                 var col = new DataGridViewTextBoxColumn();
                 col.HeaderText = c.ToString();
                 this.dataGridView1.Columns.Add(col);
             }
 
-            var maxRows = Enumerable.Range(0, GridDimensions.MaxColumns);
-            foreach (var i in maxRows)
+            // Initializes the number of rows.
+            for (var r = 1; r <= 50; ++r)
             {
                 var row = new DataGridViewRow();
-                row.HeaderCell.Value = (i + 1).ToString();
+                row.HeaderCell.Value = r.ToString();
                 this.dataGridView1.Rows.Add(row);
             }
         }
 
+        /// <summary>
+        /// Updates the data grid with the new cell value.
+        /// </summary>
+        /// <param name="sender">event sender.</param>
+        /// <param name="e">event.</param>
         private void OnDataGridViewCellEdited(object sender, DataGridViewCellEventArgs e)
         {
             var currentCell = this.dataGridView1.CurrentCell;

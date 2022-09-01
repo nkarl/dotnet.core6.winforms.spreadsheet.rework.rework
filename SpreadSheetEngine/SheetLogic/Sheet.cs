@@ -99,6 +99,7 @@ namespace SpreadSheetEngine.SheetLogic
             }
 
             cell.SetValue(expression);
+            this.OnPropertyChanged();
         }
 
         /// <summary>
