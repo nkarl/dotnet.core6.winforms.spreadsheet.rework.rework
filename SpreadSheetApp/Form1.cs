@@ -11,6 +11,9 @@ namespace SpreadSheetApp
     /// </summary>
     public partial class Form1 : Form
     {
+        /*
+         * TODO: Try to implement the StartEdit and EndEdit events.
+         */
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private Sheet sheet;

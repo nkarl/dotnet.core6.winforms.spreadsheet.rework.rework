@@ -54,7 +54,7 @@ namespace SpreadSheetEngine.SheetLogic.Components.Abstract
                 }
 
                 this.text = value;
-                this.NotifyOnPropertyChanged();
+                this.OnPropertyChanged();
             }
         }
 
@@ -72,13 +72,14 @@ namespace SpreadSheetEngine.SheetLogic.Components.Abstract
             // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
             this.Value = expression;
             this.Text = this.Value;
+            this.OnPropertyChanged();
         }
 
         /// <summary>
         ///     Should be raised the event whenever a property is changed.
         /// </summary>
         /// <param name="name">the name of caller method.</param>
-        private void NotifyOnPropertyChanged([CallerMemberName] string? name = null)
+        private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
