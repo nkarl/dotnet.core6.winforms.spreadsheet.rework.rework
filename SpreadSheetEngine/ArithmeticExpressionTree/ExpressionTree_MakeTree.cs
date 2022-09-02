@@ -23,7 +23,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public ExpressionTree(string expression = "1+2+3")
         {
             this.VarDictionary = new Dictionary<string, VarNode>();
+            /*
             this.Expression = expression;
+            */
             /*
             var infix = ExpressionParser.ParseInfix(expression);
             if (infix is not null)

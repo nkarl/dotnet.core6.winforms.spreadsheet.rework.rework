@@ -39,6 +39,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return this.VarDictionary.ContainsKey(name);
         }
 
+        /// <summary>
+        /// Checks if the variable dictionary is empty.
+        /// </summary>
+        /// <returns>true or false.</returns>
         internal bool IsEmptyVarDict()
         {
             return this.VarDictionary.Count == 0;

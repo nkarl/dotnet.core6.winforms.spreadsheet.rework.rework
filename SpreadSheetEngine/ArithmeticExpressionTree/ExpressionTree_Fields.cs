@@ -23,14 +23,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         /// Gets the variable in the expression tree.
         /// </summary>
-        internal Dictionary<string, VarNode> VarDictionary { get; } = new ()
-        {
-        };
+        internal Dictionary<string, VarNode> VarDictionary { get; } = new ();
 
+        /*
         /// <summary>
         ///     Gets the expression of this tree.
         /// </summary>
         private string Expression { get; }
+        */
 
         /// <summary>
         ///     Gets or sets the root node of this tree.

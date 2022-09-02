@@ -17,11 +17,45 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     internal static partial class ExpressionParser
     {
         /// <summary>
+        ///     Converts block expression into node expression.
+        /// </summary>
+        /// <param name="blocks">expression as blocks of string.</param>
+        /// <returns>expression as nodes.</returns>
+        internal static IEnumerable<Node>? FromStringBlocksToNodes(IEnumerable<string> blocks)
+        {
+            var nodes = new List<Node>();
+
+            foreach (var block in blocks)
+            {
+                Node newNode;
+                if (block.Length > 1)
+                {
+                    if (IsValidVarName(block))
+                    {
+                        newNode = NodeFromStr(block);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    newNode = NodeFromChar(block[0]);
+                }
+
+                nodes.Add(newNode);
+            }
+
+            return nodes.ToImmutableList();
+        }
+
+        /// <summary>
         ///     Parses a given string into a list of nodes.
         /// </summary>
         /// <param name="infix">the input expression to be parsed.</param>
         /// <returns>an ArrayList of Nodes.</returns>
-        internal static IEnumerable<string> ParseInfix(string infix)
+        private static IEnumerable<string> ParseInfix(string infix)
         {
             return FromInputToStringBlocks(infix);
         }
@@ -31,7 +65,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="infix">the original string expression.</param>
         /// <returns>a list of strings.</returns>
-        internal static IEnumerable<string> FromInputToStringBlocks(string infix)
+        private static IEnumerable<string> FromInputToStringBlocks(string infix)
         {
             // From an expression string, iterate through each character and try to build up blocks of operands and operators.
             //  the block resets at either the next operator or the end of expression.
@@ -77,45 +111,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Converts block expression into node expression.
-        /// </summary>
-        /// <param name="blocks">expression as blocks of string.</param>
-        /// <returns>expression as nodes.</returns>
-        internal static IEnumerable<Node>? FromStringBlocksToNodes(IEnumerable<string> blocks)
-        {
-            var nodes = new List<Node>();
-
-            foreach (var block in blocks)
-            {
-                Node newNode;
-                if (block.Length > 1)
-                {
-                    if (IsValidVarName(block))
-                    {
-                        newNode = NodeFromStr(block);
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    newNode = NodeFromChar(block[0]);
-                }
-
-                nodes.Add(newNode);
-            }
-
-            return nodes.ToImmutableList();
-        }
-
-        /// <summary>
         ///     Factory method to create a new operator node.
         /// </summary>
         /// <param name="op">char symbol for the supported operator.</param>
         /// <returns>a new node of specialized operator.</returns>
-        internal static Node OpNodeFactory(char op)
+        private static Node OpNodeFactory(char op)
         {
             return OperatorDict.ContainsKey(op)
                 ? OperatorDict[op].Invoke()

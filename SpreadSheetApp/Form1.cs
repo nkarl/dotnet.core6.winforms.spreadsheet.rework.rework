@@ -4,7 +4,6 @@
 
 namespace SpreadSheetApp
 {
-    using SpreadSheetEngine.ArithmeticExpressionTree;
     using SpreadSheetEngine.SheetLogic;
 
     /// <summary>
