@@ -98,9 +98,7 @@ namespace SpreadSheetEngine.SheetLogic
             /*
              * TODO:  provides implementation for content that is not cell coordinates.
              *  - Fixes the edge cases where 'A' - 'A'.
-             * Supports:
-             *  - Pulling the value from another cell. The remaining part after '='
-             *    is name of the cell to pull value from.
+             *  - Supports pulling the value from another cell.
              *  [DONE] Supports arithmetic operations. Implements the logic for the Expression Tree.
              */
             var tree = new ExpressionTree(expression);
