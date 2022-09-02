@@ -42,10 +42,6 @@ namespace SpreadSheetEngine.SheetLogic
             this.table = new Cell[numRows, numColumns];
         }
 
-        /*
-         * public event PropertyChangedEventHandler PropertyChanged;
-         */
-
         /// <inheritdoc/>
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -88,6 +84,10 @@ namespace SpreadSheetEngine.SheetLogic
             this.OnPropertyChanged();
         }
 
+        /// <summary>
+        /// Sets the variables if the expression contains variables.
+        /// </summary>
+        /// <param name="tree">the current expression tree.</param>
         private void SetCellValues(ExpressionTree tree)
         {
             /*
