@@ -34,25 +34,6 @@ namespace SpreadSheetEngine.SheetLogic
         public Sheet(int numRows, int numColumns)
         {
             this.table = new Cell[numRows, numColumns];
-
-            // Iterates and instantiates all cells in the sheet.
-            /*
-            for (var r = 0; r < numRows; r++)
-            {
-                for (var c = 0; c < numColumns; c++)
-                {
-                    this.table[r, c] = Cell.CreateInstance(r, c);
-
-                    // this.table[r, c].PropertyChanged += this.SetCell;
-                }
-            }
-            */
-
-            /*
-             * Might not need to instantiate all cells at construction. I can do that for first input, as in
-             * doing this whenever a cell is focused, then check if that cell is null. If it is null then
-             * create a new cell and assign new text to it.
-             */
         }
 
         /*
@@ -129,29 +110,6 @@ namespace SpreadSheetEngine.SheetLogic
             var tree = new ExpressionTree(expression);
             var value = tree.Evaluate();
             return value.ToString(CultureInfo.InvariantCulture);
-        }
-
-        /// <summary>
-        /// Sets the field of the data sheet.
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="value"></param>
-        /// <param name="propertyName"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        private bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-        {
-            /*
-             * TODO: audit this because I am not sure why it is here.
-             */
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return false;
-            }
-
-            field = value;
-            this.OnPropertyChanged(propertyName);
-            return true;
         }
 
         /// <summary>
