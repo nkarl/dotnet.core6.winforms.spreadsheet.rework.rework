@@ -20,26 +20,17 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', (a, b) => a / b },
         };
 
-        // ReSharper disable once InconsistentNaming
-        private readonly Dictionary<string, VarNode> varDict;
-
-        /*
         /// <summary>
-        ///     Dictionary for casting from the general OpNode to specialized operator node.
+        /// Gets the variable in the expression tree.
         /// </summary>
-        private static readonly Dictionary<char, Func<OpNode, OpNode>> CastOperator = new()
+        private Dictionary<string, VarNode> VarDictionary { get; } = new ()
         {
-            { '+', op => (OpNodeAdd)op },
-            { '-', op => (OpNodeSub)op },
-            { '*', op => (OpNodeMul)op },
-            { '/', op => (OpNodeDiv)op },
         };
-        */
 
         /// <summary>
         ///     Gets the expression of this tree.
         /// </summary>
-        public string Expression { get; }
+        private string Expression { get; }
 
         /// <summary>
         ///     Gets or sets the root node of this tree.

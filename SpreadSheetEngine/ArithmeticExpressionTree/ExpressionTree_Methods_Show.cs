@@ -30,7 +30,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         internal void ShowVarDict()
         {
-            foreach (var entry in this.varDict)
+            foreach (var entry in this.VarDictionary)
             {
                 Console.WriteLine($"{entry.Key} {entry.Value.Value}");
             }

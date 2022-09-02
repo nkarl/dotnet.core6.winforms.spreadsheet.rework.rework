@@ -40,8 +40,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var block in infix)
             {
-                Console.WriteLine(block);
-
+                // Console.WriteLine(block);
                 Node newNode;
                 if (block.Length > 1)
                 {

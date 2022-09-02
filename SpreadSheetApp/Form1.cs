@@ -12,7 +12,7 @@ namespace SpreadSheetApp
     public partial class Form1 : Form
     {
         /*
-         * TODO: Try to implement the StartEdit and EndEdit events.
+         * TODO: Creates a method to parse the expression for cell references and set variable values for those references.
          */
         // ReSharper disable once InconsistentNaming
         // ReSharper disable once FieldCanBeMadeReadOnly.Local

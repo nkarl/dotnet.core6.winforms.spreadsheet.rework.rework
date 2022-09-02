@@ -152,7 +152,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Safely caught the parsed string {block} as a variable.");
+                // Console.WriteLine($"Safely caught the parsed string {block} as a variable.");
                 return new VarNode(block);
             }
             catch (Exception e)
