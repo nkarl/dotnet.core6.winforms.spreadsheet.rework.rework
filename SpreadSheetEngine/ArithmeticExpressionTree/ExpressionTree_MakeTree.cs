@@ -12,6 +12,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
+        /*
+         * TODO: Add a method to set value in the variable dictionary.
+         */
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="ExpressionTree" /> class.
         /// </summary>

@@ -75,14 +75,14 @@ namespace SpreadSheetEngine.SheetLogic
         /// </summary>
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
-        /// <param name="expression">the text content of the cell.</param>
-        internal void SetCell(int rowIndex, int columnIndex, string expression)
+        /// <param name="input">the text content of the cell.</param>
+        internal void SetCell(int rowIndex, int columnIndex, string input)
         {
             var cell = this.GetCell(rowIndex, columnIndex);
 
-            string newContent = expression[0] == '='
-                ? this.Evaluate(expression[1..])
-                : expression;
+            string newContent = input[0] != '='
+                ? input
+                : this.Evaluate(input[1..]);
 
             cell.SetContent(newContent);
             this.OnPropertyChanged();
