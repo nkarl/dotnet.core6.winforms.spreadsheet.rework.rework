@@ -124,7 +124,7 @@ namespace SpreadSheetEngine.SheetLogic
              * Supports:
              *  - Pulling the value from another cell. The remaining part after '='
              *    is name of the cell to pull value from.
-             *  - Supports arithmetic operations. Implements the logic for the Expression Tree.
+             *  [DONE] Supports arithmetic operations. Implements the logic for the Expression Tree.
              */
             var tree = new ExpressionTree(expression);
             var value = tree.Evaluate();
