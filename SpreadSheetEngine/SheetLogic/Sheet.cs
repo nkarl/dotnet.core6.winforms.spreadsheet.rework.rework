@@ -103,10 +103,16 @@ namespace SpreadSheetEngine.SheetLogic
                  * Also need to check if the expression actually contains variables. This can be done with checking the size of dictionary.
                  */
                 var columnIndex = entry.Key[0] - 'A';
-                var rowIndex = int.Parse(entry.Key[1..]) - 1;
-
-                var value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
-                tree.VarDictionary[entry.Key].Value = value;
+                try
+                {
+                    int rowIndex = int.Parse(entry.Key[1..]) - 1;
+                    double value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
+                    tree.VarDictionary[entry.Key].Value = value;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
 
