@@ -12,8 +12,7 @@ namespace SpreadSheetApp
     public partial class Form1 : Form
     {
         /*
-         * TODO: Creates a method to parse the expression for cell references and set variable values for those references.
-         *  - It might be a good idea to query the column index by ASCII char value.
+         * TODO: Audit the solution one more time and clean up the code before tagging for HW7 milestone.
          */
         private readonly Sheet sheet;
 
