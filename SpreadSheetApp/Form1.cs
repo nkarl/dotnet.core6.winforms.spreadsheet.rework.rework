@@ -73,10 +73,10 @@ namespace SpreadSheetApp
 
             var targetCell = this.dataGridView1[0, 0];  // the target cell for debugging input and display event.
             var currentRow = this.dataGridView1.CurrentRow;
-
+            var currentCol = this.dataGridView1.Columns[currentCell.ColumnIndex];
             if (currentRow != null)
             {
-                this.sheet.SetCell(0, 0, $"{currentCell.Value} <- [{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}{currentRow.HeaderCell.Value}]");
+                this.sheet.SetCell(0, 0, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
             }
 
             targetCell.Value = this.sheet.GetCell(0, 0).Text;

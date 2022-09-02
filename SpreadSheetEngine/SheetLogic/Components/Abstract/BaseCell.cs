@@ -60,10 +60,10 @@ namespace SpreadSheetEngine.SheetLogic.Components.Abstract
         /// <summary>
         ///     Gets the value of the cell.
         /// </summary>
-        internal string Value { get; private set; } = string.Empty;
+        public string Value { get; private set; } = string.Empty;
 
         /// <summary>
-        ///     Evaluates and sets the Text property of this cell. Not accessible to the outside world.
+        ///     Evaluates and sets the Text property of this cell.
         /// </summary>
         /// <param name="expression">the new string text to be evaluated.</param>
         protected void SetValue(string expression) // either protected or internal
@@ -71,7 +71,6 @@ namespace SpreadSheetEngine.SheetLogic.Components.Abstract
             // If the expression starts with '=', evaluates it. Otherwise, it is just the Text content.
             this.Value = expression;
             this.Text = this.Value;
-            this.OnPropertyChanged();
         }
 
         /// <summary>

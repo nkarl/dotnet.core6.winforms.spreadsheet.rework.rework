@@ -10,6 +10,8 @@ using System.Runtime.CompilerServices;
 namespace SpreadSheetEngine.SheetLogic
 {
     using System.ComponentModel;
+    using System.Globalization;
+    using ArithmeticExpressionTree;
     using SpreadSheetEngine.SheetLogic.Components;
 
     /// <summary>
@@ -101,12 +103,11 @@ namespace SpreadSheetEngine.SheetLogic
         {
             var cell = this.GetCell(rowIndex, columnIndex);
 
-            if (expression[0] == '=')
-            {
-                expression = this.Evaluate(expression);
-            }
+            string content = expression[0] == '='
+                ? this.Evaluate(expression[1..])
+                : expression;
 
-            cell.SetValue(expression);
+            cell.SetValue(content);
             this.OnPropertyChanged();
         }
 
@@ -123,14 +124,11 @@ namespace SpreadSheetEngine.SheetLogic
              * Supports:
              *  - Pulling the value from another cell. The remaining part after '='
              *    is name of the cell to pull value from.
-             *
+             *  - Supports arithmetic operations. Implements the logic for the Expression Tree.
              */
-            expression = expression[1..expression.Length];
-
-            var col = expression[0] - 'A';
-            var row = int.Parse(expression[1..expression.Length]);
-
-            return this.GetCell(row - 1, col).Text;
+            var tree = new ExpressionTree(expression);
+            var value = tree.Evaluate();
+            return value.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
