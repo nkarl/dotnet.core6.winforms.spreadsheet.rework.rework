@@ -21,6 +21,12 @@ namespace SpreadSheetEngine.SheetLogic
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
+         *  - The DataGridView will be the source of the event.
+         *  - The event will be handled by the Sheet class.
+         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
+         *  - The DataGridView will then update the cell's value.
+         *  - The DataGridView will also notify the Sheet class of the change.
+         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
          */
 
         // ReSharper disable once InconsistentNaming
@@ -74,11 +80,11 @@ namespace SpreadSheetEngine.SheetLogic
         {
             var cell = this.GetCell(rowIndex, columnIndex);
 
-            string content = expression[0] == '='
+            string newContent = expression[0] == '='
                 ? this.Evaluate(expression[1..])
                 : expression;
 
-            cell.SetValue(content);
+            cell.SetContent(newContent);
             this.OnPropertyChanged();
         }
 

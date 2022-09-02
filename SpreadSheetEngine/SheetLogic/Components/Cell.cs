@@ -36,7 +36,7 @@ namespace SpreadSheetEngine.SheetLogic.Components
         ///     Sets the value of the cell.
         /// </summary>
         /// <param name="expression">the new expression.</param>
-        internal new void SetValue(string expression)
+        internal new void SetContent(string expression)
         {
             base.SetValue(expression);
         }
