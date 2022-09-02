@@ -11,7 +11,7 @@ namespace SpreadSheetEngine.SheetLogic
 {
     using System.ComponentModel;
     using System.Globalization;
-    using ArithmeticExpressionTree;
+    using SpreadSheetEngine.ArithmeticExpressionTree;
     using SpreadSheetEngine.SheetLogic.Components;
 
     /// <summary>
@@ -61,17 +61,7 @@ namespace SpreadSheetEngine.SheetLogic
         /// <returns>the cell if found.</returns>
         internal Cell GetCell(int rowIndex, int columnIndex)
         {
-            var cell = this.table[rowIndex, columnIndex];
-
-            if (cell != null)
-            {
-                return cell;
-            }
-
-            cell = Cell.CreateInstance(rowIndex, columnIndex);
-            this.table[rowIndex, columnIndex] = cell;
-
-            return cell;
+            return this.table[rowIndex, columnIndex] ??= Cell.CreateInstance(rowIndex, columnIndex);
         }
 
         /// <summary>
