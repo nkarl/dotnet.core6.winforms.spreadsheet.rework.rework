@@ -4,6 +4,7 @@
 
 namespace SpreadSheetApp
 {
+    using SpreadSheetEngine.ArithmeticExpressionTree;
     using SpreadSheetEngine.SheetLogic;
 
     /// <summary>
@@ -13,10 +14,9 @@ namespace SpreadSheetApp
     {
         /*
          * TODO: Creates a method to parse the expression for cell references and set variable values for those references.
+         *  - It might be a good idea to query the column index by ASCII char value.
          */
-        // ReSharper disable once InconsistentNaming
-        // ReSharper disable once FieldCanBeMadeReadOnly.Local
-        private Sheet sheet;
+        private readonly Sheet sheet;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Form1"/> class.
@@ -55,6 +55,14 @@ namespace SpreadSheetApp
             }
         }
 
+        private void SetCellValues(ExpressionTree tree)
+        {
+            /*
+             * For key in tree.variables, use key to get the cell value from the sheet.
+             * They key should be transformed into a cell coordinates.
+             */
+        }
+
         /// <summary>
         /// Updates the data grid with the new cell value.
         /// </summary>
@@ -71,7 +79,7 @@ namespace SpreadSheetApp
             this.sheet.SetCell(currentCell.RowIndex, currentCell.ColumnIndex, currentCell.Value.ToString() !);
             currentCell.Value = sheetCell.Text;
 
-            var targetCell = this.dataGridView1[0, 0];  // the target cell for debugging input and display event.
+            var targetCell = this.dataGridView1[0, 'A' - 'A'];  // the target cell for debugging input and display event.
             var currentRow = this.dataGridView1.CurrentRow;
             var currentCol = this.dataGridView1.Columns[currentCell.ColumnIndex];
             if (currentRow != null)
