@@ -88,6 +88,28 @@ namespace SpreadSheetEngine.SheetLogic
             this.OnPropertyChanged();
         }
 
+        private void SetCellValues(ExpressionTree tree)
+        {
+            /*
+             * For key in tree.variables, use key to get the cell value from the sheet.
+             * They key should be transformed into a cell coordinates.
+             */
+            foreach (var entry in tree.VarDictionary)
+            {
+                /*
+                 * TODO: Translate key to cell coordinates.
+                 * The first character of the key is the column index.
+                 * The rest of the key is the row index.
+                 * Also need to check if the expression actually contains variables. This can be done with checking the size of dictionary.
+                 */
+                var columnIndex = entry.Key[0] - 'A';
+                var rowIndex = int.Parse(entry.Key[1..]) - 1;
+
+                var value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
+                tree.VarDictionary[entry.Key].Value = value;
+            }
+        }
+
         /// <summary>
         /// Trigger the the expression evaluation.
         /// </summary>
@@ -102,6 +124,11 @@ namespace SpreadSheetEngine.SheetLogic
              *  [DONE] Supports arithmetic operations. Implements the logic for the Expression Tree.
              */
             var tree = new ExpressionTree(expression);
+            if (!tree.IsEmptyVarDict())
+            {
+                this.SetCellValues(tree);
+            }
+
             var value = tree.Evaluate();
             return value.ToString(CultureInfo.InvariantCulture);
         }

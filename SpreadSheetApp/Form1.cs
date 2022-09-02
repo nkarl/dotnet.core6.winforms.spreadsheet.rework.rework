@@ -55,28 +55,6 @@ namespace SpreadSheetApp
             }
         }
 
-        private void SetCellValues(ExpressionTree tree)
-        {
-            /*
-             * For key in tree.variables, use key to get the cell value from the sheet.
-             * They key should be transformed into a cell coordinates.
-             */
-            foreach (var entry in tree.VarDictionary)
-            {
-                /*
-                 * TODO: Translate key to cell coordinates.
-                 * The first character of the key is the column index.
-                 * The rest of the key is the row index.
-                 * Also need to check if the expression actually contains variables. This can be done with checking the size of dictionary.
-                 */
-                var columnIndex = entry.Key[0] - 'A';
-                var rowIndex = int.Parse(entry.Key[1..]);
-
-                var value = double.Parse(this.sheet.GetCell(rowIndex, columnIndex).Value);
-                tree.VarDictionary[entry.Key].Value = value;
-            }
-        }
-
         /// <summary>
         /// Updates the data grid with the new cell value.
         /// </summary>
@@ -93,15 +71,18 @@ namespace SpreadSheetApp
             this.sheet.SetCell(currentCell.RowIndex, currentCell.ColumnIndex, currentCell.Value.ToString() !);
             currentCell.Value = sheetCell.Text;
 
-            var targetCell = this.dataGridView1[0, 'A' - 'A'];  // the target cell for debugging input and display event.
+            var targetR = 0;
+            var targetC = 'A' - 'A';
+            var targetCell = this.dataGridView1[targetR, targetC];  // the target cell for debugging input and display event.
             var currentRow = this.dataGridView1.CurrentRow;
             var currentCol = this.dataGridView1.Columns[currentCell.ColumnIndex];
+
             if (currentRow != null)
             {
-                this.sheet.SetCell(0, 0, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
+                this.sheet.SetCell(targetR, targetC, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
             }
 
-            targetCell.Value = this.sheet.GetCell(0, 0).Text;
+            targetCell.Value = this.sheet.GetCell(targetR, targetC).Text;
         }
     }
 }
