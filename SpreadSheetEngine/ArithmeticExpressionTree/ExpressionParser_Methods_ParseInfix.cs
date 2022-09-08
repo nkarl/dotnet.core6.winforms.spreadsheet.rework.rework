@@ -2,6 +2,11 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ExpressionParserTests")]
+[assembly: InternalsVisibleTo("CheckTreeConsole")]
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
@@ -51,21 +56,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Parses a given string into a list of nodes.
-        /// </summary>
-        /// <param name="infix">the input expression to be parsed.</param>
-        /// <returns>an ArrayList of Nodes.</returns>
-        private static IEnumerable<string> ParseInfix(string infix)
-        {
-            return FromInputToStringBlocks(infix);
-        }
-
-        /// <summary>
         ///     Converts the string expression into a list of strings.
         /// </summary>
         /// <param name="infix">the original string expression.</param>
         /// <returns>a list of strings.</returns>
-        private static IEnumerable<string> FromInputToStringBlocks(string infix)
+        internal static IEnumerable<string> FromInputToStringBlocks(string infix)
         {
             // From an expression string, iterate through each character and try to build up blocks of operands and operators.
             //  the block resets at either the next operator or the end of expression.
@@ -115,11 +110,21 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         /// <param name="op">char symbol for the supported operator.</param>
         /// <returns>a new node of specialized operator.</returns>
-        private static Node OpNodeFactory(char op)
+        internal static Node OpNodeFactory(char op)
         {
             return OperatorDict.ContainsKey(op)
                 ? OperatorDict[op].Invoke()
                 : throw new NotImplementedException("This operator is not supported.");
+        }
+
+        /// <summary>
+        ///     Parses a given string into a list of nodes.
+        /// </summary>
+        /// <param name="infix">the input expression to be parsed.</param>
+        /// <returns>an ArrayList of Nodes.</returns>
+        private static IEnumerable<string> ParseInfix(string infix)
+        {
+            return FromInputToStringBlocks(infix);
         }
 
         /// <summary>

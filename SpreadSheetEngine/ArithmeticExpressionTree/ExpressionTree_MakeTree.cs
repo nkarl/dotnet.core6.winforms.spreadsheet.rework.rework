@@ -22,6 +22,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <param name="expression">the arithmetic expression as input string.</param>
         public ExpressionTree(string expression = "1+2+3")
         {
+            this.Expression = expression;
             this.VarDictionary = new Dictionary<string, VarNode>();
             /*
             this.Expression = expression;
