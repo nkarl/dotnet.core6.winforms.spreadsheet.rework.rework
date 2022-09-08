@@ -4,7 +4,6 @@
 
 namespace SpreadSheetApp
 {
-    using SpreadSheetApp.Specification;
     using SpreadSheetEngine.SheetLogic;
 
     /// <summary>
@@ -12,7 +11,10 @@ namespace SpreadSheetApp
     /// </summary>
     public partial class Form1 : Form
     {
-        private Sheet sheet;
+        /*
+         * TODO: Audit the solution one more time and clean up the code before tagging for HW7 milestone.
+         */
+        private readonly Sheet sheet;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Form1"/> class.
@@ -21,12 +23,12 @@ namespace SpreadSheetApp
         {
             this.InitializeComponent();
             this.InitializeDataGridView();
-            this.sheet = new Sheet(GridDimensions.MaxRows, GridDimensions.MaxColumns);  // Initializes sheet dimensions.
-            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(this.OnDataGridViewCellEdited !);
+            this.sheet = new Sheet(50, 'Z' - 'A');  // Initializes sheet dimensions.
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.dataGridView1.CellEndEdit += this.OnDataGridViewCellEdited !;
         }
 
         /// <summary>
@@ -34,38 +36,51 @@ namespace SpreadSheetApp
         /// </summary>
         private void InitializeDataGridView()
         {
-            foreach (var c in GridDimensions.ColumnLabels)
+            // Initializes the number of columns.
+            for (var c = 'A'; c <= 'Z'; ++c)
             {
                 var col = new DataGridViewTextBoxColumn();
                 col.HeaderText = c.ToString();
                 this.dataGridView1.Columns.Add(col);
             }
 
-            var maxRows = Enumerable.Range(0, GridDimensions.MaxColumns);
-            foreach (var i in maxRows)
+            // Initializes the number of rows.
+            for (var r = 1; r <= 50; ++r)
             {
                 var row = new DataGridViewRow();
-                row.HeaderCell.Value = (i + 1).ToString();
+                row.HeaderCell.Value = r.ToString();
                 this.dataGridView1.Rows.Add(row);
             }
         }
 
+        /// <summary>
+        /// Updates the data grid with the new cell value.
+        /// </summary>
+        /// <param name="sender">event sender.</param>
+        /// <param name="e">event.</param>
         private void OnDataGridViewCellEdited(object sender, DataGridViewCellEventArgs e)
         {
+            /*
+             * TODO: Audit this to test out the event handler for starting and ending CellEdit.
+             */
             var currentCell = this.dataGridView1.CurrentCell;
             var sheetCell = this.sheet.GetCell(currentCell.RowIndex, currentCell.ColumnIndex);
 
             this.sheet.SetCell(currentCell.RowIndex, currentCell.ColumnIndex, currentCell.Value.ToString() !);
             currentCell.Value = sheetCell.Text;
 
-            var targetCell = this.dataGridView1[0, 0];  // the target cell for debugging input and display event.
-            var dataGridViewRow = this.dataGridView1.CurrentRow;
-            if (dataGridViewRow != null)
+            var targetR = 0;
+            var targetC = 'A' - 'A';
+            var targetCell = this.dataGridView1[targetR, targetC];  // the target cell for debugging input and display event.
+            var currentRow = this.dataGridView1.CurrentRow;
+            var currentCol = this.dataGridView1.Columns[currentCell.ColumnIndex];
+
+            if (currentRow != null)
             {
-                // this pipes the input into the target cell, which is set at [0,0].
-                targetCell.Value =
-                    $"{currentCell.Value} <- [{dataGridViewRow.HeaderCell.Value},{this.dataGridView1.Columns[currentCell.ColumnIndex].HeaderText}]";
+                this.sheet.SetCell(targetR, targetC, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
             }
+
+            targetCell.Value = this.sheet.GetCell(targetR, targetC).Text;
         }
     }
 }

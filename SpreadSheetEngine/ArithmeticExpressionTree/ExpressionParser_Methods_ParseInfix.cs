@@ -2,6 +2,11 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("ExpressionParserTests")]
+[assembly: InternalsVisibleTo("CheckTreeConsole")]
+
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
@@ -17,13 +22,37 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     internal static partial class ExpressionParser
     {
         /// <summary>
-        ///     Parses a given string into a list of nodes.
+        ///     Converts block expression into node expression.
         /// </summary>
-        /// <param name="infix">the input expression to be parsed.</param>
-        /// <returns>an ArrayList of Nodes.</returns>
-        internal static IEnumerable<string> ParseInfix(string infix)
+        /// <param name="blocks">expression as blocks of string.</param>
+        /// <returns>expression as nodes.</returns>
+        internal static IEnumerable<Node>? FromStringBlocksToNodes(IEnumerable<string> blocks)
         {
-            return FromInputToStringBlocks(infix);
+            var nodes = new List<Node>();
+
+            foreach (var block in blocks)
+            {
+                Node newNode;
+                if (block.Length > 1)
+                {
+                    if (IsValidVarName(block))
+                    {
+                        newNode = NodeFromStr(block);
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    newNode = NodeFromChar(block[0]);
+                }
+
+                nodes.Add(newNode);
+            }
+
+            return nodes.ToImmutableList();
         }
 
         /// <summary>
@@ -77,40 +106,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Converts block expression into node expression.
-        /// </summary>
-        /// <param name="blocks">expression as blocks of string.</param>
-        /// <returns>expression as nodes.</returns>
-        internal static IEnumerable<Node>? FromStringBlocksToNodes(IEnumerable<string> blocks)
-        {
-            var nodes = new List<Node>();
-
-            foreach (var block in blocks)
-            {
-                Node newNode;
-                if (block.Length > 1)
-                {
-                    if (IsValidVarName(block))
-                    {
-                        newNode = NodeFromStr(block);
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    newNode = NodeFromChar(block[0]);
-                }
-
-                nodes.Add(newNode);
-            }
-
-            return nodes.ToImmutableList();
-        }
-
-        /// <summary>
         ///     Factory method to create a new operator node.
         /// </summary>
         /// <param name="op">char symbol for the supported operator.</param>
@@ -120,6 +115,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             return OperatorDict.ContainsKey(op)
                 ? OperatorDict[op].Invoke()
                 : throw new NotImplementedException("This operator is not supported.");
+        }
+
+        /// <summary>
+        ///     Parses a given string into a list of nodes.
+        /// </summary>
+        /// <param name="infix">the input expression to be parsed.</param>
+        /// <returns>an ArrayList of Nodes.</returns>
+        private static IEnumerable<string> ParseInfix(string infix)
+        {
+            return FromInputToStringBlocks(infix);
         }
 
         /// <summary>
@@ -152,7 +157,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             }
             catch (FormatException)
             {
-                Console.WriteLine($"Safely caught the parsed string {block} as a variable.");
+                // Console.WriteLine($"Safely caught the parsed string {block} as a variable.");
                 return new VarNode(block);
             }
             catch (Exception e)

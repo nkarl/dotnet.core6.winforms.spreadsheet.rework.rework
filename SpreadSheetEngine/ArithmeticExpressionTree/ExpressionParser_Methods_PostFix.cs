@@ -5,7 +5,6 @@
 namespace SpreadSheetEngine.ArithmeticExpressionTree
 {
     using System.Collections.Immutable;
-    using System.Runtime.CompilerServices;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators;
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
@@ -40,8 +39,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
             foreach (var block in infix)
             {
-                Console.WriteLine(block);
-
+                // Console.WriteLine(block);
                 Node newNode;
                 if (block.Length > 1)
                 {

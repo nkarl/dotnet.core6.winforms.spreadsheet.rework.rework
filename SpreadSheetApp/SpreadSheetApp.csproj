@@ -10,11 +10,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-        <None Remove="stylecop.json"/>
+        <None Remove="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include="stylecop.json"/>
+        <AdditionalFiles Include="stylecop.json" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SpreadSheetEngine\SpreadSheetEngine.csproj"/>
+        <ProjectReference Include="..\SpreadSheetEngine\SpreadSheetEngine.csproj" />
     </ItemGroup>
 
 </Project>

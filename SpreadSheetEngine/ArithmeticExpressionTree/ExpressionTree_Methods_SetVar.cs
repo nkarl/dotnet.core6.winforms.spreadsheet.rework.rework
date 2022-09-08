@@ -24,7 +24,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         {
             if (var.Name != null)
             {
-                var node = this.varDict[var.Name];
+                var node = this.VarDictionary[var.Name];
                 node.Value = var.Value;
             }
         }
@@ -36,7 +36,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>true or false.</returns>
         internal bool HasVariable(string name)
         {
-            return this.varDict.ContainsKey(name);
+            return this.VarDictionary.ContainsKey(name);
+        }
+
+        /// <summary>
+        /// Checks if the variable dictionary is empty.
+        /// </summary>
+        /// <returns>true or false.</returns>
+        internal bool IsEmptyVarDict()
+        {
+            return this.VarDictionary.Count == 0;
         }
 
         /// <summary>
@@ -46,7 +55,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <returns>the VarNode.</returns>
         internal VarNode? LookUpVar(string name)
         {
-            this.varDict.TryGetValue(name, out var varNode);
+            this.VarDictionary.TryGetValue(name, out var varNode);
             return varNode;
         }
     }

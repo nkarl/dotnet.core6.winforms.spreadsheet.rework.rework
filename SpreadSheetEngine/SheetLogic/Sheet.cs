@@ -9,19 +9,28 @@ using System.Runtime.CompilerServices;
 
 namespace SpreadSheetEngine.SheetLogic
 {
+    using System.ComponentModel;
+    using System.Globalization;
+    using SpreadSheetEngine.ArithmeticExpressionTree;
     using SpreadSheetEngine.SheetLogic.Components;
 
     /// <summary>
     ///     The data source controller for the 2D array of cells.
     /// </summary>
-    internal class Sheet
+    internal sealed class Sheet : INotifyPropertyChanged
     {
         /*
          * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
+         *  - The DataGridView will be the source of the event.
+         *  - The event will be handled by the Sheet class.
+         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
+         *  - The DataGridView will then update the cell's value.
+         *  - The DataGridView will also notify the Sheet class of the change.
+         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
          */
 
         // ReSharper disable once InconsistentNaming
-        private readonly Cell[,] table;
+        private readonly Cell?[,] table;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Sheet" /> class.
@@ -31,34 +40,10 @@ namespace SpreadSheetEngine.SheetLogic
         public Sheet(int numRows, int numColumns)
         {
             this.table = new Cell[numRows, numColumns];
-
-            // Iterates and instantiates all cells in the sheet.
-            for (var r = 0; r < numRows; r++)
-            {
-                for (var c = 0; c < numColumns; c++)
-                {
-                    this.table[r, c] = new Cell(r, c);
-
-                    // this.table[r, c].PropertyChanged += this.SetCell;
-                }
-            }
-
-            /*
-             * Might not need to instantiate all cells at construction. I can do that for first input, as in
-             * doing this whenever a cell is focused, then check if that cell is null. If it is null then
-             * create a new cell and assign new text to it.
-             */
         }
 
-        /// <summary>
-        ///     This Event Handler allows the outside world (the GUI) to subscribe and listen for any property changes in any
-        ///     cells.
-        /// </summary>
-        public event EventHandler CellPropertyChanged = (sender, e) => { };
-
-        /*
-            TODO: Flesh and design a scheme for this Event Handler.
-         */
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         ///     Gets the row count of the sheet.
@@ -78,7 +63,7 @@ namespace SpreadSheetEngine.SheetLogic
         /// <returns>the cell if found.</returns>
         internal Cell GetCell(int rowIndex, int columnIndex)
         {
-            return this.table[rowIndex, columnIndex] ??= new Cell(rowIndex, columnIndex);
+            return this.table[rowIndex, columnIndex] ??= Cell.CreateInstance(rowIndex, columnIndex);
         }
 
         /// <summary>
@@ -86,35 +71,81 @@ namespace SpreadSheetEngine.SheetLogic
         /// </summary>
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
-        /// <param name="expression">the text content of the cell.</param>
-        internal void SetCell(int rowIndex, int columnIndex, string expression)
+        /// <param name="input">the text content of the cell.</param>
+        internal void SetCell(int rowIndex, int columnIndex, string input)
         {
             var cell = this.GetCell(rowIndex, columnIndex);
 
-            if (expression[0] == '=')
-            {
-                expression = this.Evaluate(expression);
-            }
+            string newContent = input[0] != '='
+                ? input
+                : this.Evaluate(input[1..]);
 
-            cell.SetValue(expression);
+            cell.SetContent(newContent);
+            this.OnPropertyChanged();
         }
 
+        /// <summary>
+        /// Sets the variables if the expression contains variables.
+        /// </summary>
+        /// <param name="tree">the current expression tree.</param>
+        private void SetCellValues(ExpressionTree tree)
+        {
+            /*
+             * For key in tree.variables, use key to get the cell value from the sheet.
+             * They key should be transformed into a cell coordinates.
+             */
+            foreach (var entry in tree.VarDictionary)
+            {
+                /*
+                 * TODO: Translate key to cell coordinates.
+                 * The first character of the key is the column index.
+                 * The rest of the key is the row index.
+                 * Also need to check if the expression actually contains variables. This can be done with checking the size of dictionary.
+                 */
+                var columnIndex = entry.Key[0] - 'A';
+                try
+                {
+                    int rowIndex = int.Parse(entry.Key[1..]) - 1;
+                    double value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
+                    tree.VarDictionary[entry.Key].Value = value;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Trigger the the expression evaluation.
+        /// </summary>
+        /// <param name="expression">the input expression.</param>
+        /// <returns>the value evaluated as string.</returns>
         private string Evaluate(string expression)
         {
             /*
              * TODO:  provides implementation for content that is not cell coordinates.
              *  - Fixes the edge cases where 'A' - 'A'.
-             * Supports:
-             *  - Pulling the value from another cell. The remaining part after '='
-             *    is name of the cell to pull value from.
-             *
+             *  - Supports pulling the value from another cell.
+             *  [DONE] Supports arithmetic operations. Implements the logic for the Expression Tree.
              */
-            expression = expression[1..expression.Length];
+            var tree = new ExpressionTree(expression);
+            if (!tree.IsEmptyVarDict())
+            {
+                this.SetCellValues(tree);
+            }
 
-            var col = expression[0] - 'A';
-            var row = int.Parse(expression[1..expression.Length]);
+            var value = tree.Evaluate();
+            return value.ToString(CultureInfo.InvariantCulture);
+        }
 
-            return this.table[row - 1, col].Text;
+        /// <summary>
+        /// Should raise a notifying event whenever a property is changed.
+        /// </summary>
+        /// <param name="propertyName">the name of the caller member method.</param>
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

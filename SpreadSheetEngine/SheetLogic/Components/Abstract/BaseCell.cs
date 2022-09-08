@@ -2,7 +2,7 @@
 // Copyright (c) Charles Nguyen -- 011606177. All rights reserved.
 // </copyright>
 
-namespace SpreadSheetEngine.SheetLogic
+namespace SpreadSheetEngine.SheetLogic.Components.Abstract
 {
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
@@ -27,7 +27,6 @@ namespace SpreadSheetEngine.SheetLogic
 
         /// <inheritdoc />
         public event PropertyChangedEventHandler? PropertyChanged;
-
 
         /// <summary>
         ///     Gets the row index of the cell.
@@ -64,7 +63,7 @@ namespace SpreadSheetEngine.SheetLogic
         public string Value { get; private set; } = string.Empty;
 
         /// <summary>
-        ///     Evaluates and sets the Text property of this cell. Not accessible to the outside world.
+        ///     Evaluates and sets the Text property of this cell.
         /// </summary>
         /// <param name="expression">the new string text to be evaluated.</param>
         protected void SetValue(string expression) // either protected or internal
@@ -74,6 +73,10 @@ namespace SpreadSheetEngine.SheetLogic
             this.Text = this.Value;
         }
 
+        /// <summary>
+        ///     Should be raised the event whenever a property is changed.
+        /// </summary>
+        /// <param name="name">the name of caller method.</param>
         private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

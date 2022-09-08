@@ -19,6 +19,7 @@ tree.ShowVarDict();
 var result = tree.Evaluate();
 Console.WriteLine($"result = {result}");*/
 
+/*
 var str = ExpressionParser.FromInputToStringBlocks(exp);
 var output = str.ToArray();
 
@@ -37,8 +38,10 @@ for (var i = 0; i < output.Count(); ++i)
 
 Console.WriteLine();
 Console.WriteLine(']');
+*/
 
 var postfix = ExpressionParser.MakePostfix(exp);
+/*
 if (postfix != null)
 {
     var output2 = postfix.ToArray();
@@ -53,6 +56,13 @@ if (postfix != null)
         }
     }
 }
+*/
+
+var tree = new ExpressionTree(exp);
+tree.SetVariable(("A1", 1));
+tree.Show();
+Console.WriteLine($"tree result = {tree.Evaluate()}");
+tree.ShowVarDict();
 
 /*
 var blockInfix = ExpressionParser.FromInfixToBlocks(exp);
