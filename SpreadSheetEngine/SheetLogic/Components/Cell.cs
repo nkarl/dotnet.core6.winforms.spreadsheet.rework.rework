@@ -22,7 +22,7 @@ namespace SpreadSheetEngine.SheetLogic.Components
         }
 
         /// <summary>
-        ///     Creates a new cell.
+        ///     Factory method to create a new cell.
         /// </summary>
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>

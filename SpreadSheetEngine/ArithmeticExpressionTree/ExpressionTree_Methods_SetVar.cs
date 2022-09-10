@@ -19,13 +19,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Sets the variable in the expression tree.
         /// </summary>
-        /// <param name="var">the variable to be set.</param>
-        internal void SetVariable((string? Name, double Value) var)
+        /// <param name="variable">the variable to be set.</param>
+        internal void SetVariable((string? Name, double Value) variable)
         {
-            if (var.Name != null)
+            if (variable.Name != null)
             {
-                var node = this.VariableDict[var.Name];
-                node.Value = var.Value;
+                var node = this.VariableDict[variable.Name];
+                node.Value = variable.Value;
             }
         }
 
@@ -49,7 +49,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Looks up a variable in the tree by its name.
+        ///     Looks up a variable in the tree by its name, returns null if not found.
         /// </summary>
         /// <param name="name">the name of the var.</param>
         /// <returns>the VarNode.</returns>

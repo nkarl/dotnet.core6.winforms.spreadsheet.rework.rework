@@ -23,6 +23,7 @@ namespace SpreadSheetEngine.SheetLogic
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Sheet" /> class.
+        ///     Lazy loading, cells are created only when they are queried for the first time.
         /// </summary>
         /// <param name="numRows">the number of rows in this sheet.</param>
         /// <param name="numColumns">the number of columns in this sheet.</param>
@@ -46,6 +47,7 @@ namespace SpreadSheetEngine.SheetLogic
 
         /// <summary>
         ///     Returns the reference to the cell at the given coordinates.
+        ///     Supports lazy loading; creates a new cell if one does not exist.
         /// </summary>
         /// <param name="rowIndex">the row index of the cell.</param>
         /// <param name="columnIndex">the column index of the cell.</param>
@@ -74,12 +76,14 @@ namespace SpreadSheetEngine.SheetLogic
         }
 
         /// <summary>
-        /// Sets the variables if the expression contains variables.
+        ///     Sets the variables if the expression contains variables.
         /// </summary>
         /// <param name="tree">the current expression tree.</param>
         private void SetCellValues(ExpressionTree tree)
         {
             /*
+             * Assumption: the expression tree is valid, and the coordinates are valid.
+             *
              * For key in tree.variables, use key to get the cell value from the sheet.
              * The key should be transformed into a cell coordinates.
              */
