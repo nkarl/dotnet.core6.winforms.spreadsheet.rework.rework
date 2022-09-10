@@ -39,9 +39,10 @@
             IEnumerable<string>? output = null;
             if (nodes is not null)
             {
-                output = from n in nodes
-                    select n.Type;
-                Assert.That(output.ToImmutableList(), Is.EqualTo(expected));
+                output = (
+                    from n in nodes
+                    select n.Type).ToImmutableList();
+                Assert.That(output, Is.EqualTo(expected));
             }
             else
             {
@@ -64,8 +65,8 @@
         {
             var postfix = ExpressionParser.MakePostfix(input);
             var output = (
-                from n in postfix
-                select n.Type).ToImmutableList();
+                from node in postfix
+                select node.Type).ToImmutableList();
 
             Assert.That(output, Is.EqualTo(expected));
         }

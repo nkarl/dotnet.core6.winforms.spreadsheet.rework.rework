@@ -52,7 +52,7 @@ ExpressionTree MakeNewTree()
             var parsedInput = (Name: input?[0], Value: double.Parse(input?[1] ?? string.Empty));
             parsed = (parsedInput.Name, parsedInput.Value);
         }
-        catch (Exception ex) when (ex is IndexOutOfRangeException || ex is FormatException)
+        catch (Exception ex) when (ex is IndexOutOfRangeException or FormatException)
         {
             Console.WriteLine($"ERROR: {ex.Message}");
             input = null;
@@ -63,7 +63,7 @@ ExpressionTree MakeNewTree()
 }
 
 // Run the console app.
-void RunApp(bool appIsRunning)
+void RunApp(bool appIsRunning = true)
 {
     ExpressionTree? tree = null; // initialize the first tree on app start up.
 
@@ -138,4 +138,4 @@ void RunApp(bool appIsRunning)
 }
 
 // Bring the app live.
-RunApp(true);
+RunApp();
