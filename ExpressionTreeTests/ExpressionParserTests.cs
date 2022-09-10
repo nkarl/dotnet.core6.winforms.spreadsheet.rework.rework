@@ -56,6 +56,10 @@
         [TestCase("A-22*b", new [] { "VarNode", "ConstNode", "VarNode", "OpNodeMul", "OpNodeSub" })]
         [TestCase("A1+B2-C3*D4/E5",
             new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "VarNode", "OpNodeMul", "VarNode", "OpNodeDiv", "OpNodeSub" })]
+        [TestCase("(A1+B1)+C1",
+            new [] { "VarNode", "VarNode", "OpNodeAdd", "VarNode", "OpNodeAdd" })]
+        [TestCase("A1*(B1+C1)",
+            new [] { "VarNode", "VarNode", "VarNode", "OpNodeAdd", "OpNodeMul" })]
         public void ConvertStringsToPostfixTest(string input, string [] expected)
         {
             var postfix = ExpressionParser.MakePostfix(input);

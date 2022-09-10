@@ -10,7 +10,7 @@ namespace SpreadSheetEngineTests
         }
 
         [Test]
-        public void Instantiate_Sheet()
+        public void InstantiateSheetTest()
         {
             var sheet = new Sheet(50, 50);
         }

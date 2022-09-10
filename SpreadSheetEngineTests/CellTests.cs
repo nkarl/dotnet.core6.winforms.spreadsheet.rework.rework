@@ -17,7 +17,7 @@ namespace SpreadSheetEngineTests
         }
 
         [TestCaseSource(nameof(_tuples))]
-        public void Instantiate_Single_Cell((int rIndex, int cIndex) passed, (int rIndex, int cIndex) expected)
+        public void InstantiateSingleCellTest((int rIndex, int cIndex) passed, (int rIndex, int cIndex) expected)
         {
             //if (passed.CompareTo((0, 0)) < 0)
             //{
