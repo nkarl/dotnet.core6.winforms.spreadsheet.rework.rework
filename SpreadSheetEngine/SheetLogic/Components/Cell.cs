@@ -22,7 +22,7 @@ namespace SpreadSheetEngine.SheetLogic.Components
         }
 
         /// <summary>
-        /// Creates a new cell.
+        ///     Creates a new cell.
         /// </summary>
         /// <param name="rowIndex">the cell's row index.</param>
         /// <param name="columnIndex">the cell's column index.</param>
@@ -38,7 +38,7 @@ namespace SpreadSheetEngine.SheetLogic.Components
         /// <param name="expression">the new expression.</param>
         internal new void SetContent(string expression)
         {
-            base.SetValue(expression);
+            this.SetValue(expression);
         }
     }
 }

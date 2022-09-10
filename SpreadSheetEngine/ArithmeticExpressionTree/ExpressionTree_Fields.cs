@@ -12,7 +12,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
@@ -21,9 +21,9 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         };
 
         /// <summary>
-        /// Gets the variable in the expression tree.
+        ///     Gets a variable node in the expression tree.
         /// </summary>
-        internal Dictionary<string, VarNode> VarDictionary { get; } = new ();
+        internal Dictionary<string, VarNode> VariableDict { get; } = new ();
 
         /// <summary>
         ///     Gets the expression of this tree.

@@ -19,17 +19,6 @@ namespace SpreadSheetEngine.SheetLogic
     /// </summary>
     internal sealed class Sheet : INotifyPropertyChanged
     {
-        /*
-         * TODO: IMPLEMENT THE EVENT HANDLER LOGIC FOR COMMUNICATION BETWEEN DataGridView AND LOGIC ENGINE.
-         *  - The DataGridView will be the source of the event.
-         *  - The event will be handled by the Sheet class.
-         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
-         *  - The DataGridView will then update the cell's value.
-         *  - The DataGridView will also notify the Sheet class of the change.
-         *  - The Sheet class will then update the cell's value and notify the DataGridView of the change.
-         */
-
-        // ReSharper disable once InconsistentNaming
         private readonly Cell?[,] table;
 
         /// <summary>
@@ -92,22 +81,21 @@ namespace SpreadSheetEngine.SheetLogic
         {
             /*
              * For key in tree.variables, use key to get the cell value from the sheet.
-             * They key should be transformed into a cell coordinates.
+             * The key should be transformed into a cell coordinates.
              */
-            foreach (var entry in tree.VarDictionary)
+            foreach (var entry in tree.VariableDict)
             {
                 /*
-                 * TODO: Translate key to cell coordinates.
-                 * The first character of the key is the column index.
-                 * The rest of the key is the row index.
-                 * Also need to check if the expression actually contains variables. This can be done with checking the size of dictionary.
+                 * Translate key to cell coordinates:
+                 *      The first character of the key is the column index.
+                 *      The rest of the key is the row index.
                  */
                 var columnIndex = entry.Key[0] - 'A';
                 try
                 {
                     int rowIndex = int.Parse(entry.Key[1..]) - 1;
                     double value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
-                    tree.VarDictionary[entry.Key].Value = value;
+                    tree.VariableDict[entry.Key].Value = value;
                 }
                 catch (FormatException e)
                 {
@@ -117,18 +105,12 @@ namespace SpreadSheetEngine.SheetLogic
         }
 
         /// <summary>
-        /// Trigger the the expression evaluation.
+        ///     Triggers the the expression evaluation.
         /// </summary>
         /// <param name="expression">the input expression.</param>
         /// <returns>the value evaluated as string.</returns>
         private string Evaluate(string expression)
         {
-            /*
-             * TODO:  provides implementation for content that is not cell coordinates.
-             *  - Fixes the edge cases where 'A' - 'A'.
-             *  - Supports pulling the value from another cell.
-             *  [DONE] Supports arithmetic operations. Implements the logic for the Expression Tree.
-             */
             var tree = new ExpressionTree(expression);
             if (!tree.IsEmptyVarDict())
             {
@@ -140,7 +122,7 @@ namespace SpreadSheetEngine.SheetLogic
         }
 
         /// <summary>
-        /// Should raise a notifying event whenever a property is changed.
+        ///     Raises a notifying event whenever a property is changed.
         /// </summary>
         /// <param name="propertyName">the name of the caller member method.</param>
         private void OnPropertyChanged([CallerMemberName] string? propertyName = null)

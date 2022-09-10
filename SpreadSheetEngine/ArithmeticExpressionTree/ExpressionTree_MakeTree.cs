@@ -12,10 +12,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        /*
-         * TODO: Add a method to set value in the variable dictionary.
-         */
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="ExpressionTree" /> class.
         /// </summary>
@@ -23,18 +19,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         public ExpressionTree(string expression = "1+2+3")
         {
             this.Expression = expression;
-            this.VarDictionary = new Dictionary<string, VarNode>();
-            /*
-            this.Expression = expression;
-            */
-            /*
-            var infix = ExpressionParser.ParseInfix(expression);
-            if (infix is not null)
-            {
-                var postfix = ExpressionParser.MakePostfix(infix);
-                this.Root = this.MakeTree(postfix);
-            }
-            */
+            this.VariableDict = new Dictionary<string, VarNode>();
 
             var postfix = ExpressionParser.MakePostfix(expression);
             if (postfix != null)
@@ -65,19 +50,25 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             {
                 if (node is OpNode op)
                 {
-                    // For each item in postfix, simply push to stack if it is not an operator,
-                    // op = CastOperator[op.Symbol].Invoke(op);
+                    /*
+                     * if the node is an operator, pop two nodes from the stack,
+                     * make them the left and right children of the operator,
+                     * and push the operator back onto the stack.
+                     */
+                    /* op = CastOperator[op.Symbol].Invoke(op); */
                     op.Right = stack.Pop();
                     op.Left = stack.Pop();
                     stack.Push(op);
                 }
                 else
                 {
-                    // otherwise do some magic and then push.
+                    /*
+                     * if the node is an operand, push it onto the stack.
+                     */
                     stack.Push(node);
                     if (node is VarNode variable)
                     {
-                        this.VarDictionary.Add(variable.Name, variable);
+                        this.VariableDict.Add(variable.Name, variable);
                     }
                 }
             }

@@ -7,6 +7,7 @@ using SpreadSheetEngine.ArithmeticExpressionTree;
 string menuOption;
 string currentExpression;
 
+// Display the menu.
 void DisplayMenu()
 {
     Console.WriteLine(@"
@@ -19,6 +20,7 @@ EXPRESSION TREE CONSOLE MENU
 ");
 }
 
+// Create the expression tree.
 ExpressionTree MakeNewTree()
 {
     ExpressionTree? tree = null;
@@ -37,6 +39,7 @@ ExpressionTree MakeNewTree()
     return tree;
 }
 
+// Get the variable name and value from the user.
 (string? Name, double Value) GetVarNameAndValue()
 {
     string?[]? input = null;
@@ -59,7 +62,8 @@ ExpressionTree MakeNewTree()
     return parsed;
 }
 
-void ExecuteConsoleApp(bool appIsRunning)
+// Run the console app.
+void RunApp(bool appIsRunning)
 {
     ExpressionTree? tree = null; // initialize the first tree on app start up.
 
@@ -72,11 +76,14 @@ void ExecuteConsoleApp(bool appIsRunning)
         {
             // Asks user to enter an expression.
             case "1":
+            {
                 tree = MakeNewTree();
                 break;
+            }
 
             // Sets a variable in the expression tree.
             case "2":
+            {
                 tree ??= new ExpressionTree();
                 Console.WriteLine(tree.Expression);
 
@@ -102,25 +109,33 @@ void ExecuteConsoleApp(bool appIsRunning)
                 Console.WriteLine("Setting a variable . . .");
                 tree.SetVariable(var);
                 break;
+            }
 
             // Evaluates the expression tree.
             case "3":
+            {
                 Console.WriteLine("Evaluating the expression . . .");
                 tree ??= new ExpressionTree();
                 var result = tree.Evaluate();
-                Console.WriteLine($"The result of {tree.Expression} = {result}");
+                Console.WriteLine($"The result of {tree.Expression} == {result}");
                 break;
+            }
 
             // Quits the app.
             case "4":
+            {
                 appIsRunning = false;
                 break;
+            }
 
             default:
+            {
                 Console.WriteLine("option not implemented.");
                 break;
+            }
         }
     }
 }
 
-ExecuteConsoleApp(true);
+// Bring the app live.
+RunApp(true);

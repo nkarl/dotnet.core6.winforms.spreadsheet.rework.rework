@@ -17,7 +17,7 @@ namespace SpreadSheetApp
         private readonly Sheet sheet;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Form1"/> class.
+        ///     Initializes a new instance of the <see cref="Form1"/> class.
         /// </summary>
         public Form1()
         {
@@ -26,13 +26,18 @@ namespace SpreadSheetApp
             this.sheet = new Sheet(50, 'Z' - 'A');  // Initializes sheet dimensions.
         }
 
+        /// <summary>
+        ///     Loads the form.
+        /// </summary>
+        /// <param name="sender">event sender.</param>
+        /// <param name="e">event.</param>
         private void Form1_Load(object sender, EventArgs e)
         {
             this.dataGridView1.CellEndEdit += this.OnDataGridViewCellEdited !;
         }
 
         /// <summary>
-        /// Initializes the dimensions of the data grid.
+        ///     Initializes the dimensions of the data grid.
         /// </summary>
         private void InitializeDataGridView()
         {
@@ -54,7 +59,7 @@ namespace SpreadSheetApp
         }
 
         /// <summary>
-        /// Updates the data grid with the new cell value.
+        ///     Updates the data grid with the new cell content.
         /// </summary>
         /// <param name="sender">event sender.</param>
         /// <param name="e">event.</param>

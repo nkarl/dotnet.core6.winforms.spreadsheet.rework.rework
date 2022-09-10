@@ -30,12 +30,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// </summary>
         internal void ShowVarDict()
         {
-            foreach (var entry in this.VarDictionary)
+            foreach (var entry in this.VariableDict)
             {
                 Console.WriteLine($"{entry.Key} {entry.Value.Value}");
             }
         }
 
+        /// <summary>
+        ///     Shows the postfix expression at a root node, recursively.
+        /// </summary>
+        /// <param name="node">the root node.</param>
         private void ShowPostfix(Node? node)
         {
             if (node is not OpNode op)

@@ -27,7 +27,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     traverse and eval the tree.
+        ///     Traverses and evaluates the tree.
         /// </summary>
         /// <param name="node">the current node in the tree.</param>
         /// <returns>a double value (evaluated).</returns>

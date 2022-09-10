@@ -10,14 +10,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Operators.EnumAttributes;
 
     /// <summary>
-    ///     Contains methods only.
     ///     This is a static class. It takes an input expression as string and process that into a node-based
-    ///     version ready to be consumed by the Expression Tree's constructor.
+    ///     postfix ready to be consumed by the Expression Tree's constructor.
     /// </summary>
     internal static partial class ExpressionParser
     {
         /// <summary>
-        /// Public API to prepare the expression for the Expression Tree.
+        ///     Public API to prepare the expression for the Expression Tree.
         /// </summary>
         /// <param name="expression">the input expression.</param>
         /// <returns>the list of nodes in postfix style.</returns>
@@ -37,9 +36,14 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             var stack = new Stack<Node>();
             var postfix = new List<Node>();
 
+            /*
+             * 1. Scan the infix expression from left to right.
+             */
             foreach (var block in infix)
             {
-                // Console.WriteLine(block);
+                /*
+                 * 2. Check if the block has a valid name, and manufacture a new node from it.
+                 */
                 Node newNode;
                 if (block.Length > 1)
                 {
@@ -59,8 +63,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
 
                 if (newNode is OpNode incoming)
                 {
+                    /*
+                     * 3. If the block is an operator, push it to the stack.
+                     */
                     if ("()".Contains(incoming.Symbol))
                     {
+                        /*
+                         * If the incoming operator is a left parenthesis, push it to the stack.
+                         * If the incoming operator is a right parenthesis, pop the stack and add operators to the postfix
+                         * until you see a left parenthesis. Discard the pair of parentheses.
+                         */
                         if (incoming is OpNodeLeftBrace)
                         {
                             stack.Push(incoming);
@@ -86,6 +98,10 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                         {
                             if (incoming.Precedence == ((OpNode)stack.Peek()).Precedence)
                             {
+                                /*
+                                 * If the incoming operator has the same precedence as the top of the stack, check if it is
+                                 * left associative. If it is, pop the stack and add it to the postfix.
+                                 */
                                 if (incoming.Associativity == OpAssociativity.Leftward)
                                 {
                                     postfix.Add(stack.Pop());
@@ -93,23 +109,39 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
                             }
                             else if (incoming.Precedence < ((OpNode)stack.Peek()).Precedence)
                             {
-                                // pop stack and add to postfix, and then continue the same test on the new top.
+                                /*
+                                 * If the incoming operator has lower precedence than the top of the stack, keep popping the
+                                 * stack and add it to the postfix until that no longer true.
+                                 */
                                 for (; stack.Count > 0 && incoming.Precedence < ((OpNode)stack.Peek()).Precedence;)
                                 {
                                     postfix.Add(stack.Pop());
                                 }
                             }
+
+                            /*
+                             * There is nothing to do if the incoming operator has higher precedence than the top of the stack.
+                             */
                         }
 
+                        /*
+                         * Push the incoming operator to the stack.
+                         */
                         stack.Push(incoming);
                     }
                 }
                 else
                 {
+                    /*
+                     * 4. If the block is an operand, add it to the postfix.
+                     */
                     postfix.Add(newNode);
                 }
             }
 
+            /*
+             * 5. Pop the stack and add all the operators to the postfix.
+             */
             for (; stack.Count > 0;)
             {
                 postfix.Add(stack.Pop());

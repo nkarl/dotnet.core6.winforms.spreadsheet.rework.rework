@@ -15,9 +15,8 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     using SpreadSheetEngine.ArithmeticExpressionTree.Components.Abstract;
 
     /// <summary>
-    ///     Contains methods only.
     ///     This is a static class. It takes an input expression as string and process that into a node-based
-    ///     version ready to be consumed by the Expression Tree's constructor.
+    ///     postfix ready to be consumed by the Expression Tree's constructor.
     /// </summary>
     internal static partial class ExpressionParser
     {
@@ -168,8 +167,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         }
 
         /// <summary>
-        ///     Checks if each block starts with a digit, if True then
-        ///     check the rest of the string for any letters.
+        ///     Checks if the given string is a valid variable name.
         /// </summary>
         /// <param name="varName">the variable name.</param>
         /// <returns>true or false.</returns>
