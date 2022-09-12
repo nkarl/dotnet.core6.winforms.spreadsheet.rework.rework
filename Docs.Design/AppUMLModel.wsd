@@ -1,0 +1,99 @@
+@startuml "Expression Tree"
+
+package "UI Layer" {
+    class ExpressionTreeConsole {
+        +tree: ExpressionTree
+        +postfix: string
+        +PrintMenu()
+        +GetInput()
+        +ExecuteMenuOption()
+    }
+
+}
+
+package "Logic Layer" {
+
+    class ExpressionTree
+
+    package "Factories" {
+        note bottom of ExpressionTreeFactory : from a string postfix, produces a tree
+        class ExpressionTreeFactory
+        note bottom of PostfixFactory : from a string infix, produces a string postfix
+        class PostfixFactory
+        class NodeFactory
+    }
+    ExpressionTreeConsole ..> ExpressionTreeFactory
+    ExpressionTreeConsole ..> PostfixFactory
+    ExpressionTreeConsole --o ExpressionTree
+    ExpressionTreeFactory -- ExpressionTree : creates
+    ExpressionTree --> NodeFactory : use
+
+    class PostfixFactory {
+        -infix: string
+        +postfix: string
+        ~MakePostFix()
+    }
+
+    package "TreeNodes" {
+        ExpressionTree --* Node
+        NodeFactory -- Node : creates
+
+        note top of Node : a node in the tree
+        abstract class Node << general >>
+
+        class MyOpNode {
+        }
+
+        note top of ConstNode : a node that holds a constant
+        class ConstNode {
+            +Value: int
+        }
+
+        note top of VarNode : a node that holds a variable
+        class VarNode {
+            +Name: string
+        }
+
+        abstract class OpNode << generalized >> {
+            -operator: {static} char
+            -precedence: {static} int
+            -associativity: {static} int
+            +Operator: char
+            +Precedence: int
+            +Associativity: int
+            +Left: Node
+            +Right: Node
+        }
+
+        package "Base Ops" {
+            class Add {
+                +{static} Add('+', 10)
+            }
+
+            class Sub {
+                +{static} Sub('-', 10)
+            }
+
+            class Mul {
+                +{static} Mul('*', 11)
+            }
+
+            class Div {
+                +{static} Div('/', 11)
+            }
+
+            Node <|-- ConstNode
+            Node <|-- VarNode
+            Node <|-- OpNode
+            OpNode <|-- Add
+            OpNode <|-- Sub
+            OpNode <|-- Mul
+            OpNode <|-- Div
+        }
+
+        note top of MyOpNode : a node that holds a custom operator
+        class MyOpNode << placeholder >>
+        OpNode <|-- MyOpNode
+    }
+}
+@enduml
