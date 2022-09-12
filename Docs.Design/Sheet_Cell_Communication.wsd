@@ -1,4 +1,4 @@
-@startuml Sheet_Cell_Communication.png
+@startuml Sheet_Cell_Communication
 
     () Input
 
@@ -10,9 +10,9 @@
         }
 
     Input --> Form::dataGridView1
-    () FormSheetEvent
-    Form::dataGridView1 ..> FormSheetEvent
-    FormSheetEvent ..> Form::sheet
+    () FormSheetEventHandler
+    Form::dataGridView1 ..> FormSheetEventHandler
+    FormSheetEventHandler ..> Form::sheet
     }
 
 package LogicEngine {

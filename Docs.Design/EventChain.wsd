@@ -1,4 +1,4 @@
-@startuml EventChain.png
+@startuml EventChain
 
 () Input
 [DataGridView]

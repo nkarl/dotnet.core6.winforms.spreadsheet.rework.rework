@@ -1,0 +1,27 @@
+@startwbs SolutionHierarchy
+
+* Root/
+** Docs.*/
+** SpreadSheetApp/
+** SpreadSheetEngine/
+*** ArithmeticExpressionTree/
+**** Components/
+***** Abstract/
+***** Operators/
+****** EnumAttributes/
+****** OpNode*
+***** VarNode
+***** ConstNode
+
+*** SheetLogic/
+**** Components/
+***** Abstract/
+****** BaseCell
+***** Cell extends BaseCell
+**** Sheet
+
+** SpredSheetEngineTests/
+** ExpressionTreeConsole/
+** ExpressionTreeTests/
+
+@endwbs
