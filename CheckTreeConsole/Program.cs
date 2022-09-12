@@ -1,5 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+/*
+ * This is a small console app for testing the string parsing and tree building quickly.
+ */
+
 using SpreadSheetEngine.ArithmeticExpressionTree;
 
 Console.WriteLine("Hello, World!");
