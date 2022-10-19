@@ -87,13 +87,13 @@ void RunApp(bool appIsRunning = true)
                 tree ??= new ExpressionTree();
                 Console.WriteLine(tree.Expression);
 
-                (string? Name, double Value) var;
+                (string? Name, double Value) variable;
 
                 while (true)
                 {
                     Console.Write("Enter the variable name and its new value: ");
-                    var = GetVarNameAndValue();
-                    if (var.Name != null && tree.HasVariable(var.Name))
+                    variable = GetVarNameAndValue();
+                    if (variable.Name != null && tree.HasVariable(variable.Name))
                     {
                         break;
                     }
@@ -107,7 +107,7 @@ void RunApp(bool appIsRunning = true)
                 */
 
                 Console.WriteLine("Setting a variable . . .");
-                tree.SetVariable(var);
+                tree.SetVariable(variable);
                 break;
             }
 
