@@ -12,7 +12,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
     /// </summary>
     internal partial class ExpressionTree
     {
-        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new ()
+        private static readonly Dictionary<char, Func<double, double, double>> InvokeOperator = new()
         {
             { '+', (a, b) => a + b },
             { '-', (a, b) => a - b },
@@ -20,10 +20,16 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', (a, b) => a / b },
         };
 
+        /*
+         * Need to add a reference to the current cell where the expression is being computed,
+         * so that I can add a check before evaluating the expression tree.
+         */
+        internal string CurrentCell = string.Empty;
+
         /// <summary>
         ///     Gets a variable node in the expression tree.
         /// </summary>
-        internal Dictionary<string, VarNode> VariableDict { get; } = new ();
+        internal Dictionary<string, VarNode> VariableDict { get; } = new();
 
         /// <summary>
         ///     Gets the expression of this tree.

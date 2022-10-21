@@ -65,11 +65,18 @@ namespace SpreadSheetEngine.SheetLogic
         /// <param name="input">the text content of the cell.</param>
         internal void SetCell(int rowIndex, int columnIndex, string input)
         {
+            /*
+             * NOTE: Here, I need need to capture the reference to CURRENT cell here.
+             */
             var cell = this.GetCell(rowIndex, columnIndex);
 
-            string newContent = input[0] != '='
+            string newContent = (input[0] != '=')
                 ? input
                 : this.Evaluate(input[1..]);
+            /*
+             * I can modify Evaluate() to accept a string denoting the cell coordinates
+             * already converted from rowIndex and columnIndex.
+             */
 
             cell.SetContent(newContent);
             this.OnPropertyChanged();
@@ -99,7 +106,9 @@ namespace SpreadSheetEngine.SheetLogic
                 {
                     int rowIndex = int.Parse(entry.Key[1..]) - 1;
                     double value = double.Parse(this.GetCell(rowIndex, columnIndex).Value);
-                    tree.VariableDict[entry.Key].Value = value;
+                    var varName = entry.Key;
+                    var varNode = tree.VariableDict[varName];
+                    varNode.Value = value;
                 }
                 catch (FormatException e)
                 {
@@ -116,6 +125,13 @@ namespace SpreadSheetEngine.SheetLogic
         private string Evaluate(string expression)
         {
             var tree = new ExpressionTree(expression);
+            /*
+             * NOTE:
+             *  - need a way to translate indices back to cell coordinates in the format
+             *  of <char><integer>, such as 'A1' or 'C33'.
+             *  - also need to add a current cell in the expression tree.
+             * From there, I can use the coordinate to check for circular reference.
+             */
             if (!tree.IsEmptyVarDict())
             {
                 this.SetCellValues(tree);
