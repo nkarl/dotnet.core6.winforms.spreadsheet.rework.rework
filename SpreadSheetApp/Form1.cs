@@ -74,18 +74,18 @@ namespace SpreadSheetApp
             this.sheet.SetCell(currentCell.RowIndex, currentCell.ColumnIndex, currentCell.Value.ToString() !);
             currentCell.Value = sheetCell.Text;
 
-            var targetR = 0;
-            var targetC = 'A' - 'A';
-            var targetCell = this.dataGridView1[targetR, targetC];  // the target cell for debugging input and display event.
+            var debugCellRow = 0;
+            var debugCellCol = 'A' - 'A';
+            var targetCell = this.dataGridView1[debugCellRow, debugCellCol];  // the target cell for debugging input and display event.
             var currentRow = this.dataGridView1.CurrentRow;
             var currentCol = this.dataGridView1.Columns[currentCell.ColumnIndex];
 
             if (currentRow != null)
             {
-                this.sheet.SetCell(targetR, targetC, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
+                this.sheet.SetCell(debugCellRow, debugCellCol, $"{currentCell.Value} <- [{currentCol.HeaderText}{currentRow.HeaderCell.Value}]");
             }
 
-            targetCell.Value = this.sheet.GetCell(targetR, targetC).Text;
+            targetCell.Value = this.sheet.GetCell(debugCellRow, debugCellCol).Text;
         }
     }
 }

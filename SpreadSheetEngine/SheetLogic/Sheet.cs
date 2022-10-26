@@ -66,7 +66,7 @@ namespace SpreadSheetEngine.SheetLogic
         internal void SetCell(int rowIndex, int columnIndex, string input)
         {
             /*
-             * NOTE: Here, I need need to capture the reference to CURRENT cell here.
+             * TODO: Need need to capture the reference to CURRENT (currently selected) cell here.
              */
             var cell = this.GetCell(rowIndex, columnIndex);
 
@@ -126,10 +126,10 @@ namespace SpreadSheetEngine.SheetLogic
         {
             var tree = new ExpressionTree(expression);
             /*
-             * NOTE:
              *  - need a way to translate indices back to cell coordinates in the format
              *  of <char><integer>, such as 'A1' or 'C33'.
-             *  - also need to add a current cell in the expression tree.
+             * TODO: Need to add a current cell in the expression tree (fields).
+             * TODO: Work out the logic of communication for this specific nexus.
              * From there, I can use the coordinate to check for circular reference.
              */
             if (!tree.IsEmptyVarDict())

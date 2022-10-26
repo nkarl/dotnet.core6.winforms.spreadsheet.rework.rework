@@ -21,8 +21,13 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         };
 
         /// <summary>
+        ///     Gets the expression of this tree.
+        /// </summary>
+        private string Expression { get; }
+
+        /// <summary>
         ///     Reference to the current cell being selected.
-        ///     NOTE: might need to implement event handling for this in order
+        ///     TODO: might need to implement event handling for this in order
         ///     to update the currently selected cell.
         /// </summary>
         internal string CurrentCell = string.Empty;
@@ -31,11 +36,6 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         ///     Gets a variable node in the expression tree.
         /// </summary>
         internal Dictionary<string, VarNode> VariableDict { get; } = new();
-
-        /// <summary>
-        ///     Gets the expression of this tree.
-        /// </summary>
-        internal string Expression { get; }
 
         /// <summary>
         ///     Gets or sets the root node of this tree.
