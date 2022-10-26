@@ -20,10 +20,11 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
             { '/', (a, b) => a / b },
         };
 
-        /*
-         * Need to add a reference to the current cell where the expression is being computed,
-         * so that I can add a check before evaluating the expression tree.
-         */
+        /// <summary>
+        ///     Reference to the current cell being selected.
+        ///     NOTE: might need to implement event handling for this in order
+        ///     to update the currently selected cell.
+        /// </summary>
         internal string CurrentCell = string.Empty;
 
         /// <summary>
