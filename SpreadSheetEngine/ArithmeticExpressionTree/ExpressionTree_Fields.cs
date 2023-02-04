@@ -23,7 +23,7 @@ namespace SpreadSheetEngine.ArithmeticExpressionTree
         /// <summary>
         ///     Gets the expression of this tree.
         /// </summary>
-        private string Expression { get; }
+        internal string Expression { get; }
 
         /// <summary>
         ///     Reference to the current cell being selected.
